@@ -12,6 +12,9 @@ define [
     @defaultAttrs
       swiperConfig: {}
 
+    # This component assumes that the swiper content has already been setup.
+    # The component's node should contain div.swiper-wrapper which
+    # should contain any number of div.swiper-slide elements.
     @initSwiper = ->
       @attr.swiperConfig.onSlideChangeStart = (swiper) =>
         @trigger 'uiSwiperSlideChangeStart', { activeIndex: swiper.activeIndex, previousIndex: swiper.previousIndex }
@@ -23,6 +26,7 @@ define [
         @trigger 'uiSwiperSlideClick', { index: swiper.clickedSlideIndex }
 
       @swiper = new Swiper(@node, @attr.swiperConfig)
+
       $(window).on 'orientationchange', ->
         @swiper.reInit()
 
