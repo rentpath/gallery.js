@@ -11,14 +11,6 @@ define [
 
     @defaultAttrs
       swiperConfig: {}
-      placeholderUrl: undefined
-
-    @dataSwiperImagesAvailable = (event, data) ->
-      # data.urls is required array
-      @initSwiper() unless @swiper
-      for url in data.urls
-        # FIXME: this will keep appending slides
-        @swiper.createSlide("<img src=\"#{url}\" onerror=\"this.src='#{@attr.placeholderUrl}'\">").append()
 
     @initSwiper = ->
       @attr.swiperConfig.onSlideChangeStart = (swiper) =>
@@ -30,10 +22,10 @@ define [
       @attr.swiperConfig.onSlideClick = (swiper) =>
         @trigger 'uiSwiperSlideClick', { index: swiper.clickedSlideIndex }
 
-      @$node.append("<div class='swiper-wrapper'></div>")
       @swiper = new Swiper(@node, @attr.swiperConfig)
       $(window).on 'orientationchange', ->
         @swiper.reInit()
+
       @trigger 'uiSwiperInitialized', { swiper: @swiper }
 
     @nextItem = ->
@@ -48,8 +40,7 @@ define [
       @swiper.swipeTo(data.index, data.speed)
 
     @after 'initialize', ->
-      @swiper = undefined
-      @on 'dataSwiperImagesAvailable', @initSwiper
       @on 'uiSwiperWantsNextItem', @nextItem
       @on 'uiSwiperWantsPrevItem', @prevItem
       @on 'uiSwiperWantsToGoToIndex', @goToIndex
+      @initSwiper()
