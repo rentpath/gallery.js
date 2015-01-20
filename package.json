@@ -1,0 +1,47 @@
+{
+  "name": "gallery.js",
+  "version": "0.0.0",
+  "devDependencies": {
+    "del": "^1.1.0",
+    "generator-flight": "~0.8.0",
+    "gulp": "~3.4.0",
+    "gulp-coffee": "^2.2.0",
+    "gulp-compass": "~1.1.8",
+    "gulp-jshint": "~1.5.3",
+    "gulp-karma": "0.0.4",
+    "gulp-sourcemaps": "~1.2.0",
+    "gulp-util": "^3.0.1",
+    "gulp-livereload": "~0.2.0",
+    "requirejs": "~2.1.11",
+    "karma": "~0.12.0",
+    "karma-cli": "~0.0.4",
+    "karma-jasmine": "~0.2.0",
+    "karma-requirejs": "~0.2.1",
+    "karma-chrome-launcher": "~0.1.0",
+    "karma-firefox-launcher": "~0.1.0",
+    "node-static": "~0.7.3",
+    "tiny-lr": "~0.0.5"
+  },
+  "scripts": {
+    "compile": "gulp build",
+    "build": "rm -rf dist && gulp dist",
+    "livereload": "gulp",
+    "start": "static app",
+    "watch": "gulp",
+    "watch:dev": "npm run server > server.log & npm run livereload",
+    "watch:test": "karma start",
+    "test": "karma start --single-run",
+    "test:clean": "npm run clean && npm run compile && npm test",
+    "clean": "rm -rf .tmp",
+    "preclean:all": "npm run clean",
+    "clean:all": "rm -rf app/bower_components node_modules",
+    "prereset": "npm run clean:all",
+    "reset": "npm install",
+    "postreset": "npm run compile",
+    "postinstall": "bower install",
+    "preversion": "npm run reset && npm test && npm run build"
+  },
+  "dependencies": {
+    "bower": "~1.3.1"
+  }
+}
