@@ -9,7 +9,9 @@ requirejs.config
 
 require ["components/ui/swiper"], (SwiperUI) ->
 
-  for eventName in ['uiSwiperSlideChanged', 'uiSwiperInitialized', 'uiSwiperSlideClicked']
+  INTERESTING_EVENTS = ['uiSwiperSlideChanged', 'uiSwiperInitialized', 'uiSwiperSlideClicked']
+
+  for eventName in INTERESTING_EVENTS
     $(document).on eventName, (event, data) ->
       console.log(event, data)
 
