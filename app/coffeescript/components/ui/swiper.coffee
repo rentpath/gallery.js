@@ -23,7 +23,7 @@ define [
         @trigger 'uiSwiperSlideChanged', { activeIndex: swiper.activeIndex, previousIndex: swiper.previousIndex }
 
       @attr.swiperConfig.onSlideClick = (swiper) =>
-        @trigger 'uiSwiperSlideClick', { index: swiper.clickedSlideIndex }
+        @trigger 'uiSwiperSlideClicked', { index: swiper.clickedSlideIndex }
 
       @swiper = new Swiper(@node, @attr.swiperConfig)
 
