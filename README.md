@@ -89,6 +89,14 @@ node modules and bower components; recompile code and tests.
 npm run reset
 ```
 
+### Demo App
+
+Start a demo app on localhost
+
+```
+npm run start
+```
+
 ### Building a Distribution
 
 To build a distribution and tag it, run one of the following commands.

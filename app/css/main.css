@@ -1,1 +1,21 @@
-
+.swiper-container {
+  height: 100px;
+  width: 150px;
+  border: 1px solid gray;
+}
+.swiper-slide {
+  height: 100px;
+  width: 150px;
+}
+.slide-a {
+  background: cyan;
+  height: 100px;
+}
+.slide-b {
+  background: yellow;
+  height: 100px;
+}
+.slide-c {
+  background: green;
+  height: 100px;
+}

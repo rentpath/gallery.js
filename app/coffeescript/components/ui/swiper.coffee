@@ -16,11 +16,11 @@ define [
     # The component's node should contain div.swiper-wrapper which
     # should contain any number of div.swiper-slide elements.
     @initSwiper = ->
-      @attr.swiperConfig.onSlideChangeStart = (swiper) =>
-        @trigger 'uiSwiperSlideChangeStart', { activeIndex: swiper.activeIndex, previousIndex: swiper.previousIndex }
+      # @attr.swiperConfig.onSlideChangeStart = (swiper) =>
+      #   @trigger 'uiSwiperSlideChangeStart', { activeIndex: swiper.activeIndex, previousIndex: swiper.previousIndex }
 
       @attr.swiperConfig.onSlideChangeEnd = (swiper) =>
-        @trigger 'uiSwiperSlideChangeEnd', { activeIndex: swiper.activeIndex, previousIndex: swiper.previousIndex }
+        @trigger 'uiSwiperSlideChanged', { activeIndex: swiper.activeIndex, previousIndex: swiper.previousIndex }
 
       @attr.swiperConfig.onSlideClick = (swiper) =>
         @trigger 'uiSwiperSlideClick', { index: swiper.clickedSlideIndex }
