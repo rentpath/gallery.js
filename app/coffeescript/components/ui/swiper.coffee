@@ -38,7 +38,14 @@ define [
     @goToIndex = (event, data) ->
       # data.index is required int
       # data.speed is optional (may be undefined) int (milliseconds)
+
+      # Note: Swiper doesn't call onSlideChangeEnd when speed is 0.
+      previousIndex = @swiper.activeIndex
+
       @swiper.swipeTo(data.index, data.speed)
+
+      if data.speed == 0
+        @trigger 'uiSwiperSlideChanged', { activeIndex: @swiper.activeIndex, previousIndex: previousIndex, total: @swiper.slides.length }
 
     @after 'initialize', ->
       @on 'uiSwiperWantsNextItem', @nextItem
