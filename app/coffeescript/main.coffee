@@ -16,3 +16,5 @@ require ["components/ui/swiper"], (SwiperUI) ->
       console.log(event, data)
 
   SwiperUI.attachTo ".swiper-container"
+  # Example of overriding SwiperJS defaults.
+  #SwiperUI.attachTo ".swiper-container", { swiperConfig: { loop: true } }

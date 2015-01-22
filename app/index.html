@@ -13,6 +13,12 @@
 
     <h1>Gallery Demo</h1>
 
+    <p>
+    Note: On a non-touch device, you can swipe with the mouse.
+    </p>
+
+    <h2>components/ui/swiper</h2>
+
     <div class="swiper-container">
       <div class="swiper-wrapper">
         <div class="swiper-slide">
@@ -42,19 +48,32 @@
       </div>
     </div>
 
-    [<a href="javascript:$('.swiper-container').trigger('uiSwiperWantsPrevItem')">prev</a>]
-    [<a href="javascript:$('.swiper-container').trigger('uiSwiperWantsNextItem')">next</a>]
-    [<a href="javascript:$('.swiper-container').trigger('uiSwiperWantsToGoToIndex', {index: 0})">0</a>]
-    [<a href="javascript:$('.swiper-container').trigger('uiSwiperWantsToGoToIndex', {index: 1})">1</a>]
-    [<a href="javascript:$('.swiper-container').trigger('uiSwiperWantsToGoToIndex', {index: 2})">2</a>]
-    [<a href="javascript:$('.swiper-container').trigger('uiSwiperWantsToGoToIndex', {index: 3})">3</a>]
-    [<a href="javascript:$('.swiper-container').trigger('uiSwiperWantsToGoToIndex', {index: 4})">4</a>]
-    [<a href="javascript:$('.swiper-container').trigger('uiSwiperWantsToGoToIndex', {index: 5})">5</a>]
-    [<a href="javascript:$('.swiper-container').trigger('uiSwiperWantsToGoToIndex', {index: 6})">6</a>]
-    [<a href="javascript:$('.swiper-container').trigger('uiSwiperWantsToGoToIndex', {index: 7})">7</a>]
+    <h3>Events that this component listens for</h3>
+    <ul>
+      <li><a href="javascript:$('.swiper-container').trigger('uiSwiperWantsNextItem')">uiSwiperWantsNextItem</a></li>
+      <li><a href="javascript:$('.swiper-container').trigger('uiSwiperWantsPrevItem')">uiSwiperWantsPrevItem</a></li>
+      <li>uiSwiperWantsToGoToIndex
+      <ul>
+        <li><a href="javascript:$('.swiper-container').trigger('uiSwiperWantsToGoToIndex', {index: 0})">{ index: 0 }</a></li>
+        <li><a href="javascript:$('.swiper-container').trigger('uiSwiperWantsToGoToIndex', {index: 1})">{ index: 1 }</a></li>
+        <li><a href="javascript:$('.swiper-container').trigger('uiSwiperWantsToGoToIndex', {index: 2})">{ index: 2 }</a></li>
+        <li><a href="javascript:$('.swiper-container').trigger('uiSwiperWantsToGoToIndex', {index: 3})">{ index: 3 }</a></li>
+        <li><a href="javascript:$('.swiper-container').trigger('uiSwiperWantsToGoToIndex', {index: 4})">{ index: 4 }</a></li>
+        <li><a href="javascript:$('.swiper-container').trigger('uiSwiperWantsToGoToIndex', {index: 5})">{ index: 5 }</a></li>
+        <li><a href="javascript:$('.swiper-container').trigger('uiSwiperWantsToGoToIndex', {index: 6})">{ index: 6 }</a></li>
+        <li><a href="javascript:$('.swiper-container').trigger('uiSwiperWantsToGoToIndex', {index: 7})">{ index: 7 }</a></li>
+        <li>Examples with optional "speed"
+          <ul>
+            <li><a href="javascript:$('.swiper-container').trigger('uiSwiperWantsToGoToIndex', {index: 0, speed: 0})">{ index: 0, speed: 0 }</a></li>
+            <li><a href="javascript:$('.swiper-container').trigger('uiSwiperWantsToGoToIndex', {index: 7, speed: 0})">{ index: 7, speed: 0 }</a></li>
+          </ul>
+        </li>
+      </ul>
+      </li>
+    </ul>
 
     <p>
-    Note: Open console to view event log.
+    Note: Events emitted by the component are logged to console.
     </p>
 
     <!--[if lt IE 9]>
