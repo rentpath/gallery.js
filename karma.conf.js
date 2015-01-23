@@ -34,7 +34,7 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
-      '.tmp/app/js/main.js'
+      '.tmp/app/js/demo/**'
     ],
 
 

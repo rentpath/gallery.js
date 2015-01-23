@@ -1,23 +1,23 @@
 .swiper-container {
-  height: 100px;
-  width: 150px;
+  height: 200px;
+  width: 250px;
   border: 1px solid gray;
 }
 .swiper-slide {
-  height: 100px;
-  width: 150px;
+  height: 200px;
+  width: 250px;
 }
 .slide-a {
   background: skyblue;
-  height: 100px;
+  height: 200px;
 }
 .slide-b {
   background: gold;
-  height: 100px;
+  height: 200px;
 }
 .slide-c {
   background: yellowgreen;
-  height: 100px;
+  height: 200px;
 }
 
 #integration.swiper-container {
