@@ -11,13 +11,19 @@ define [
 
     @defaultAttrs
       swiperConfig: {}
+      autoInit: true      # Set to false for specs
 
     # This component assumes that the swiper content has already been setup.
     # The component's node should contain div.swiper-wrapper which
     # should contain any number of div.swiper-slide elements.
     @initSwiper = ->
       @attr.swiperConfig.onSlideChangeEnd = (swiper) =>
-        @trigger 'uiSwiperSlideChanged', { activeIndex: swiper.activeIndex, previousIndex: swiper.previousIndex, total: swiper.slides.length }
+        dataPayload =
+          activeIndex: swiper.activeIndex
+          previousIndex: @sanitizePreviousIndex(swiper.previousIndex)
+          total: swiper.slides.length
+
+        @trigger 'uiSwiperSlideChanged', dataPayload
 
       @attr.swiperConfig.onSlideClick = (swiper) =>
         @trigger 'uiSwiperSlideClicked', { index: swiper.clickedSlideIndex }
@@ -40,15 +46,24 @@ define [
       # data.speed is optional (may be undefined) int (milliseconds)
 
       # Note: Swiper doesn't call onSlideChangeEnd when speed is 0.
-      previousIndex = @swiper.activeIndex
+      previousIndex = @sanitizePreviousIndex(@swiper.activeIndex)
 
       @swiper.swipeTo(data.index, data.speed)
 
       if data.speed == 0
-        @trigger 'uiSwiperSlideChanged', { activeIndex: @swiper.activeIndex, previousIndex: previousIndex, total: @swiper.slides.length }
+        dataPayload =
+          activeIndex: @swiper.activeIndex
+          previousIndex: previousIndex
+          total: @swiper.slides.length
+
+        @trigger 'uiSwiperSlideChanged', dataPayload
+
+    @sanitizePreviousIndex = (value) ->
+      # Swiper intially reports previous index as -0
+      value || 0
 
     @after 'initialize', ->
       @on 'uiSwiperWantsNextItem', @nextItem
       @on 'uiSwiperWantsPrevItem', @prevItem
       @on 'uiSwiperWantsToGoToIndex', @goToIndex
-      @initSwiper()
+      @initSwiper() if @attr.autoInit
