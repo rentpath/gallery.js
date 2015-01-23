@@ -11,7 +11,7 @@ define [
 
     @defaultAttrs
       swiperConfig: {}
-      autoInit: true      # Set to false for specs
+      autoInit: true     # for use by specs
 
     # This component assumes that the swiper content has already been setup.
     # The component's node should contain div.swiper-wrapper which
@@ -20,7 +20,7 @@ define [
       @attr.swiperConfig.onSlideChangeEnd = (swiper) =>
         dataPayload =
           activeIndex: swiper.activeIndex
-          previousIndex: @sanitizePreviousIndex(swiper.previousIndex)
+          previousIndex: @normalizePreviousIndex(swiper.previousIndex)
           total: swiper.slides.length
 
         @trigger 'uiSwiperSlideChanged', dataPayload
@@ -46,7 +46,7 @@ define [
       # data.speed is optional (may be undefined) int (milliseconds)
 
       # Note: Swiper doesn't call onSlideChangeEnd when speed is 0.
-      previousIndex = @sanitizePreviousIndex(@swiper.activeIndex)
+      previousIndex = @normalizePreviousIndex(@swiper.activeIndex)
 
       @swiper.swipeTo(data.index, data.speed)
 
@@ -58,7 +58,7 @@ define [
 
         @trigger 'uiSwiperSlideChanged', dataPayload
 
-    @sanitizePreviousIndex = (value) ->
+    @normalizePreviousIndex = (value) ->
       # Swiper intially reports previous index as -0
       value || 0
 
