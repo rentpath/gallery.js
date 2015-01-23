@@ -46,6 +46,9 @@ define [
       # data.speed is optional (may be undefined) int (milliseconds)
 
       # Note: Swiper doesn't call onSlideChangeEnd when speed is 0.
+      # Opened an issue:
+      # https://github.com/nolimits4web/Swiper/issues/1067
+
       previousIndex = @normalizePreviousIndex(@swiper.activeIndex)
 
       @swiper.swipeTo(data.index, data.speed)
