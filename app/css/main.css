@@ -19,3 +19,12 @@
   background: yellowgreen;
   height: 100px;
 }
+
+#integration.swiper-container {
+  height: 350px;
+  width: 525px;
+}
+#integration.swiper-slide {
+  height: 350px;
+  width: 525px;
+}
