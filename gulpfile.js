@@ -66,6 +66,7 @@ gulp.task('default', function () {
 
   gulp.watch('app/coffeescript/**/*.coffee', function (event) {
     gulp.run('coffee');
+    gulp.run('copy-js');
     gulp.run('dist');
   });
 
