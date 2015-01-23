@@ -21,6 +21,6 @@ define [
         @trigger @attr.acceptedKeys[data.which.toString()]
 
     @after 'initialize', ->
-      @on $(@attr.galleryNode), 'keydown', this.evaluateKeyDown
+      @on $(@attr.galleryNode), 'keydown', @evaluateKeyDown
 
   defineComponent keyboardNavigation
