@@ -37,11 +37,6 @@ define [ 'jquery' ], ($) ->
         @component.$node.trigger('uiSwiperWantsToGoToIndex', { index: 1, speed: 0 })
         expect(spy).toHaveBeenCalledWith(1, 0)
 
-      it "triggers uiSwiperSlideChanged after uiSwiperWantsToGoToIndex", ->
-        spy = spyOnEvent(@component.node, 'uiSwiperSlideChanged')
-        @component.$node.trigger('uiSwiperWantsToGoToIndex', { index: 2, speed: 0 })
-        expect('uiSwiperSlideChanged').toHaveBeenTriggeredOnAndWith(@component.node, { activeIndex: 2, previousIndex: 0, total: 4 })
-
       it "triggers uiSwiperSlideChanged after swipeNext()", (done) ->
         spy = spyOnEvent(@component.node, 'uiSwiperSlideChanged')
         @component.swiper.swipeNext()
@@ -60,6 +55,16 @@ define [ 'jquery' ], ($) ->
         # wait for async event from swiper
         setTimeout =>
           expect('uiSwiperSlideChanged').toHaveBeenTriggeredOnAndWith(@component.node, { activeIndex: 0, previousIndex: 1, total: 4 })
+          done()
+        , TIMEOUT
+
+      it "triggers uiSwiperSlideChanged after swipeTo()", (done) ->
+        spy = spyOnEvent(@component.node, 'uiSwiperSlideChanged')
+        @component.swiper.swipeTo(3)
+
+        # wait for async event from swiper
+        setTimeout =>
+          expect('uiSwiperSlideChanged').toHaveBeenTriggeredOnAndWith(@component.node, { activeIndex: 3, previousIndex: 0, total: 4 })
           done()
         , TIMEOUT
 

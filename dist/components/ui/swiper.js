@@ -5,7 +5,7 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
       autoInit: true
     });
     this.initSwiper = function() {
-      this.attr.swiperConfig.onSlideChangeEnd = (function(_this) {
+      this.attr.swiperConfig.onSlideChangeStart = (function(_this) {
         return function(swiper) {
           var dataPayload;
           dataPayload = {
@@ -38,17 +38,7 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
       return this.swiper.swipePrev();
     };
     this.goToIndex = function(event, data) {
-      var dataPayload, previousIndex;
-      previousIndex = this.normalizePreviousIndex(this.swiper.activeIndex);
-      this.swiper.swipeTo(data.index, data.speed);
-      if (data.speed === 0) {
-        dataPayload = {
-          activeIndex: this.swiper.activeIndex,
-          previousIndex: previousIndex,
-          total: this.swiper.slides.length
-        };
-        return this.trigger('uiSwiperSlideChanged', dataPayload);
-      }
+      return this.swiper.swipeTo(data.index, data.speed);
     };
     this.normalizePreviousIndex = function(value) {
       return value || 0;
