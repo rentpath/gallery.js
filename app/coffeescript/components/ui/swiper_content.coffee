@@ -10,22 +10,20 @@ define [
 
     @defaultAttrs
       wrapper:          'swiper-wrapper'
-      wrapperSelector:  '.swiper-wrapper'
       slide:            'swiper-slide'
 
-    @addWrapper = ->
-      wrapperHTML = "<div class=\"#{@attr.wrapper}\"></div>"
-      @$node.append(wrapperHTML)
-
-    @appendImage = (url)->
+    @slideHtml = (url)->
       # TODO: add lazy loading with data-src
-      slideHtml = "<div class=\"#{@attr.slide}\"><img src=\"#{url}\"></div>"
-      @select('wrapperSelector').append(slideHtml)
+      "<div class=\"#{@attr.slide}\"><img src=\"#{url}\"></div>"
+
+    @contentHtml = (urls) ->
+      slideHtml = ""
+      for url in urls
+        slideHtml += @slideHtml(url)
+      "<div class=\"#{@attr.wrapper}\">#{slideHtml}</div>"
 
     @setup = (event, data) ->
-      @addWrapper()
-      for url in data.urls
-        @appendImage(url)
+      @$node.append(@contentHtml(data.urls))
       @trigger 'uiGalleryContentReady'
 
     @after 'initialize', ->
