@@ -16,8 +16,9 @@ require.config
 
   paths: {
     'flight': 'app/bower_components/flight'
-    'jquery': 'app/bower_components/jquery/jquery'
     'gallery': 'app/js'
+    'jquery': 'app/bower_components/jquery/jquery'
+    'swiper': 'app/bower_components/swiper/dist/idangerous.swiper'
   }
 
   # dynamically load all test files

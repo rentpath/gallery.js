@@ -13,8 +13,8 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      //// dependencies
-      {pattern: 'app/bower_components/jquery/dist/jquery.js',                     watched: false, served: true, included: true},
+      // dependencies
+      {pattern: 'app/bower_components/jquery/dist/jquery.js', watched: false, served: true, included: true},
       {pattern: 'app/bower_components/jasmine-jquery/lib/jasmine-jquery.js', watched: false, served: true, included: true},
       {pattern: 'app/bower_components/jasmine-flight/lib/jasmine-flight.js', watched: false, served: true, included: true},
 
@@ -23,6 +23,7 @@ module.exports = function(config) {
 
       // loaded with require
       {pattern: 'app/bower_components/flight/**/*.js', included: false},
+      {pattern: 'app/bower_components/swiper/dist/idangerous.swiper.js', included: false},
 
       {pattern: 'app/js/**/*.js', included: false},
       {pattern: 'test/spec/**/*_spec.js', included: false},
@@ -33,7 +34,7 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
-      '.tmp/app/js/main.js'
+      '.tmp/app/js/demo/**'
     ],
 
 

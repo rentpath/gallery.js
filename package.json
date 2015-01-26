@@ -26,7 +26,7 @@
     "compile": "gulp build",
     "build": "rm -rf dist && gulp dist",
     "livereload": "gulp",
-    "start": "static app",
+    "start": "static -p 8899 app",
     "watch": "gulp",
     "watch:dev": "npm run server > server.log & npm run livereload",
     "watch:test": "karma start",

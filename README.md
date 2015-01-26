@@ -1,6 +1,6 @@
 
 # gallery.js
-Front-end code for "My Places".a reusable gallery component.
+A reusable gallery component.
 Implemented as FlightJS components in Coffeescript.
 
 ## Using gallery in an application.
@@ -87,6 +87,14 @@ node modules and bower components; recompile code and tests.
 
 ```
 npm run reset
+```
+
+### Demo App
+
+Start a demo app on localhost
+
+```
+npm run start
 ```
 
 ### Building a Distribution

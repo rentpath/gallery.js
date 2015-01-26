@@ -11,17 +11,17 @@ gulp.task('clean-dist', function (cb) {
 });
 
 gulp.task('dist', ['clean-dist'], function() {
-  gulp.src([ 'app/js/**/*.coffee', '!app/js/main.coffee' ])
+  gulp.src([ 'app/coffeescript/**/*.coffee', '!app/coffeescript/demo/**' ])
     .pipe(coffee({bare: true}).on('error', gutil.log))
     .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('coffee', function() {
-  gulp.src('app/js/**/*.coffee')
+  gulp.src('app/coffeescript/**/*.coffee')
     .pipe(sourcemaps.init())
     .pipe(coffee({bare: true}).on('error', gutil.log))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('.tmp/app/js/'));
+    .pipe(gulp.dest('app/js/'));
 });
 
 gulp.task('coffee-spec', function() {
@@ -40,10 +40,15 @@ gulp.task('copy-fixtures', function(){
   gulp.src(['test/spec/fixtures/**/* '], { "base" : "." }).pipe(gulp.dest('./.tmp/'));
 });
 
+gulp.task('copy-js', function(){
+  gulp.src(['app/js/**/* '], { "base" : "." }).pipe(gulp.dest('./.tmp/'));
+});
+
 gulp.task('build', function() {
   gulp.run('copy-bower');
   gulp.run('copy-fixtures');
   gulp.run('coffee');
+  gulp.run('copy-js');
   gulp.run('coffee-spec');
   gulp.run('dist');
 });
@@ -59,8 +64,9 @@ gulp.task('default', function () {
     gulp.run('copy-bower');
   });
 
-  gulp.watch('app/js/**/*.coffee', function (event) {
+  gulp.watch('app/coffeescript/**/*.coffee', function (event) {
     gulp.run('coffee');
+    gulp.run('copy-js');
     gulp.run('dist');
   });
 
