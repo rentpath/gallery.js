@@ -28,3 +28,6 @@
   height: 350px;
   width: 525px;
 }
+.generic-container {
+  border: 1px solid gray;
+}

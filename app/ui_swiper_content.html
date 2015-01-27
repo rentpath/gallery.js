@@ -7,7 +7,6 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/bower_components/swiper/dist/idangerous.swiper.css">
   </head>
   <body>
 
@@ -17,11 +16,15 @@
 
     <h2>components/ui/swiper_content</h2>
 
-    <div class="swiper-container" id="ui_swiper_content">
+    <div class="generic-container" id="ui_swiper_content">
     </div>
 
     <h3>Events that this component listens for</h3>
     <a href="javascript: $('#ui_swiper_content').trigger('dataGalleryContentAvailable', { urls: ['/images/1.jpg', '/images/2.jpg', '/images/3.jpg'] })">dataGalleryContentAvailable</a>
+
+    <p>
+    Note: The div should be populated with content in response to this event. The img tags will have data-src instead of src, so don't be surprised that you don't see any images.
+    </p>
 
     <!--[if lt IE 9]>
     <script src="/bower_components/es5-shim/es5-shim.js"></script>

@@ -9,25 +9,17 @@ define [
   defineComponent ->
 
     @defaultAttrs
-      wrapper:           'swiper-wrapper'
-      slide:             'swiper-slide'
-      # To enable lazy loading, set to the number of items NOT to lazy load.
-      # Example: If set to 2, then the 3rd and later items will be lazy loaded.
-      lazyLoadThreshold: undefined
+      wrapper: 'swiper-wrapper'
+      slide:   'swiper-slide'
 
     @contentHtml = (urls) ->
       slideHtml = ""
-      index = 0
       for url in urls
-        slideHtml += @slideHtml(url, index)
-        index++
+        slideHtml += @slideHtml(url)
       "<div class=\"#{@attr.wrapper}\">#{slideHtml}</div>"
 
     @slideHtml = (url, index) ->
-      "<div class=\"#{@attr.slide}\"><img #{@srcAttr(index)}=\"#{url}\"></div>"
-
-    @srcAttr = (index) ->
-      if index >= @attr.lazyLoadThreshold then 'data-src' else 'src'
+      "<div class=\"#{@attr.slide}\"><img data-src=\"#{url}\"></div>"
 
     @setup = (event, data) ->
       @$node.append(@contentHtml(data.urls))

@@ -2,29 +2,19 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
   return defineComponent(function() {
     this.defaultAttrs({
       wrapper: 'swiper-wrapper',
-      slide: 'swiper-slide',
-      lazyLoadThreshold: void 0
+      slide: 'swiper-slide'
     });
     this.contentHtml = function(urls) {
-      var index, slideHtml, url, _i, _len;
+      var slideHtml, url, _i, _len;
       slideHtml = "";
-      index = 0;
       for (_i = 0, _len = urls.length; _i < _len; _i++) {
         url = urls[_i];
-        slideHtml += this.slideHtml(url, index);
-        index++;
+        slideHtml += this.slideHtml(url);
       }
       return "<div class=\"" + this.attr.wrapper + "\">" + slideHtml + "</div>";
     };
     this.slideHtml = function(url, index) {
-      return "<div class=\"" + this.attr.slide + "\"><img " + (this.srcAttr(index)) + "=\"" + url + "\"></div>";
-    };
-    this.srcAttr = function(index) {
-      if (index >= this.attr.lazyLoadThreshold) {
-        return 'data-src';
-      } else {
-        return 'src';
-      }
+      return "<div class=\"" + this.attr.slide + "\"><img data-src=\"" + url + "\"></div>";
     };
     this.setup = function(event, data) {
       this.$node.append(this.contentHtml(data.urls));
