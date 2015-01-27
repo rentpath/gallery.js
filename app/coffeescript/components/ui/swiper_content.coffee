@@ -18,7 +18,7 @@ define [
         slideHtml += @slideHtml(url)
       "<div class=\"#{@attr.wrapper}\">#{slideHtml}</div>"
 
-    @slideHtml = (url, index) ->
+    @slideHtml = (url) ->
       "<div class=\"#{@attr.slide}\"><img data-src=\"#{url}\"></div>"
 
     @setup = (event, data) ->

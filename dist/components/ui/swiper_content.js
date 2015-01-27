@@ -13,7 +13,7 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
       }
       return "<div class=\"" + this.attr.wrapper + "\">" + slideHtml + "</div>";
     };
-    this.slideHtml = function(url, index) {
+    this.slideHtml = function(url) {
       return "<div class=\"" + this.attr.slide + "\"><img data-src=\"" + url + "\"></div>";
     };
     this.setup = function(event, data) {
