@@ -10,8 +10,10 @@ define [
 
     @defaultAttrs
       errorUrl: undefined
-      # To enable lazy loading, set to the number of items NOT to lazy load.
-      # Example: If set to 2, then the 3rd and later items will be lazy loaded.
+      # To enable lazy loading, set to the index where lazy loading is to start.
+      # Example: If set to 2, then the first two images will be loaded
+      # after initialization.  The 3rd and later items will be lazy loaded
+      # when uiLazyLoadRequest is received.
       lazyLoadThreshold: undefined
 
     @loadImages = (num) ->
