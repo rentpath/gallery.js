@@ -11,7 +11,7 @@ require ["components/ui/swiper"], (SwiperUI) ->
   INTERESTING_EVENTS = ['uiSwiperSlideChanged', 'uiSwiperInitialized', 'uiSwiperSlideClicked']
 
   for eventName in INTERESTING_EVENTS
-    $(document).on eventName, (event, data) ->
+    $('#ui_swiper').on eventName, (event, data) ->
       console.log(event, data)
 
   SwiperUI.attachTo "#ui_swiper"
