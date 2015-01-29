@@ -19,7 +19,7 @@ module.exports = function(config) {
       {pattern: 'app/bower_components/jasmine-flight/lib/jasmine-flight.js', watched: false, served: true, included: true},
 
       // fixtures
-      {pattern: 'test/spec/fixtures/*.html', watched: true, served: true, included: false},
+      {pattern: 'test/spec/fixtures/**', watched: true, served: true, included: false},
 
       // loaded with require
       {pattern: 'app/bower_components/flight/**/*.js', included: false},

@@ -14,24 +14,25 @@
 
     <a href="/">back to index</a>
 
-    <h2>components/ui/swiper_content</h2>
+    <h2>components/ui/image_loader</h2>
 
-    <div class="generic-container" id="ui_swiper_content">
+    <div class="generic-container" id="ui_image_loader">
+      <img data-src="/images/1.jpg">
+      <img data-src="/images/2.jpg">
+      <img data-src="/images/3.jpg">
+      <img data-src="/images/4.jpg">
+      <img data-src="/images/intentional404">
     </div>
 
     <h3>Events that this component listens for</h3>
-    <a href="javascript: $('#ui_swiper_content').trigger('dataGalleryContentAvailable', { urls: ['/images/1.jpg', '/images/2.jpg', '/images/3.jpg'] })">dataGalleryContentAvailable</a>
-
-    <p>
-    Note: The div should be populated with content in response to this event. The img tags will have data-src instead of src, so don't be surprised that you don't see any images.
-    </p>
+    <a href="javascript: $('#ui_image_loader').trigger('uiLazyLoadRequest')">uiLazyLoadRequest</a>
 
     <!--[if lt IE 9]>
     <script src="/bower_components/es5-shim/es5-shim.js"></script>
     <script src="/bower_components/es5-shim/es5-sham.js"></script>
     <![endif]-->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
-    <script src="/bower_components/requirejs/require.js" data-main="js/demo/ui_swiper_content.js"></script>
+    <script src="/bower_components/requirejs/require.js" data-main="js/demo/ui_image_loader.js"></script>
 
   </body>
 </html>
