@@ -1,7 +1,7 @@
 define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent) {
   return defineComponent(function() {
     this.defaultAttrs({
-      counterSelector: '.ui_counter'
+      counterSelector: '.js-ui-counter'
     });
     this.initializeCounter = function(event, data) {
       return $(this.attr.counterSelector).text('1 of ' + data.urls.length);

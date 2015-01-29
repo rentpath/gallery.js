@@ -10,7 +10,7 @@ define [
   defineComponent ->
 
     @defaultAttrs
-      counterSelector: '.ui_counter'
+      counterSelector: '.js-ui-counter'
 
     @initializeCounter = (event, data) ->
       $(@attr.counterSelector).text('1 of ' + data.urls.length)

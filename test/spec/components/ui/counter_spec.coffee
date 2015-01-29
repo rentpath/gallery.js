@@ -5,7 +5,7 @@ define [ 'jquery' ], ($) ->
     beforeEach ->
       @fixture = readFixtures('counter.html')
       @setupComponent(@fixture)
-      @node = $('.ui_counter')
+      @node = $('.js-ui-counter')
 
     describe 'initialize counter', ->
     
