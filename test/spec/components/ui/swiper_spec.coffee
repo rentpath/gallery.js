@@ -16,7 +16,7 @@ define [ 'jquery' ], ($) ->
       it 'triggers uiSwiperInitialized', ->
         spy = spyOnEvent(@component.node, 'uiSwiperInitialized')
         @component.initSwiper()
-        expect('uiSwiperInitialized').toHaveBeenTriggeredOnAndWith(@component.node, { swiper: @component.swiper })
+        expect('uiSwiperInitialized').toHaveBeenTriggeredOnAndWith(@component.node, { swiper: @component.swiper, loop: false })
 
     describe 'events', ->
       beforeEach ->

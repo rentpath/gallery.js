@@ -28,7 +28,8 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
         return this.swiper.reInit();
       });
       return this.trigger('uiSwiperInitialized', {
-        swiper: this.swiper
+        swiper: this.swiper,
+        loop: !!this.attr.swiperConfig.loop
       });
     };
     this.nextItem = function() {
