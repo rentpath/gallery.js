@@ -15,10 +15,10 @@ define [
 
     @initializeCounter = (event, data) ->
       $(@attr.activeSelector).text 1
-      $(@attr.totalSelector).text data.urls.length
+      $(@attr.totalSelector).text(data.urls.length)
 
     @updateCounter = (event, data) ->
-      $(@attr.activeSelector).text (data.activeIndex + 1)
+      $(@attr.activeSelector).text(data.activeIndex + 1)
 
     @after 'initialize', ->
       @on 'dataGalleryContentAvailable', @initializeCounter
