@@ -1,13 +1,15 @@
 define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent) {
   return defineComponent(function() {
     this.defaultAttrs({
-      counterSelector: '.js-ui-counter'
+      activeSelector: '.js-ui-counter-active',
+      totalSelector: '.js-ui-counter-total'
     });
     this.initializeCounter = function(event, data) {
-      return $(this.attr.counterSelector).text('1 of ' + data.urls.length);
+      $(this.attr.activeSelector).text(1);
+      return $(this.attr.totalSelector).text(data.urls.length);
     };
     this.updateCounter = function(event, data) {
-      return $(this.attr.counterSelector).text((data.activeIndex + 1) + ' of ' + data.total);
+      return $(this.attr.activeSelector).text(data.activeIndex + 1);
     };
     return this.after('initialize', function() {
       this.on('dataGalleryContentAvailable', this.initializeCounter);
