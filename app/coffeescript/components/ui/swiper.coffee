@@ -31,17 +31,17 @@ define [
             previousIndex: @normalizePreviousIndex(swiper.previousIndex)
             total: swiper.slides.length
 
-        @trigger 'uiSwiperSlideChanged', dataPayload
+        @trigger 'uiGallerySlideChanged', dataPayload
 
       @attr.swiperConfig.onSlideClick = (swiper) =>
-        @trigger 'uiSwiperSlideClicked', { index: swiper.clickedSlideIndex }
+        @trigger 'uiGallerySlideClicked', { index: swiper.clickedSlideIndex }
 
       @swiper = new Swiper(@node, @attr.swiperConfig)
 
       $(window).on 'orientationchange', ->
         @swiper.reInit()
 
-      @trigger 'uiSwiperInitialized', { swiper: @swiper }
+      @trigger 'uiGalleryFeaturesDetected', @swiper.support
 
     @nextItem = ->
       @swiper.swipeNext()
@@ -59,7 +59,7 @@ define [
       value || 0
 
     @after 'initialize', ->
-      @on 'uiSwiperWantsNextItem', @nextItem
-      @on 'uiSwiperWantsPrevItem', @prevItem
-      @on 'uiSwiperWantsToGoToIndex', @goToIndex
+      @on 'uiGalleryWantsNextItem', @nextItem
+      @on 'uiGalleryWantsPrevItem', @prevItem
+      @on 'uiGalleryWantsToGoToIndex', @goToIndex
       @initSwiper() if @attr.autoInit

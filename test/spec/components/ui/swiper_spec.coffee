@@ -13,63 +13,63 @@ define [ 'jquery' ], ($) ->
         @component.initSwiper()
         expect(@component.swiper).toBeDefined()
 
-      it 'triggers uiSwiperInitialized', ->
-        spy = spyOnEvent(@component.node, 'uiSwiperInitialized')
+      it 'triggers uiGalleryFeaturesDetected', ->
+        spy = spyOnEvent(@component.node, 'uiGalleryFeaturesDetected')
         @component.initSwiper()
-        expect('uiSwiperInitialized').toHaveBeenTriggeredOnAndWith(@component.node, { swiper: @component.swiper })
+        expect('uiGalleryFeaturesDetected').toHaveBeenTriggeredOnAndWith(@component.node, @component.swiper.support)
 
     describe 'events', ->
       beforeEach ->
         @setupComponent(@fixture)
 
-      it "calls swiper.swipeNext() after uiSwiperWantsNextItem", ->
+      it "calls swiper.swipeNext() after uiGalleryWantsNextItem", ->
         spy = spyOn(@component.swiper, 'swipeNext')
-        @component.$node.trigger('uiSwiperWantsNextItem')
+        @component.$node.trigger('uiGalleryWantsNextItem')
         expect(spy).toHaveBeenCalled()
 
-      it "calls swiper.swipePrev() after uiSwiperWantsPrevItem", ->
+      it "calls swiper.swipePrev() after uiGalleryWantsPrevItem", ->
         spy = spyOn(@component.swiper, 'swipePrev')
-        @component.$node.trigger('uiSwiperWantsPrevItem')
+        @component.$node.trigger('uiGalleryWantsPrevItem')
         expect(spy).toHaveBeenCalled()
 
-      it "calls swiper.swipeTo() after uiSwiperWantsToGoToIndex", ->
+      it "calls swiper.swipeTo() after uiGalleryWantsToGoToIndex", ->
         spy = spyOn(@component.swiper, 'swipeTo')
-        @component.$node.trigger('uiSwiperWantsToGoToIndex', { index: 1, speed: 0 })
+        @component.$node.trigger('uiGalleryWantsToGoToIndex', { index: 1, speed: 0 })
         expect(spy).toHaveBeenCalledWith(1, 0)
 
-      it "triggers uiSwiperSlideChanged after swipeNext()", (done) ->
-        spy = spyOnEvent(@component.node, 'uiSwiperSlideChanged')
+      it "triggers uiGallerySlideChanged after swipeNext()", (done) ->
+        spy = spyOnEvent(@component.node, 'uiGallerySlideChanged')
         @component.swiper.swipeNext()
 
         # wait for async event from swiper
         setTimeout =>
-          expect('uiSwiperSlideChanged').toHaveBeenTriggeredOnAndWith(@component.node, { activeIndex: 1, previousIndex: 0, total: 4 })
+          expect('uiGallerySlideChanged').toHaveBeenTriggeredOnAndWith(@component.node, { activeIndex: 1, previousIndex: 0, total: 4 })
           done()
         , TIMEOUT
 
-      it "triggers uiSwiperSlideChanged after swipePrev()", (done) ->
+      it "triggers uiGallerySlideChanged after swipePrev()", (done) ->
         @component.swiper.swipeTo(1, 0)
-        spy = spyOnEvent(@component.node, 'uiSwiperSlideChanged')
+        spy = spyOnEvent(@component.node, 'uiGallerySlideChanged')
         @component.swiper.swipePrev()
 
         # wait for async event from swiper
         setTimeout =>
-          expect('uiSwiperSlideChanged').toHaveBeenTriggeredOnAndWith(@component.node, { activeIndex: 0, previousIndex: 1, total: 4 })
+          expect('uiGallerySlideChanged').toHaveBeenTriggeredOnAndWith(@component.node, { activeIndex: 0, previousIndex: 1, total: 4 })
           done()
         , TIMEOUT
 
-      it "triggers uiSwiperSlideChanged after swipeTo()", (done) ->
-        spy = spyOnEvent(@component.node, 'uiSwiperSlideChanged')
+      it "triggers uiGallerySlideChanged after swipeTo()", (done) ->
+        spy = spyOnEvent(@component.node, 'uiGallerySlideChanged')
         @component.swiper.swipeTo(3)
 
         # wait for async event from swiper
         setTimeout =>
-          expect('uiSwiperSlideChanged').toHaveBeenTriggeredOnAndWith(@component.node, { activeIndex: 3, previousIndex: 0, total: 4 })
+          expect('uiGallerySlideChanged').toHaveBeenTriggeredOnAndWith(@component.node, { activeIndex: 3, previousIndex: 0, total: 4 })
           done()
         , TIMEOUT
 
-      it "triggers uiSwiperSlideClicked after a click", ->
-        spy = spyOnEvent(@component.node, 'uiSwiperSlideClicked')
+      it "triggers uiGallerySlideClicked after a click", ->
+        spy = spyOnEvent(@component.node, 'uiGallerySlideClicked')
         $('.swiper-slide')[2].click()
 
-        expect('uiSwiperSlideClicked').toHaveBeenTriggeredOnAndWith(@component.node, { index: 2 })
+        expect('uiGallerySlideClicked').toHaveBeenTriggeredOnAndWith(@component.node, { index: 2 })
