@@ -1,4 +1,4 @@
-define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent) {
+define(['jquery', 'flight/lib/component'], function($, defineComponent) {
   return defineComponent(function() {
     this.defaultAttrs({
       previousSelector: '.js-ui-navigation-previous',
@@ -18,7 +18,7 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
         return $(this.attr.nextSelector).hide();
       }
     };
-    this.handleButtons = function(event, data) {
+    this.handleButtonDisplay = function(event, data) {
       if (!this.attr.loop) {
         if (data.activeIndex > 0) {
           $(this.attr.previousSelector).show();
@@ -40,7 +40,7 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
     };
     return this.after('initialize', function() {
       this.on('dataGalleryContentAvailable', this.initializeNavigation);
-      this.on('uiSwiperSlideChanged', this.handleButtons);
+      this.on('uiSwiperSlideChanged', this.handleButtonDisplay);
       this.on('uiSwiperInitialized', this.setLoopValue);
       $(this.attr.previousSelector).on('click', (function(_this) {
         return function(event, data) {

@@ -1,7 +1,6 @@
 define [
   'jquery'
   'flight/lib/component'
-  'swiper'
 ], (
   $
   defineComponent
@@ -22,7 +21,7 @@ define [
         $(@attr.previousSelector).hide()
         $(@attr.nextSelector).hide()
 
-    @handleButtons = (event, data) ->
+    @handleButtonDisplay = (event, data) ->
       unless @attr.loop
         if (data.activeIndex > 0) then $(@attr.previousSelector).show() else $(@attr.previousSelector).hide()
         if ((data.activeIndex + 1) < data.total) then $(@attr.nextSelector).show() else $(@attr.nextSelector).hide()
@@ -33,7 +32,7 @@ define [
 
     @after 'initialize', ->
       @on 'dataGalleryContentAvailable', @initializeNavigation
-      @on 'uiSwiperSlideChanged', @handleButtons
+      @on 'uiSwiperSlideChanged', @handleButtonDisplay
       @on 'uiSwiperInitialized', @setLoopValue
 
       $(@attr.previousSelector).on 'click', (event, data) =>
