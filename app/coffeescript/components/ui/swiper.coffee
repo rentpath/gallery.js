@@ -10,14 +10,16 @@ define [
   defineComponent ->
 
     @defaultAttrs
-      swiperConfig: {}
+      swiperConfig: undefined
       autoInit: true     # for use by specs
+      swiper: undefined
 
     # This component assumes that the swiper content has already been setup.
     # The component's node should contain div.swiper-wrapper which
     # should contain any number of div.swiper-slide elements.
     @initSwiper = ->
-      @attr.swiperConfig.onSlideChangeStart = (swiper) =>
+      swiperConfig = @attr.swiperConfig || {}
+      swiperConfig.onSlideChangeStart = (swiper) =>
         dataPayload =
           activeIndex: swiper.activeIndex
           previousIndex: @normalizePreviousIndex(swiper.previousIndex)
@@ -25,10 +27,10 @@ define [
 
         @trigger 'uiSwiperSlideChanged', dataPayload
 
-      @attr.swiperConfig.onSlideClick = (swiper) =>
+      swiperConfig.onSlideClick = (swiper) =>
         @trigger 'uiSwiperSlideClicked', { index: swiper.clickedSlideIndex }
 
-      @swiper = new Swiper(@node, @attr.swiperConfig)
+      @swiper = new Swiper(@node, swiperConfig)
 
       $(window).on 'orientationchange', ->
         @swiper.reInit()
@@ -44,7 +46,8 @@ define [
     @goToIndex = (event, data) ->
       # data.index is required int
       # data.speed is optional (may be undefined) int (milliseconds)
-      @swiper.swipeTo(data.index, data.speed)
+      if data.index != @swiper.activeIndex
+        @swiper.swipeTo(data.index, data.speed)
 
     @normalizePreviousIndex = (value) ->
       # Swiper intially reports previous index as -0

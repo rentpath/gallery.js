@@ -1,11 +1,14 @@
 define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent) {
   return defineComponent(function() {
     this.defaultAttrs({
-      swiperConfig: {},
-      autoInit: true
+      swiperConfig: void 0,
+      autoInit: true,
+      swiper: void 0
     });
     this.initSwiper = function() {
-      this.attr.swiperConfig.onSlideChangeStart = (function(_this) {
+      var swiperConfig;
+      swiperConfig = this.attr.swiperConfig || {};
+      swiperConfig.onSlideChangeStart = (function(_this) {
         return function(swiper) {
           var dataPayload;
           dataPayload = {
@@ -16,14 +19,14 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
           return _this.trigger('uiSwiperSlideChanged', dataPayload);
         };
       })(this);
-      this.attr.swiperConfig.onSlideClick = (function(_this) {
+      swiperConfig.onSlideClick = (function(_this) {
         return function(swiper) {
           return _this.trigger('uiSwiperSlideClicked', {
             index: swiper.clickedSlideIndex
           });
         };
       })(this);
-      this.swiper = new Swiper(this.node, this.attr.swiperConfig);
+      this.swiper = new Swiper(this.node, swiperConfig);
       $(window).on('orientationchange', function() {
         return this.swiper.reInit();
       });
@@ -38,7 +41,9 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
       return this.swiper.swipePrev();
     };
     this.goToIndex = function(event, data) {
-      return this.swiper.swipeTo(data.index, data.speed);
+      if (data.index !== this.swiper.activeIndex) {
+        return this.swiper.swipeTo(data.index, data.speed);
+      }
     };
     this.normalizePreviousIndex = function(value) {
       return value || 0;
