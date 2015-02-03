@@ -5,11 +5,11 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
       totalSelector: '.js-ui-counter-total'
     });
     this.initializeCounter = function(event, data) {
-      $(this.select('activeSelector')).text(1);
-      return $(this.select('totalSelector')).text(data.urls.length);
+      this.select('activeSelector').text(1);
+      return this.select('totalSelector').text(data.urls.length);
     };
     this.updateCounter = function(event, data) {
-      return $(this.select('activeSelector')).text(data.activeIndex + 1);
+      return this.select('activeSelector').text(data.activeIndex + 1);
     };
     return this.after('initialize', function() {
       this.on('dataGalleryContentAvailable', this.initializeCounter);
