@@ -11,34 +11,45 @@ define [
     @defaultAttrs
       previousSelector: '.js-ui-navigation-previous'
       nextSelector: '.js-ui-navigation-next'
+      disabledClass: 'hidden'
       loop: false
 
     @initializeNavigation = (event, data) ->
       if data.urls.length > 1
-        $(@attr.nextSelector).show()
-        if @attr.loop then $(@attr.previousSelector).show() else $(@attr.previousSelector).hide()
+        @select('nextSelector').removeClass(@attr.disabledClass)
+        if @attr.loop
+          @select('previousSelector').removeClass(@attr.disabledClass)
+        else
+          @select('previousSelector').addClass(@attr.disabledClass)
       else
-        $(@attr.previousSelector).hide()
-        $(@attr.nextSelector).hide()
+        @select('previousSelector').addClass(@attr.disabledClass)
+        @select('nextSelector').addClass(@attr.disabledClass)
 
-    @handleButtonDisplay = (event, data) ->
+    @displayButtons = (event, data) ->
       unless @attr.loop
-        if (data.activeIndex > 0) then $(@attr.previousSelector).show() else $(@attr.previousSelector).hide()
-        if ((data.activeIndex + 1) < data.total) then $(@attr.nextSelector).show() else $(@attr.nextSelector).hide()
+        if data.activeIndex > 0
+          @select('previousSelector').removeClass(@attr.disabledClass)
+        else
+          @select('previousSelector').addClass(@attr.disabledClass)
+        if (data.activeIndex + 1) < data.total
+          @select('nextSelector').removeClass(@attr.disabledClass)
+        else
+          @select('nextSelector').addClass(@attr.disabledClass)
 
     @setLoopValue = (event, data) ->
-      @attr.loop = data.loop
-      @initializeNavigation(event, {urls: data.swiper.slides})
+      unless @attr.loop == data.swiper.params.loop
+        @attr.loop = data.swiper.params.loop
+        @initializeNavigation(event, {urls: data.swiper.slides})
 
     @after 'initialize', ->
       @on 'dataGalleryContentAvailable', @initializeNavigation
-      @on 'uiSwiperSlideChanged', @handleButtonDisplay
+      @on 'uiSwiperSlideChanged', @displayButtons
       @on 'uiSwiperInitialized', @setLoopValue
 
-      $(@attr.previousSelector).on 'click', (event, data) =>
+      @select('previousSelector').on 'click', (event, data) =>
         event.preventDefault()
         @trigger 'uiSwiperWantsPrevItem'
 
-      $(@attr.nextSelector).on 'click', (event, data) =>
+      @select('nextSelector').on 'click', (event, data) =>
         event.preventDefault()
         @trigger 'uiSwiperWantsNextItem'

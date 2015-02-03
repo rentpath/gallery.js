@@ -33,7 +33,7 @@ define [
       $(window).on 'orientationchange', ->
         @swiper.reInit()
 
-      @trigger 'uiSwiperInitialized', { swiper: @swiper, loop: !!@attr.swiperConfig.loop }
+      @trigger 'uiSwiperInitialized', { swiper: @swiper }
 
     @nextItem = ->
       @swiper.swipeNext()

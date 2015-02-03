@@ -13,14 +13,14 @@ define [ 'jquery' ], ($) ->
         it "shows both buttons with multiple images", ->
           @component.$node.trigger('dataGalleryContentAvailable', {urls: ['1', '2', '3']})
 
-          expect($('.js-ui-navigation-previous').css('display')).not.toBe('none')
-          expect($('.js-ui-navigation-next').css('display')).not.toBe('none')
+          expect($('.js-ui-navigation-previous').hasClass('hidden')).toBeFalsy()
+          expect($('.js-ui-navigation-next').hasClass('hidden')).toBeFalsy()
 
         it "shows neither button with one image", ->
           @component.$node.trigger('dataGalleryContentAvailable', {urls: ['1']})
 
-          expect($('.js-ui-navigation-previous').css('display')).toBe('none')
-          expect($('.js-ui-navigation-next').css('display')).toBe('none')
+          expect($('.js-ui-navigation-previous').hasClass('hidden')).toBeTruthy()
+          expect($('.js-ui-navigation-next').hasClass('hidden')).toBeTruthy()
 
       describe 'with loop off', ->
         beforeEach ->
@@ -29,16 +29,16 @@ define [ 'jquery' ], ($) ->
         it "shows neither button with one image", ->
           @component.$node.trigger('dataGalleryContentAvailable', {urls: ['1']})
 
-          expect($('.js-ui-navigation-previous').css('display')).toBe('none')
-          expect($('.js-ui-navigation-next').css('display')).toBe('none')
+          expect($('.js-ui-navigation-previous').hasClass('hidden')).toBeTruthy()
+          expect($('.js-ui-navigation-next').hasClass('hidden')).toBeTruthy()
 
         it "shows the next button with multiple images", ->
           @component.$node.trigger('dataGalleryContentAvailable', {urls: ['1', '2', '3']})
 
-          expect($('.js-ui-navigation-previous').css('display')).toBe('none')
-          expect($('.js-ui-navigation-next').css('display')).not.toBe('none')
+          expect($('.js-ui-navigation-previous').hasClass('hidden')).toBeTruthy()
+          expect($('.js-ui-navigation-next').hasClass('hidden')).toBeFalsy()
 
-    describe 'handle buttons', ->
+    describe 'display buttons', ->
 
       describe 'with loop on', ->
         beforeEach ->
@@ -47,20 +47,20 @@ define [ 'jquery' ], ($) ->
         it "shows both buttons on first image", ->
           @component.$node.trigger('uiSwiperSlideChanged', {activeIndex: 0, total: 3})
 
-          expect($('.js-ui-navigation-previous').css('display')).not.toBe('none')
-          expect($('.js-ui-navigation-next').css('display')).not.toBe('none')
+          expect($('.js-ui-navigation-previous').hasClass('hidden')).toBeFalsy()
+          expect($('.js-ui-navigation-next').hasClass('hidden')).toBeFalsy()
 
         it "shows both buttons on inner image", ->
           @component.$node.trigger('uiSwiperSlideChanged', {activeIndex: 1, total: 3})
 
-          expect($('.js-ui-navigation-previous').css('display')).not.toBe('none')
-          expect($('.js-ui-navigation-next').css('display')).not.toBe('none')
+          expect($('.js-ui-navigation-previous').hasClass('hidden')).toBeFalsy()
+          expect($('.js-ui-navigation-next').hasClass('hidden')).toBeFalsy()
 
         it "shows both buttons on last image", ->
           @component.$node.trigger('uiSwiperSlideChanged', {activeIndex: 2, total: 3})
 
-          expect($('.js-ui-navigation-previous').css('display')).not.toBe('none')
-          expect($('.js-ui-navigation-next').css('display')).not.toBe('none')
+          expect($('.js-ui-navigation-previous').hasClass('hidden')).toBeFalsy()
+          expect($('.js-ui-navigation-next').hasClass('hidden')).toBeFalsy()
 
       describe 'with loop off', ->
         beforeEach ->
@@ -69,34 +69,34 @@ define [ 'jquery' ], ($) ->
         it "shows only next button on first image", ->
           @component.$node.trigger('uiSwiperSlideChanged', {activeIndex: 0, total: 3})
 
-          expect($('.js-ui-navigation-previous').css('display')).toBe('none')
-          expect($('.js-ui-navigation-next').css('display')).not.toBe('none')
+          expect($('.js-ui-navigation-previous').hasClass('hidden')).toBeTruthy()
+          expect($('.js-ui-navigation-next').hasClass('hidden')).toBeFalsy()
 
         it "shows both buttons on inner image", ->
           @component.$node.trigger('uiSwiperSlideChanged', {activeIndex: 1, total: 3})
 
-          expect($('.js-ui-navigation-previous').css('display')).not.toBe('none')
-          expect($('.js-ui-navigation-next').css('display')).not.toBe('none')
+          expect($('.js-ui-navigation-previous').hasClass('hidden')).toBeFalsy()
+          expect($('.js-ui-navigation-next').hasClass('hidden')).toBeFalsy()
 
         it "shows only previous button on last image", ->
           @component.$node.trigger('uiSwiperSlideChanged', {activeIndex: 2, total: 3})
 
-          expect($('.js-ui-navigation-previous').css('display')).not.toBe('none')
-          expect($('.js-ui-navigation-next').css('display')).toBe('none')
+          expect($('.js-ui-navigation-previous').hasClass('hidden')).toBeFalsy()
+          expect($('.js-ui-navigation-next').hasClass('hidden')).toBeTruthy()
 
     describe 'match loop value with swiper', ->
 
       it "sets loop to true when swiper is true", ->
         @setupComponent(@fixture)
-        swiper = {slides: ['1', '2', '3']}
-        @component.$node.trigger('uiSwiperInitialized', {swiper: swiper, loop: true})
+        swiper = {slides: ['1', '2', '3'], params: { loop: true }}
+        @component.$node.trigger('uiSwiperInitialized', {swiper: swiper})
 
         expect(@component.attr.loop).toBe(true)
 
       it "sets loop to false when swiper is false", ->
         @setupComponent(@fixture, {loop: true})
-        swiper = {slides: ['1', '2', '3']}
-        @component.$node.trigger('uiSwiperInitialized', {swiper: swiper, loop: false})
+        swiper = {slides: ['1', '2', '3'], params: { loop: false }}
+        @component.$node.trigger('uiSwiperInitialized', {swiper: swiper})
 
         expect(@component.attr.loop).toBe(false)
 
