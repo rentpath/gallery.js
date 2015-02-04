@@ -45,19 +45,19 @@ define [ 'jquery' ], ($) ->
           @setupComponent(@fixture, {loop: true})
 
         it "shows both buttons on first image", ->
-          @component.$node.trigger('uiSwiperSlideChanged', {activeIndex: 0, total: 3})
+          @component.$node.trigger('uiGallerySlideChanged', {activeIndex: 0, total: 3})
 
           expect($('.js-ui-navigation-previous').hasClass('hidden')).toBeFalsy()
           expect($('.js-ui-navigation-next').hasClass('hidden')).toBeFalsy()
 
         it "shows both buttons on inner image", ->
-          @component.$node.trigger('uiSwiperSlideChanged', {activeIndex: 1, total: 3})
+          @component.$node.trigger('uiGallerySlideChanged', {activeIndex: 1, total: 3})
 
           expect($('.js-ui-navigation-previous').hasClass('hidden')).toBeFalsy()
           expect($('.js-ui-navigation-next').hasClass('hidden')).toBeFalsy()
 
         it "shows both buttons on last image", ->
-          @component.$node.trigger('uiSwiperSlideChanged', {activeIndex: 2, total: 3})
+          @component.$node.trigger('uiGallerySlideChanged', {activeIndex: 2, total: 3})
 
           expect($('.js-ui-navigation-previous').hasClass('hidden')).toBeFalsy()
           expect($('.js-ui-navigation-next').hasClass('hidden')).toBeFalsy()
@@ -67,19 +67,19 @@ define [ 'jquery' ], ($) ->
           @setupComponent(@fixture)
 
         it "shows only next button on first image", ->
-          @component.$node.trigger('uiSwiperSlideChanged', {activeIndex: 0, total: 3})
+          @component.$node.trigger('uiGallerySlideChanged', {activeIndex: 0, total: 3})
 
           expect($('.js-ui-navigation-previous').hasClass('hidden')).toBeTruthy()
           expect($('.js-ui-navigation-next').hasClass('hidden')).toBeFalsy()
 
         it "shows both buttons on inner image", ->
-          @component.$node.trigger('uiSwiperSlideChanged', {activeIndex: 1, total: 3})
+          @component.$node.trigger('uiGallerySlideChanged', {activeIndex: 1, total: 3})
 
           expect($('.js-ui-navigation-previous').hasClass('hidden')).toBeFalsy()
           expect($('.js-ui-navigation-next').hasClass('hidden')).toBeFalsy()
 
         it "shows only previous button on last image", ->
-          @component.$node.trigger('uiSwiperSlideChanged', {activeIndex: 2, total: 3})
+          @component.$node.trigger('uiGallerySlideChanged', {activeIndex: 2, total: 3})
 
           expect($('.js-ui-navigation-previous').hasClass('hidden')).toBeFalsy()
           expect($('.js-ui-navigation-next').hasClass('hidden')).toBeTruthy()
@@ -105,16 +105,16 @@ define [ 'jquery' ], ($) ->
         @setupComponent(@fixture)
         @component.$node.trigger('dataGalleryContentAvailable', {urls: ['1', '2', '3']})
 
-      it "triggers uiSwiperWantsNextItem when next is clicked", ->
-        spy = jasmine.createSpy 'uiSwiperWantsNextItem'
-        @component.$node.on 'uiSwiperWantsNextItem', spy
+      it "triggers uiGalleryWantsNextItem when next is clicked", ->
+        spy = jasmine.createSpy 'uiGalleryWantsNextItem'
+        @component.$node.on 'uiGalleryWantsNextItem', spy
 
         $('.js-ui-navigation-next').trigger('click')
         expect(spy).toHaveBeenCalled()
 
-      it "triggers uiSwiperWantsPrevItem when next is clicked", ->
-        spy = jasmine.createSpy 'uiSwiperWantsPrevItem'
-        @component.$node.on 'uiSwiperWantsPrevItem', spy
+      it "triggers uiGalleryWantsPrevItem when next is clicked", ->
+        spy = jasmine.createSpy 'uiGalleryWantsPrevItem'
+        @component.$node.on 'uiGalleryWantsPrevItem', spy
 
         $('.js-ui-navigation-previous').trigger('click')
         expect(spy).toHaveBeenCalled()

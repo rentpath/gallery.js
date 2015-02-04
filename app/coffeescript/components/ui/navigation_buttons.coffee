@@ -43,13 +43,13 @@ define [
 
     @after 'initialize', ->
       @on 'dataGalleryContentAvailable', @initializeNavigation
-      @on 'uiSwiperSlideChanged', @displayButtons
+      @on 'uiGallerySlideChanged', @displayButtons
       @on 'uiSwiperInitialized', @setLoopValue
 
       @select('previousSelector').on 'click', (event, data) =>
         event.preventDefault()
-        @trigger 'uiSwiperWantsPrevItem'
+        @trigger 'uiGalleryWantsPrevItem'
 
       @select('nextSelector').on 'click', (event, data) =>
         event.preventDefault()
-        @trigger 'uiSwiperWantsNextItem'
+        @trigger 'uiGalleryWantsNextItem'

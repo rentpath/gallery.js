@@ -8,11 +8,11 @@ requirejs.config
 
 require ["components/ui/swiper"], (SwiperUI) ->
 
-  INTERESTING_EVENTS = ['uiSwiperSlideChanged', 'uiSwiperInitialized', 'uiSwiperSlideClicked']
+  INTERESTING_EVENTS = ['uiGallerySlideChanged', 'uiGalleryFeaturesDetected', 'uiGallerySlideClicked']
 
   for eventName in INTERESTING_EVENTS
-    $(document).on eventName, (event, data) ->
-      console.log(event, data)
+    $('#ui_swiper').on eventName, (event, data) ->
+      console.log(event, data) if console && console.log
 
   SwiperUI.attachTo "#ui_swiper"
   # Example of overriding SwiperJS defaults.

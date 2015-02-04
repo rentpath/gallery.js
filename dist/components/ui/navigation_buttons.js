@@ -43,18 +43,18 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
     };
     return this.after('initialize', function() {
       this.on('dataGalleryContentAvailable', this.initializeNavigation);
-      this.on('uiSwiperSlideChanged', this.displayButtons);
+      this.on('uiGallerySlideChanged', this.displayButtons);
       this.on('uiSwiperInitialized', this.setLoopValue);
       this.select('previousSelector').on('click', (function(_this) {
         return function(event, data) {
           event.preventDefault();
-          return _this.trigger('uiSwiperWantsPrevItem');
+          return _this.trigger('uiGalleryWantsPrevItem');
         };
       })(this));
       return this.select('nextSelector').on('click', (function(_this) {
         return function(event, data) {
           event.preventDefault();
-          return _this.trigger('uiSwiperWantsNextItem');
+          return _this.trigger('uiGalleryWantsNextItem');
         };
       })(this));
     });

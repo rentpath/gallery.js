@@ -13,7 +13,7 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
     };
     return this.after('initialize', function() {
       this.on('dataGalleryContentAvailable', this.initializeCounter);
-      return this.on('uiSwiperSlideChanged', this.updateCounter);
+      return this.on('uiGallerySlideChanged', this.updateCounter);
     });
   });
 });
