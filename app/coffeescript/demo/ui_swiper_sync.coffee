@@ -12,7 +12,7 @@ require ["components/ui/swiper", "components/ui/sync_gallery"], (SwiperUI, SyncG
 
   for eventName in INTERESTING_EVENTS
     $(document).on eventName, (event, data) ->
-      console.log(event, data)
+      console.log(event, data) if console? && console.log?
 
   SwiperUI.attachTo "#ui_swiper_sync"
   SwiperUI.attachTo "#ui_swiper"

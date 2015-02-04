@@ -1,13 +1,17 @@
 define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent) {
   return defineComponent(function() {
     this.defaultAttrs({
-      swiperConfig: void 0,
-      autoInit: true,
-      swiper: void 0
+      swiperConfig: {},
+      autoInit: true
     });
     this.initSwiper = function() {
-      var swiperConfig;
-      swiperConfig = this.attr.swiperConfig || {};
+      var key, swiperConfig, value, _ref;
+      swiperConfig = {};
+      _ref = this.attr.swiperConfig;
+      for (key in _ref) {
+        value = _ref[key];
+        swiperConfig[key] = value;
+      }
       swiperConfig.onSlideChangeStart = (function(_this) {
         return function(swiper) {
           var dataPayload, totalSlides;

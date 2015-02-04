@@ -24,7 +24,7 @@ require [
 
   for eventName in INTERESTING_EVENTS
     $(document).on eventName, (event, data) ->
-      console.log(event, data)
+      console.log(event, data) if console? && console.log?
 
   IMAGES = ["/images/1.jpg", "/images/2.jpg", "/images/3.jpg", "/images/4.jpg", "/images/5.jpg", "/intentional404"]
 

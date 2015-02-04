@@ -10,15 +10,18 @@ define [
   defineComponent ->
 
     @defaultAttrs
-      swiperConfig: undefined
+      swiperConfig: {}
       autoInit: true     # for use by specs
-      swiper: undefined
 
     # This component assumes that the swiper content has already been setup.
     # The component's node should contain div.swiper-wrapper which
     # should contain any number of div.swiper-slide elements.
     @initSwiper = ->
-      swiperConfig = @attr.swiperConfig || {}
+      # swiperConfig is set here due to the fact that @defaultAttrs can be
+      # clobbered when multiple instances of a component are initialized.
+      swiperConfig = {}
+      for key, value of @attr.swiperConfig
+        swiperConfig[key] = value
       swiperConfig.onSlideChangeStart = (swiper) =>
         if swiper.params.loop
           totalSlides = $.grep swiper.slides, (slide) ->
