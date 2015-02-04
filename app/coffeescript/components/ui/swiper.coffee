@@ -41,7 +41,7 @@ define [
       $(window).on 'orientationchange', ->
         @swiper.reInit()
 
-      @trigger 'uiGalleryFeaturesDetected', @swiper.support
+      @trigger 'uiSwiperInitialized', { swiper: @swiper }
 
     @nextItem = ->
       @swiper.swipeNext()

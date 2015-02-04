@@ -38,7 +38,9 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
       $(window).on('orientationchange', function() {
         return this.swiper.reInit();
       });
-      return this.trigger('uiGalleryFeaturesDetected', this.swiper.support);
+      return this.trigger('uiSwiperInitialized', {
+        swiper: this.swiper
+      });
     };
     this.nextItem = function() {
       return this.swiper.swipeNext();

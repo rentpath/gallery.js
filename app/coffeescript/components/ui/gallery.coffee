@@ -23,11 +23,12 @@ define [
       # ImageLoaderUI options:
       errorUrl: undefined
       lazyLoadThreshold: undefined
+      swiperConfig: {}
 
     @after 'initialize', ->
       @on 'uiGalleryContentReady', =>
         ImageLoaderUI.attachTo @$node, { lazyLoadThreshold: @attr.lazyLoadThreshold, errorUrl: @attr.errorUrl }
-        SwiperUI.attachTo @$node
+        SwiperUI.attachTo @$node, { swiperConfig: @attr.swiperConfig }
 
       SwiperContentUI.attachTo @$node
 

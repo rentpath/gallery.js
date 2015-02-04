@@ -22,4 +22,4 @@ define [
 
     @after 'initialize', ->
       @on 'dataGalleryContentAvailable', @initializeCounter
-      @on 'uiSwiperSlideChanged', @updateCounter
+      @on 'uiGallerySlideChanged', @updateCounter

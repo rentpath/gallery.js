@@ -13,10 +13,10 @@ define [ 'jquery' ], ($) ->
         @component.initSwiper()
         expect(@component.swiper).toBeDefined()
 
-      it 'triggers uiGalleryFeaturesDetected', ->
-        spy = spyOnEvent(@component.node, 'uiGalleryFeaturesDetected')
+      it 'triggers uiSwiperInitialized', ->
+        spy = spyOnEvent(@component.node, 'uiSwiperInitialized')
         @component.initSwiper()
-        expect('uiGalleryFeaturesDetected').toHaveBeenTriggeredOnAndWith(@component.node, @component.swiper.support)
+        expect('uiSwiperInitialized').toHaveBeenTriggeredOnAndWith(@component.node, { swiper: @component.swiper })
 
     describe 'events', ->
       beforeEach ->
