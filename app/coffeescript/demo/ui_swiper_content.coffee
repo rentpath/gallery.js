@@ -11,6 +11,6 @@ require ["components/ui/swiper_content"], (SwiperContentUI) ->
 
   for eventName in INTERESTING_EVENTS
     $('#ui_swiper_content').on eventName, (event, data) ->
-      console.log(event, data)
+      console.log(event, data) if console && console.log
 
   SwiperContentUI.attachTo "#ui_swiper_content"
