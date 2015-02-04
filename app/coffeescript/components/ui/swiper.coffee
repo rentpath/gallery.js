@@ -20,10 +20,18 @@ define [
     @initSwiper = ->
       swiperConfig = @attr.swiperConfig || {}
       swiperConfig.onSlideChangeStart = (swiper) =>
-        dataPayload =
-          activeIndex: swiper.activeIndex
-          previousIndex: @normalizePreviousIndex(swiper.previousIndex)
-          total: swiper.slides.length
+        if swiper.params.loop
+          totalSlides = $.grep swiper.slides, (slide) ->
+            ! $(slide).hasClass 'swiper-slide-duplicate'
+          dataPayload =
+            activeIndex: swiper.activeLoopIndex
+            previousIndex: @normalizePreviousIndex(swiper.previousIndex)
+            total: totalSlides.length
+        else
+          dataPayload =
+            activeIndex: swiper.activeIndex
+            previousIndex: @normalizePreviousIndex(swiper.previousIndex)
+            total: swiper.slides.length
 
         @trigger 'uiSwiperSlideChanged', dataPayload
 
