@@ -7,12 +7,23 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
     this.initSwiper = function() {
       this.attr.swiperConfig.onSlideChangeStart = (function(_this) {
         return function(swiper) {
-          var dataPayload;
-          dataPayload = {
-            activeIndex: swiper.activeIndex,
-            previousIndex: _this.normalizePreviousIndex(swiper.previousIndex),
-            total: swiper.slides.length
-          };
+          var dataPayload, totalSlides;
+          if (swiper.params.loop) {
+            totalSlides = $.grep(swiper.slides, function(slide) {
+              return !$(slide).hasClass('swiper-slide-duplicate');
+            });
+            dataPayload = {
+              activeIndex: swiper.activeLoopIndex,
+              previousIndex: _this.normalizePreviousIndex(swiper.previousIndex),
+              total: totalSlides.length
+            };
+          } else {
+            dataPayload = {
+              activeIndex: swiper.activeIndex,
+              previousIndex: _this.normalizePreviousIndex(swiper.previousIndex),
+              total: swiper.slides.length
+            };
+          }
           return _this.trigger('uiSwiperSlideChanged', dataPayload);
         };
       })(this);
