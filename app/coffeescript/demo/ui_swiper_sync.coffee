@@ -12,11 +12,14 @@ require ["components/ui/swiper", "components/ui/sync_gallery"], (SwiperUI, SyncG
 
   for eventName in INTERESTING_EVENTS
     $(document).on eventName, (event, data) ->
-      console.log(event, data) if console? && console.log?
+      console?.log?(event, data)
 
   SwiperUI.attachTo "#ui_swiper_sync"
   SwiperUI.attachTo "#ui_swiper"
-  SyncGalleryUI.attachTo document, { componentsToSync: ["#ui_swiper", "#ui_swiper_sync"] }
+  SwiperUI.attachTo "#ui_swiper_sync2"
+  SwiperUI.attachTo "#ui_swiper2"
+  SyncGalleryUI.attachTo "#sync-container", { componentsToSync: $('#sync-container .swiper-container') }
+  SyncGalleryUI.attachTo "#sync-container2", { componentsToSync: $("#sync-container2 .swiper-container") }
 
   # Example of overriding SwiperJS defaults.
   # SwiperUI.attachTo "#ui_swiper", { swiperConfig: { loop: true } }

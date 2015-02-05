@@ -12,7 +12,7 @@ require ["components/ui/swiper"], (SwiperUI) ->
 
   for eventName in INTERESTING_EVENTS
     $(document).on eventName, (event, data) ->
-      console.log(event, data) if console? && console.log?
+      console?.log?(event, data)
 
   SwiperUI.attachTo "#ui_swiper"
   # Example of overriding SwiperJS defaults.

@@ -9,12 +9,14 @@ define [
   defineComponent ->
 
     @defaultAttrs
-      componentsToSync: []
+      # Attach this component to a div that wraps the galleries you would like to sync.
+      # .attachTo "#sync-container", {componentsToSync: $('#sync-container .swiper-container')}
+      # 'componentsToSync' is an array of DOM elements.
+      componentsToSync: null
 
     @updateSyncedComponents = (event, data) ->
-      target = "#" + event.target.id
       for component in @attr.componentsToSync
-        if component != target
+        unless $(component).is(event.target)
           $(component).trigger('uiSwiperWantsToGoToIndex', {index: data.activeIndex})
 
     @after 'initialize', ->
