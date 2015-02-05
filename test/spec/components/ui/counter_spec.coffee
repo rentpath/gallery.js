@@ -13,6 +13,6 @@ define [ 'jquery' ], ($) ->
 
     describe 'update counter', ->
 
-      it "injects active number after uiSwiperSlideChanged", ->
-        @component.$node.trigger('uiSwiperSlideChanged', {activeIndex: 1, total: 3})
+      it "injects active number after uiGallerySlideChanged", ->
+        @component.$node.trigger('uiGallerySlideChanged', {activeIndex: 1, total: 3})
         expect($('.js-ui-counter-active').text()).toBe('2')

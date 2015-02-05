@@ -10,7 +10,7 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         component = _ref[_i];
         if (!$(component).is(event.target)) {
-          _results.push($(component).trigger('uiSwiperWantsToGoToIndex', {
+          _results.push($(component).trigger('uiGalleryWantsToGoToIndex', {
             index: data.activeIndex
           }));
         } else {
@@ -20,7 +20,7 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
       return _results;
     };
     return this.after('initialize', function() {
-      return this.on('uiSwiperSlideChanged', this.updateSyncedComponents);
+      return this.on('uiGallerySlideChanged', this.updateSyncedComponents);
     });
   });
 });

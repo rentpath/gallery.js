@@ -31,12 +31,12 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
               total: swiper.slides.length
             };
           }
-          return _this.trigger('uiSwiperSlideChanged', dataPayload);
+          return _this.trigger('uiGallerySlideChanged', dataPayload);
         };
       })(this);
       swiperConfig.onSlideClick = (function(_this) {
         return function(swiper) {
-          return _this.trigger('uiSwiperSlideClicked', {
+          return _this.trigger('uiGallerySlideClicked', {
             index: swiper.clickedSlideIndex
           });
         };
@@ -64,9 +64,9 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
       return value || 0;
     };
     return this.after('initialize', function() {
-      this.on('uiSwiperWantsNextItem', this.nextItem);
-      this.on('uiSwiperWantsPrevItem', this.prevItem);
-      this.on('uiSwiperWantsToGoToIndex', this.goToIndex);
+      this.on('uiGalleryWantsNextItem', this.nextItem);
+      this.on('uiGalleryWantsPrevItem', this.prevItem);
+      this.on('uiGalleryWantsToGoToIndex', this.goToIndex);
       if (this.attr.autoInit) {
         return this.initSwiper();
       }
