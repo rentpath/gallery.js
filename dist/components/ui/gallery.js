@@ -12,22 +12,15 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
         value = _ref[key];
         swiperConfig[key] = value;
       }
+      this.total = this.$node.find('.swiper-slide').length;
       swiperConfig.onSlideChangeStart = (function(_this) {
         return function(swiper) {
           var dataPayload;
-          if (swiper.params.loop) {
-            dataPayload = {
-              activeIndex: swiper.activeLoopIndex,
-              previousIndex: _this.normalizePreviousIndex(swiper.previousIndex),
-              total: $(swiper.slides).not('.swiper-slide-duplicate').length
-            };
-          } else {
-            dataPayload = {
-              activeIndex: swiper.activeIndex,
-              previousIndex: _this.normalizePreviousIndex(swiper.previousIndex),
-              total: swiper.slides.length
-            };
-          }
+          dataPayload = {
+            activeIndex: swiper.activeIndex,
+            previousIndex: _this.normalizePreviousIndex(swiper.previousIndex),
+            total: _this.total
+          };
           return _this.trigger('uiGallerySlideChanged', dataPayload);
         };
       })(this);
