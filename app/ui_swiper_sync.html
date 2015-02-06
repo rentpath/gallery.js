@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>gallery.js</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/bower_components/swiper/dist/idangerous.swiper.css">
+  </head>
+  <body>
+
+    <h1>Gallery Demo</h1>
+
+    <a href="/">back to index</a>
+
+    <h2>components/ui/swiper</h2>
+
+    <div id="sync-container">
+      <div class="swiper-container" id="ui_swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="slide-a">slide 0</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-b">slide 1</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-c">slide 2</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-a">slide 3</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-b">slide 4</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-c">slide 5</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-a">slide 6</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-b">slide 7</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="swiper-container" id="ui_swiper_sync">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="slide-a">slide 0</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-b">slide 1</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-c">slide 2</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-a">slide 3</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-b">slide 4</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-c">slide 5</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-a">slide 6</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-b">slide 7</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="sync-container2">
+      <div class="swiper-container" id="ui_swiper2">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="slide-a">slide 0</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-b">slide 1</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-c">slide 2</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-a">slide 3</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-b">slide 4</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-c">slide 5</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-a">slide 6</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-b">slide 7</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="swiper-container" id="ui_swiper_sync2">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="slide-a">slide 0</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-b">slide 1</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-c">slide 2</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-a">slide 3</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-b">slide 4</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-c">slide 5</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-a">slide 6</div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-b">slide 7</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Events that this component listens for</h3>
+    <ul>
+      <li><a href="javascript:$('#ui_swiper').trigger('uiGalleryWantsNextItem')">uiGalleryWantsNextItem</a></li>
+      <li><a href="javascript:$('#ui_swiper').trigger('uiGalleryWantsPrevItem')">uiGalleryWantsPrevItem</a></li>
+      <li>uiGalleryWantsToGoToIndex
+      <ul>
+        <li><a href="javascript:$('#ui_swiper').trigger('uiGalleryWantsToGoToIndex', {index: 0})">{ index: 0 }</a></li>
+        <li><a href="javascript:$('#ui_swiper').trigger('uiGalleryWantsToGoToIndex', {index: 1})">{ index: 1 }</a></li>
+        <li><a href="javascript:$('#ui_swiper').trigger('uiGalleryWantsToGoToIndex', {index: 2})">{ index: 2 }</a></li>
+        <li><a href="javascript:$('#ui_swiper').trigger('uiGalleryWantsToGoToIndex', {index: 3})">{ index: 3 }</a></li>
+        <li><a href="javascript:$('#ui_swiper').trigger('uiGalleryWantsToGoToIndex', {index: 4})">{ index: 4 }</a></li>
+        <li><a href="javascript:$('#ui_swiper').trigger('uiGalleryWantsToGoToIndex', {index: 5})">{ index: 5 }</a></li>
+        <li><a href="javascript:$('#ui_swiper').trigger('uiGalleryWantsToGoToIndex', {index: 6})">{ index: 6 }</a></li>
+        <li><a href="javascript:$('#ui_swiper').trigger('uiGalleryWantsToGoToIndex', {index: 7})">{ index: 7 }</a></li>
+        <li>Examples with optional "speed"
+          <ul>
+            <li><a href="javascript:$('#ui_swiper').trigger('uiGalleryWantsToGoToIndex', {index: 0, speed: 0})">{ index: 0, speed: 0 }</a></li>
+            <li><a href="javascript:$('#ui_swiper').trigger('uiGalleryWantsToGoToIndex', {index: 7, speed: 0})">{ index: 7, speed: 0 }</a></li>
+          </ul>
+        </li>
+      </ul>
+      </li>
+    </ul>
+
+    <!--[if lt IE 9]>
+    <script src="/bower_components/es5-shim/es5-shim.js"></script>
+    <script src="/bower_components/es5-shim/es5-sham.js"></script>
+    <![endif]-->
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/requirejs/require.js" data-main="js/demo/ui_swiper_sync.js"></script>
+
+  </body>
+</html>

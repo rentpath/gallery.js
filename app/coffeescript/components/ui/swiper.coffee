@@ -17,7 +17,12 @@ define [
     # The component's node should contain div.swiper-wrapper which
     # should contain any number of div.swiper-slide elements.
     @initSwiper = ->
-      @attr.swiperConfig.onSlideChangeStart = (swiper) =>
+      # swiperConfig is set here due to the fact that @defaultAttrs can be
+      # clobbered when multiple instances of a component are initialized.
+      swiperConfig = {}
+      for key, value of @attr.swiperConfig
+        swiperConfig[key] = value
+      swiperConfig.onSlideChangeStart = (swiper) =>
         if swiper.params.loop
           totalSlides = $.grep swiper.slides, (slide) ->
             ! $(slide).hasClass 'swiper-slide-duplicate'
@@ -33,10 +38,10 @@ define [
 
         @trigger 'uiGallerySlideChanged', dataPayload
 
-      @attr.swiperConfig.onSlideClick = (swiper) =>
+      swiperConfig.onSlideClick = (swiper) =>
         @trigger 'uiGallerySlideClicked', { index: swiper.clickedSlideIndex }
 
-      @swiper = new Swiper(@node, @attr.swiperConfig)
+      @swiper = new Swiper(@node, swiperConfig)
 
       $(window).on 'orientationchange', ->
         @swiper.reInit()
@@ -52,7 +57,8 @@ define [
     @goToIndex = (event, data) ->
       # data.index is required int
       # data.speed is optional (may be undefined) int (milliseconds)
-      @swiper.swipeTo(data.index, data.speed)
+      if data.index != @swiper.activeIndex
+        @swiper.swipeTo(data.index, data.speed)
 
     @normalizePreviousIndex = (value) ->
       # Swiper intially reports previous index as -0

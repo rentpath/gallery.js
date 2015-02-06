@@ -26,8 +26,8 @@ require [
   ]
 
   for eventName in INTERESTING_EVENTS
-    $('#integration').on eventName, (event, data) ->
-      console.log(event, data) if console && console.log
+    $(document).on eventName, (event, data) ->
+      console?.log?(event, data)
 
   GalleryUI.attachTo "#integration", { lazyLoadThreshold: 2, errorUrl: '/images/missing.jpg' }
   NavigationButtonsUI.attachTo "#integration"
