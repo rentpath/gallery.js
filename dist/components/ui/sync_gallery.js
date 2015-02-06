@@ -10,7 +10,7 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         component = _ref[_i];
         if (!$(component).is(event.target)) {
-          _results.push($(component).trigger('uiGalleryWantsToGoToIndex', {
+          _results.push(this.trigger(component, 'uiGalleryWantsToGoToIndex', {
             index: data.activeIndex
           }));
         } else {

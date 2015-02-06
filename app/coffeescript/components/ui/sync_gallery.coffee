@@ -17,7 +17,7 @@ define [
     @updateSyncedComponents = (event, data) ->
       for component in @attr.componentsToSync
         unless $(component).is(event.target)
-          $(component).trigger('uiGalleryWantsToGoToIndex', {index: data.activeIndex})
+          @trigger(component, 'uiGalleryWantsToGoToIndex', {index: data.activeIndex})
 
     @after 'initialize', ->
       @on 'uiGallerySlideChanged', @updateSyncedComponents
