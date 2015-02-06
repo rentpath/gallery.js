@@ -33,17 +33,17 @@ require [
     $(document).on eventName, (event, data) ->
       console?.log?(event, data)
 
-  NavigationButtonsUI.attachTo "#integration"
-  CounterUI.attachTo "#integration" #, { activeSelector: '.js-ui-counter-active', totalSelector: '.js-ui-counter-total' }
-  ContentUI.attachTo "#integration"
+  NavigationButtonsUI.attachTo ".js-integration"
+  CounterUI.attachTo ".js-integration" #, { activeSelector: '.js-ui-counter-active', totalSelector: '.js-ui-counter-total' }
+  ContentUI.attachTo ".js-integration"
 
-  $('#integration').on 'uiGalleryContentReady', ->
-    ImageLoaderUI.attachTo "#integration", { lazyLoadThreshold: 2, errorUrl: '/images/missing.jpg' }
-    GalleryUI.attachTo "#integration", { swiperConfig: { loop: true } }
+  $('.js-integration').on 'uiGalleryContentReady', ->
+    ImageLoaderUI.attachTo ".js-integration", { lazyLoadThreshold: 2, errorUrl: '/images/missing.jpg' }
+    GalleryUI.attachTo ".js-integration", { swiperConfig: { loop: true } }
 
-  $('#integration').one 'uiGallerySlideChanged', ->
-    $('#integration').trigger 'uiLazyLoadRequest'
+  $('.js-integration').one 'uiGallerySlideChanged', ->
+    $('.js-integration').trigger 'uiLazyLoadRequest'
 
   IMAGES = ["/images/1.jpg", "/images/2.jpg", "/images/3.jpg", "/images/4.jpg", "/images/5.jpg", "/intentional404"]
 
-  $('#integration').trigger 'dataGalleryContentAvailable', { urls: IMAGES }
+  $('.js-integration').trigger 'dataGalleryContentAvailable', { urls: IMAGES }

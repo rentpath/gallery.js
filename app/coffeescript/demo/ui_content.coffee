@@ -13,4 +13,4 @@ require ["components/ui/content"], (ContentUI) ->
     $(document).on eventName, (event, data) ->
       console?.log?(event, data)
 
-  ContentUI.attachTo "#ui_swiper_content"
+  ContentUI.attachTo ".js-ui-content"

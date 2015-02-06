@@ -7,4 +7,4 @@ requirejs.config
 
 require ["components/ui/image_loader"], (LazyLoaderUI) ->
 
-  LazyLoaderUI.attachTo "#ui_image_loader", { lazyLoadThreshold: 2, errorUrl: '/images/missing.jpg' }
+  LazyLoaderUI.attachTo ".js-ui-image-loader", { lazyLoadThreshold: 2, errorUrl: '/images/missing.jpg' }

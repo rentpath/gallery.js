@@ -14,6 +14,6 @@ require ["components/ui/gallery"], (GalleryUI) ->
     $(document).on eventName, (event, data) ->
       console?.log?(event, data)
 
-  GalleryUI.attachTo "#ui_swiper"
+  GalleryUI.attachTo ".js-ui-gallery"
   # Example of overriding SwiperJS defaults.
   #SwiperUI.attachTo "#ui_swiper", { swiperConfig: { loop: true } }
