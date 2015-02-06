@@ -26,7 +26,7 @@ require [
     'uiGalleryFeaturesDetected'
     'uiGalleryContentReady'
     'dataGalleryContentAvailable'
-    'uiLazyLoadRequest'
+    'uiGalleryLazyLoadRequested'
   ]
 
   for eventName in INTERESTING_EVENTS
@@ -34,7 +34,7 @@ require [
       console?.log?(event, data)
 
   NavigationButtonsUI.attachTo ".js-integration"
-  CounterUI.attachTo ".js-integration" #, { activeSelector: '.js-ui-counter-active', totalSelector: '.js-ui-counter-total' }
+  CounterUI.attachTo ".js-integration"
   ContentUI.attachTo ".js-integration"
 
   $('.js-integration').on 'uiGalleryContentReady', ->
@@ -42,7 +42,7 @@ require [
     GalleryUI.attachTo ".js-integration", { swiperConfig: { loop: true } }
 
   $('.js-integration').one 'uiGallerySlideChanged', ->
-    $('.js-integration').trigger 'uiLazyLoadRequest'
+    $('.js-integration').trigger 'uiGalleryLazyLoadRequested'
 
   IMAGES = ["/images/1.jpg", "/images/2.jpg", "/images/3.jpg", "/images/4.jpg", "/images/5.jpg", "/intentional404"]
 

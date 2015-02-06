@@ -37,4 +37,4 @@ define [
 
       # After first slide change, lazy load remaining images.
       @$node.one 'uiGallerySlideChanged', =>
-        @trigger 'uiLazyLoadRequest'
+        @trigger 'uiGalleryLazyLoadRequested'

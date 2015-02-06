@@ -20,7 +20,7 @@ define(['jquery', 'flight/lib/component', 'components/ui/gallery', 'components/u
       ContentUI.attachTo(this.$node);
       return this.$node.one('uiGallerySlideChanged', (function(_this) {
         return function() {
-          return _this.trigger('uiLazyLoadRequest');
+          return _this.trigger('uiGalleryLazyLoadRequested');
         };
       })(this));
     });

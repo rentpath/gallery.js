@@ -14,15 +14,12 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
       }
       swiperConfig.onSlideChangeStart = (function(_this) {
         return function(swiper) {
-          var dataPayload, totalSlides;
+          var dataPayload;
           if (swiper.params.loop) {
-            totalSlides = $.grep(swiper.slides, function(slide) {
-              return !$(slide).hasClass('swiper-slide-duplicate');
-            });
             dataPayload = {
               activeIndex: swiper.activeLoopIndex,
               previousIndex: _this.normalizePreviousIndex(swiper.previousIndex),
-              total: totalSlides.length
+              total: $(swiper.slides).not('.swiper-slide-duplicate').length
             };
           } else {
             dataPayload = {

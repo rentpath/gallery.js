@@ -10,9 +10,9 @@ define [ 'jquery' ], ($) ->
         expected = '<img src="foo"><img src="bar"><img data-src="barney"><img data-src="baz">'
         expect(@component.$node.html()).toEqual(expected)
 
-      it "sets src of remaining images to data-src when uiLazyLoadRequest", ->
+      it "sets src of remaining images to data-src when uiGalleryLazyLoadRequested", ->
         expected = '<img src="foo"><img src="bar"><img src="barney"><img src="baz">'
-        @component.$node.trigger('uiLazyLoadRequest')
+        @component.$node.trigger('uiGalleryLazyLoadRequested')
         expect(@component.$node.html()).toEqual(expected)
 
     describe 'without lazyLoadThreshold', ->

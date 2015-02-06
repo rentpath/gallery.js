@@ -13,7 +13,7 @@ define [
       # To enable lazy loading, set to the index where lazy loading is to start.
       # Example: If set to 2, then the first two images will be loaded
       # after initialization.  The 3rd and later items will be lazy loaded
-      # when uiLazyLoadRequest is received.
+      # when uiGalleryLazyLoadRequested is received.
       lazyLoadThreshold: undefined
 
     @loadImages = (num) ->
@@ -36,5 +36,5 @@ define [
 
     @after 'initialize', ->
       @setupImageErrorHandler()
-      @on 'uiLazyLoadRequest', @lazyLoad
+      @on 'uiGalleryLazyLoadRequested', @lazyLoad
       @initialLoad()

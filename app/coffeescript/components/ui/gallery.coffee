@@ -24,12 +24,10 @@ define [
         swiperConfig[key] = value
       swiperConfig.onSlideChangeStart = (swiper) =>
         if swiper.params.loop
-          totalSlides = $.grep swiper.slides, (slide) ->
-            ! $(slide).hasClass 'swiper-slide-duplicate'
           dataPayload =
             activeIndex: swiper.activeLoopIndex
             previousIndex: @normalizePreviousIndex(swiper.previousIndex)
-            total: totalSlides.length
+            total: $(swiper.slides).not('.swiper-slide-duplicate').length
         else
           dataPayload =
             activeIndex: swiper.activeIndex
