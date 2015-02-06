@@ -22,17 +22,14 @@ define [
       swiperConfig = {}
       for key, value of @attr.swiperConfig
         swiperConfig[key] = value
+
+      @total = @$node.find('.swiper-slide').length
+
       swiperConfig.onSlideChangeStart = (swiper) =>
-        if swiper.params.loop
-          dataPayload =
-            activeIndex: swiper.activeLoopIndex
-            previousIndex: @normalizePreviousIndex(swiper.previousIndex)
-            total: $(swiper.slides).not('.swiper-slide-duplicate').length
-        else
-          dataPayload =
-            activeIndex: swiper.activeIndex
-            previousIndex: @normalizePreviousIndex(swiper.previousIndex)
-            total: swiper.slides.length
+        dataPayload =
+          activeIndex: swiper.activeIndex
+          previousIndex: @normalizePreviousIndex(swiper.previousIndex)
+          total: @total
 
         @trigger 'uiGallerySlideChanged', dataPayload
 
