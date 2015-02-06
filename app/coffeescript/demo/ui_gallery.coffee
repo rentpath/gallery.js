@@ -16,4 +16,4 @@ require ["components/ui/gallery"], (GalleryUI) ->
 
   GalleryUI.attachTo ".js-ui-gallery"
   # Example of overriding SwiperJS defaults.
-  #SwiperUI.attachTo "#ui_swiper", { swiperConfig: { loop: true } }
+  # GalleryUI.attachTo ".js-ui-gallery", { swiperConfig: { loop: true } }

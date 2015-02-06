@@ -20,6 +20,4 @@ require ["components/ui/gallery", "components/ui/gallery_syncer"], (GalleryUI, G
   GalleryUI.attachTo ".js-ui-gallery2"
   GallerySyncerUI.attachTo ".js-sync-container", { componentsToSync: $('.js-sync-container .swiper-container') }
   GallerySyncerUI.attachTo ".js-sync-container2", { componentsToSync: $(".js-sync-container2 .swiper-container") }
-
-  # Example of overriding SwiperJS defaults.
-  # GalleryUI.attachTo "#ui_swiper", { swiperConfig: { loop: true } }
+  
