@@ -8,7 +8,7 @@ requirejs.config
 
 require ["components/ui/swiper", "components/ui/sync_gallery"], (SwiperUI, SyncGalleryUI) ->
 
-  INTERESTING_EVENTS = ['uiSwiperSlideChanged', 'uiSwiperInitialized', 'uiSwiperSlideClicked']
+  INTERESTING_EVENTS = ['uiGallerySlideChanged', 'uiSwiperInitialized', 'uiSwiperSlideClicked']
 
   for eventName in INTERESTING_EVENTS
     $(document).on eventName, (event, data) ->
