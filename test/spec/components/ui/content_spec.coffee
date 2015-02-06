@@ -1,5 +1,5 @@
 define [ 'jquery' ], ($) ->
-  describeComponent 'gallery/components/ui/swiper_content', ->
+  describeComponent 'gallery/components/ui/content', ->
     fixture = "<div></div>"
 
     beforeEach ->

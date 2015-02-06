@@ -6,7 +6,7 @@ requirejs.config
     swiper: "swiper/dist/idangerous.swiper.min"
     jquery: "jquery/dist/jquery.min"
 
-require ["components/ui/swiper"], (SwiperUI) ->
+require ["components/ui/gallery"], (GalleryUI) ->
 
   INTERESTING_EVENTS = ['uiGallerySlideChanged', 'uiGalleryFeaturesDetected', 'uiGallerySlideClicked']
 
@@ -14,6 +14,6 @@ require ["components/ui/swiper"], (SwiperUI) ->
     $(document).on eventName, (event, data) ->
       console?.log?(event, data)
 
-  SwiperUI.attachTo "#ui_swiper"
+  GalleryUI.attachTo "#ui_swiper"
   # Example of overriding SwiperJS defaults.
   #SwiperUI.attachTo "#ui_swiper", { swiperConfig: { loop: true } }

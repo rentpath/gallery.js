@@ -1,28 +1,75 @@
-define(['jquery', 'flight/lib/component', 'components/ui/swiper', 'components/ui/swiper_content', 'components/ui/image_loader'], function($, defineComponent, SwiperUI, SwiperContentUI, ImageLoaderUI) {
+define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent) {
   return defineComponent(function() {
     this.defaultAttrs({
-      errorUrl: void 0,
-      lazyLoadThreshold: void 0,
-      swiperConfig: {}
+      swiperConfig: {},
+      autoInit: true
     });
+    this.initSwiper = function() {
+      var key, swiperConfig, value, _ref;
+      swiperConfig = {};
+      _ref = this.attr.swiperConfig;
+      for (key in _ref) {
+        value = _ref[key];
+        swiperConfig[key] = value;
+      }
+      swiperConfig.onSlideChangeStart = (function(_this) {
+        return function(swiper) {
+          var dataPayload, totalSlides;
+          if (swiper.params.loop) {
+            totalSlides = $.grep(swiper.slides, function(slide) {
+              return !$(slide).hasClass('swiper-slide-duplicate');
+            });
+            dataPayload = {
+              activeIndex: swiper.activeLoopIndex,
+              previousIndex: _this.normalizePreviousIndex(swiper.previousIndex),
+              total: totalSlides.length
+            };
+          } else {
+            dataPayload = {
+              activeIndex: swiper.activeIndex,
+              previousIndex: _this.normalizePreviousIndex(swiper.previousIndex),
+              total: swiper.slides.length
+            };
+          }
+          return _this.trigger('uiGallerySlideChanged', dataPayload);
+        };
+      })(this);
+      swiperConfig.onSlideClick = (function(_this) {
+        return function(swiper) {
+          return _this.trigger('uiGallerySlideClicked', {
+            index: swiper.clickedSlideIndex
+          });
+        };
+      })(this);
+      this.swiper = new Swiper(this.node, swiperConfig);
+      $(window).on('orientationchange', function() {
+        return this.swiper.reInit();
+      });
+      return this.trigger('uiSwiperInitialized', {
+        swiper: this.swiper
+      });
+    };
+    this.nextItem = function() {
+      return this.swiper.swipeNext();
+    };
+    this.prevItem = function() {
+      return this.swiper.swipePrev();
+    };
+    this.goToIndex = function(event, data) {
+      if (data.index !== this.swiper.activeIndex) {
+        return this.swiper.swipeTo(data.index, data.speed);
+      }
+    };
+    this.normalizePreviousIndex = function(value) {
+      return value || 0;
+    };
     return this.after('initialize', function() {
-      this.on('uiGalleryContentReady', (function(_this) {
-        return function() {
-          ImageLoaderUI.attachTo(_this.$node, {
-            lazyLoadThreshold: _this.attr.lazyLoadThreshold,
-            errorUrl: _this.attr.errorUrl
-          });
-          return SwiperUI.attachTo(_this.$node, {
-            swiperConfig: _this.attr.swiperConfig
-          });
-        };
-      })(this));
-      SwiperContentUI.attachTo(this.$node);
-      return this.$node.one('uiGallerySlideChanged', (function(_this) {
-        return function() {
-          return _this.trigger('uiLazyLoadRequest');
-        };
-      })(this));
+      this.on('uiGalleryWantsNextItem', this.nextItem);
+      this.on('uiGalleryWantsPrevItem', this.prevItem);
+      this.on('uiGalleryWantsToGoToIndex', this.goToIndex);
+      if (this.attr.autoInit) {
+        return this.initSwiper();
+      }
     });
   });
 });

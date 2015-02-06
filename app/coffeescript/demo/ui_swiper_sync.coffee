@@ -6,7 +6,7 @@ requirejs.config
     swiper: "swiper/dist/idangerous.swiper.min"
     jquery: "jquery/dist/jquery.min"
 
-require ["components/ui/swiper", "components/ui/sync_gallery"], (SwiperUI, SyncGalleryUI) ->
+require ["components/ui/gallery", "components/ui/gallery_syncer"], (GalleryUI, GallerySyncerUI) ->
 
   INTERESTING_EVENTS = ['uiGallerySlideChanged', 'uiSwiperInitialized', 'uiGallerySlideClicked']
 
@@ -14,12 +14,12 @@ require ["components/ui/swiper", "components/ui/sync_gallery"], (SwiperUI, SyncG
     $(document).on eventName, (event, data) ->
       console?.log?(event, data)
 
-  SwiperUI.attachTo "#ui_swiper_sync"
-  SwiperUI.attachTo "#ui_swiper"
-  SwiperUI.attachTo "#ui_swiper_sync2"
-  SwiperUI.attachTo "#ui_swiper2"
-  SyncGalleryUI.attachTo "#sync-container", { componentsToSync: $('#sync-container .swiper-container') }
-  SyncGalleryUI.attachTo "#sync-container2", { componentsToSync: $("#sync-container2 .swiper-container") }
+  GalleryUI.attachTo "#ui_swiper_sync"
+  GalleryUI.attachTo "#ui_swiper"
+  GalleryUI.attachTo "#ui_swiper_sync2"
+  GalleryUI.attachTo "#ui_swiper2"
+  GallerySyncerUI.attachTo "#sync-container", { componentsToSync: $('#sync-container .swiper-container') }
+  GallerySyncerUI.attachTo "#sync-container2", { componentsToSync: $("#sync-container2 .swiper-container") }
 
   # Example of overriding SwiperJS defaults.
-  # SwiperUI.attachTo "#ui_swiper", { swiperConfig: { loop: true } }
+  # GalleryUI.attachTo "#ui_swiper", { swiperConfig: { loop: true } }

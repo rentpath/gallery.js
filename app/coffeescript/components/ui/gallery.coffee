@@ -1,37 +1,71 @@
 define [
   'jquery'
   'flight/lib/component'
-  'components/ui/swiper'
-  'components/ui/swiper_content'
-  'components/ui/image_loader'
+  'swiper'
 ], (
   $
   defineComponent
-  SwiperUI
-  SwiperContentUI
-  ImageLoaderUI
 ) ->
-
-  # This component orchestrates various lower-level components.
-  # After attaching it, kick everything off by triggering
-  # a 'dataGalleryContentAvailable' event with 'urls' (array of image urls)
-  # for the SwiperContentUI subcomponent.
 
   defineComponent ->
 
     @defaultAttrs
-      # ImageLoaderUI options:
-      errorUrl: undefined
-      lazyLoadThreshold: undefined
       swiperConfig: {}
+      autoInit: true     # for use by specs
+
+    # This component assumes that the swiper content has already been setup.
+    # The component's node should contain div.swiper-wrapper which
+    # should contain any number of div.swiper-slide elements.
+    @initSwiper = ->
+      # swiperConfig is set here due to the fact that @defaultAttrs can be
+      # clobbered when multiple instances of a component are initialized.
+      swiperConfig = {}
+      for key, value of @attr.swiperConfig
+        swiperConfig[key] = value
+      swiperConfig.onSlideChangeStart = (swiper) =>
+        if swiper.params.loop
+          totalSlides = $.grep swiper.slides, (slide) ->
+            ! $(slide).hasClass 'swiper-slide-duplicate'
+          dataPayload =
+            activeIndex: swiper.activeLoopIndex
+            previousIndex: @normalizePreviousIndex(swiper.previousIndex)
+            total: totalSlides.length
+        else
+          dataPayload =
+            activeIndex: swiper.activeIndex
+            previousIndex: @normalizePreviousIndex(swiper.previousIndex)
+            total: swiper.slides.length
+
+        @trigger 'uiGallerySlideChanged', dataPayload
+
+      swiperConfig.onSlideClick = (swiper) =>
+        @trigger 'uiGallerySlideClicked', { index: swiper.clickedSlideIndex }
+
+      @swiper = new Swiper(@node, swiperConfig)
+
+      $(window).on 'orientationchange', ->
+        @swiper.reInit()
+
+      @trigger 'uiSwiperInitialized', { swiper: @swiper }
+
+    @nextItem = ->
+      @swiper.swipeNext()
+
+    @prevItem = ->
+      @swiper.swipePrev()
+
+    @goToIndex = (event, data) ->
+      # data.index is required int
+      # data.speed is optional (may be undefined) int (milliseconds)
+      if data.index != @swiper.activeIndex
+        @swiper.swipeTo(data.index, data.speed)
+
+    @normalizePreviousIndex = (value) ->
+      # Swiper intially reports previous index as -0
+      value || 0
 
     @after 'initialize', ->
-      @on 'uiGalleryContentReady', =>
-        ImageLoaderUI.attachTo @$node, { lazyLoadThreshold: @attr.lazyLoadThreshold, errorUrl: @attr.errorUrl }
-        SwiperUI.attachTo @$node, { swiperConfig: @attr.swiperConfig }
-
-      SwiperContentUI.attachTo @$node
-
-      # After first slide change, lazy load remaining images.
-      @$node.one 'uiGallerySlideChanged', =>
-        @trigger 'uiLazyLoadRequest'
+      @on 'uiGalleryWantsNextItem', @nextItem
+      @on 'uiGalleryWantsPrevItem', @prevItem
+      @on 'uiGalleryWantsToGoToIndex', @goToIndex
+      @initSwiper() if @attr.autoInit

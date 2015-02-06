@@ -14,10 +14,10 @@ define [
       # 'componentsToSync' is an array of DOM elements.
       componentsToSync: null
 
-    @updateSyncedComponents = (event, data) ->
+    @updateSyncedGalleries = (event, data) ->
       for component in @attr.componentsToSync
         unless $(component).is(event.target)
           @trigger(component, 'uiGalleryWantsToGoToIndex', {index: data.activeIndex})
 
     @after 'initialize', ->
-      @on 'uiGallerySlideChanged', @updateSyncedComponents
+      @on 'uiGallerySlideChanged', @updateSyncedGalleries
