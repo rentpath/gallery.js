@@ -1,4 +1,4 @@
-define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent) {
+define(['jquery', 'flight/lib/component'], function($, defineComponent) {
   return defineComponent(function() {
     this.defaultAttrs({
       activeSelector: '.js-ui-counter-active',

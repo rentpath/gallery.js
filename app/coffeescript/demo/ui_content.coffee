@@ -5,7 +5,7 @@ requirejs.config
     components: "../js/components"
     jquery: "jquery/dist/jquery.min"
 
-require ["components/ui/swiper_content"], (SwiperContentUI) ->
+require ["components/ui/content"], (ContentUI) ->
 
   INTERESTING_EVENTS = ['uiGalleryContentReady']
 
@@ -13,4 +13,4 @@ require ["components/ui/swiper_content"], (SwiperContentUI) ->
     $(document).on eventName, (event, data) ->
       console?.log?(event, data)
 
-  SwiperContentUI.attachTo "#ui_swiper_content"
+  ContentUI.attachTo ".js-ui-content"

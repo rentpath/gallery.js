@@ -3,7 +3,7 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
     this.defaultAttrs({
       componentsToSync: null
     });
-    this.updateSyncedComponents = function(event, data) {
+    this.updateSyncedGalleries = function(event, data) {
       var component, _i, _len, _ref, _results;
       _ref = this.attr.componentsToSync;
       _results = [];
@@ -20,7 +20,7 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
       return _results;
     };
     return this.after('initialize', function() {
-      return this.on('uiGallerySlideChanged', this.updateSyncedComponents);
+      return this.on('uiGallerySlideChanged', this.updateSyncedGalleries);
     });
   });
 });

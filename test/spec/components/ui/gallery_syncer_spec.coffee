@@ -1,23 +1,23 @@
 define [ 'jquery' ], ($) ->
-  describeComponent 'gallery/components/ui/sync_gallery', ->
+  describeComponent 'gallery/components/ui/gallery_syncer', ->
 
-    describe '#updateSyncedComponents', ->
+    describe '#updateSyncedGalleries', ->
       beforeEach ->
-        loadFixtures('sync_gallery.html')
-        @swiper = $('#ui_swiper')
-        @swiperSync = $('#ui_swiper_sync')
-        @setupComponent($('#syncer'), { componentsToSync: [@swiper, @swiperSync] })
+        loadFixtures('gallery_syncer.html')
+        @gallery = $('.js-ui-gallery')
+        @gallerySync = $('.js-ui-gallery-sync')
+        @setupComponent($('.js-syncer'), { componentsToSync: [@gallery, @gallerySync] })
 
       it 'triggers uiGalleryWantsToGoToIndex on components that need to be synced', ->
-        event = {target: @swiper[0]}
+        event = {target: @gallery[0]}
         data = {activeIndex: 1}
-        spyEvent = spyOnEvent('#ui_swiper_sync', 'uiGalleryWantsToGoToIndex')
-        @component.updateSyncedComponents(event, data)
-        expect(spyEvent).toHaveBeenTriggeredOnAndWith('#ui_swiper_sync', {index: 1})
+        spyEvent = spyOnEvent('.js-ui-gallery-sync', 'uiGalleryWantsToGoToIndex')
+        @component.updateSyncedGalleries(event, data)
+        expect(spyEvent).toHaveBeenTriggeredOnAndWith('.js-ui-gallery-sync', {index: 1})
 
       it 'does not trigger uiGalleryWantsToGoToIndex on components that should NOT be synced', ->
-        event = {target: @swiper[0]}
+        event = {target: @gallery[0]}
         data = {activeIndex: 1}
-        spyEvent = spyOnEvent('#ui_swiper', 'uiGalleryWantsToGoToIndex')
-        @component.updateSyncedComponents(event, data)
-        expect(spyEvent).not.toHaveBeenTriggeredOnAndWith('#ui_swiper', {index: 1})
+        spyEvent = spyOnEvent('.js-ui-gallery', 'uiGalleryWantsToGoToIndex')
+        @component.updateSyncedGalleries(event, data)
+        expect(spyEvent).not.toHaveBeenTriggeredOnAndWith('.js-ui-gallery', {index: 1})

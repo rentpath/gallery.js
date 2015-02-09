@@ -1,7 +1,6 @@
 define [
   'jquery'
   'flight/lib/component'
-  'swiper'
 ], (
   $
   defineComponent
