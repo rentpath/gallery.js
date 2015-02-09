@@ -1,6 +1,16 @@
 {
   "name": "gallery",
-  "version": "0.0.0",
+  "description": "One image gallery to rule them all",
+  "main": [
+    "dist/components/ui/content.js",
+    "dist/components/ui/counter.js",
+    "dist/components/ui/gallery.js",
+    "dist/components/ui/gallery_syncer.js",
+    "dist/components/ui/image_loader.js",
+    "dist/components/ui/keyboard_navigation.js",
+    "dist/components/ui/navigation_buttons.js"
+  ],
+  "version": "0.0.1",
   "dependencies": {
     "jquery": "2.x.x",
     "flight": "~1.1.0",
