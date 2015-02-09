@@ -1,6 +1,6 @@
 {
   "name": "gallery.js",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "devDependencies": {
     "del": "^1.1.0",
     "generator-flight": "~0.8.0",
