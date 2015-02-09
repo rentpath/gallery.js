@@ -15,10 +15,10 @@
 
     <a href="/">back to index</a>
 
-    <h2>components/ui/swiper</h2>
+    <h2>components/ui/gallery_syncer</h2>
 
-    <div id="sync-container">
-      <div class="swiper-container" id="ui_swiper">
+    <div class="js-sync-container">
+      <div class="js-ui-gallery swiper-container">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
             <div class="slide-a">slide 0</div>
@@ -47,7 +47,7 @@
         </div>
       </div>
 
-      <div class="swiper-container" id="ui_swiper_sync">
+      <div class="js-ui-gallery-sync swiper-container">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
             <div class="slide-a">slide 0</div>
@@ -77,8 +77,8 @@
       </div>
     </div>
 
-    <div id="sync-container2">
-      <div class="swiper-container" id="ui_swiper2">
+    <div class="js-sync-container2">
+      <div class="js-ui-gallery2 swiper-container">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
             <div class="slide-a">slide 0</div>
@@ -107,7 +107,7 @@
         </div>
       </div>
 
-      <div class="swiper-container" id="ui_swiper_sync2">
+      <div class="js-ui-gallery-sync2 swiper-container">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
             <div class="slide-a">slide 0</div>
@@ -139,22 +139,22 @@
 
     <h3>Events that this component listens for</h3>
     <ul>
-      <li><a href="javascript:$('#ui_swiper').trigger('uiGalleryWantsNextItem')">uiGalleryWantsNextItem</a></li>
-      <li><a href="javascript:$('#ui_swiper').trigger('uiGalleryWantsPrevItem')">uiGalleryWantsPrevItem</a></li>
+      <li><a href="javascript:$('.js-ui-gallery').trigger('uiGalleryWantsNextItem')">uiGalleryWantsNextItem</a></li>
+      <li><a href="javascript:$('.js-ui-gallery').trigger('uiGalleryWantsPrevItem')">uiGalleryWantsPrevItem</a></li>
       <li>uiGalleryWantsToGoToIndex
       <ul>
-        <li><a href="javascript:$('#ui_swiper').trigger('uiGalleryWantsToGoToIndex', {index: 0})">{ index: 0 }</a></li>
-        <li><a href="javascript:$('#ui_swiper').trigger('uiGalleryWantsToGoToIndex', {index: 1})">{ index: 1 }</a></li>
-        <li><a href="javascript:$('#ui_swiper').trigger('uiGalleryWantsToGoToIndex', {index: 2})">{ index: 2 }</a></li>
-        <li><a href="javascript:$('#ui_swiper').trigger('uiGalleryWantsToGoToIndex', {index: 3})">{ index: 3 }</a></li>
-        <li><a href="javascript:$('#ui_swiper').trigger('uiGalleryWantsToGoToIndex', {index: 4})">{ index: 4 }</a></li>
-        <li><a href="javascript:$('#ui_swiper').trigger('uiGalleryWantsToGoToIndex', {index: 5})">{ index: 5 }</a></li>
-        <li><a href="javascript:$('#ui_swiper').trigger('uiGalleryWantsToGoToIndex', {index: 6})">{ index: 6 }</a></li>
-        <li><a href="javascript:$('#ui_swiper').trigger('uiGalleryWantsToGoToIndex', {index: 7})">{ index: 7 }</a></li>
+        <li><a href="javascript:$('.js-ui-gallery').trigger('uiGalleryWantsToGoToIndex', {index: 0})">{ index: 0 }</a></li>
+        <li><a href="javascript:$('.js-ui-gallery').trigger('uiGalleryWantsToGoToIndex', {index: 1})">{ index: 1 }</a></li>
+        <li><a href="javascript:$('.js-ui-gallery').trigger('uiGalleryWantsToGoToIndex', {index: 2})">{ index: 2 }</a></li>
+        <li><a href="javascript:$('.js-ui-gallery').trigger('uiGalleryWantsToGoToIndex', {index: 3})">{ index: 3 }</a></li>
+        <li><a href="javascript:$('.js-ui-gallery').trigger('uiGalleryWantsToGoToIndex', {index: 4})">{ index: 4 }</a></li>
+        <li><a href="javascript:$('.js-ui-gallery').trigger('uiGalleryWantsToGoToIndex', {index: 5})">{ index: 5 }</a></li>
+        <li><a href="javascript:$('.js-ui-gallery').trigger('uiGalleryWantsToGoToIndex', {index: 6})">{ index: 6 }</a></li>
+        <li><a href="javascript:$('.js-ui-gallery').trigger('uiGalleryWantsToGoToIndex', {index: 7})">{ index: 7 }</a></li>
         <li>Examples with optional "speed"
           <ul>
-            <li><a href="javascript:$('#ui_swiper').trigger('uiGalleryWantsToGoToIndex', {index: 0, speed: 0})">{ index: 0, speed: 0 }</a></li>
-            <li><a href="javascript:$('#ui_swiper').trigger('uiGalleryWantsToGoToIndex', {index: 7, speed: 0})">{ index: 7, speed: 0 }</a></li>
+            <li><a href="javascript:$('.js-ui-gallery').trigger('uiGalleryWantsToGoToIndex', {index: 0, speed: 0})">{ index: 0, speed: 0 }</a></li>
+            <li><a href="javascript:$('.js-ui-gallery').trigger('uiGalleryWantsToGoToIndex', {index: 7, speed: 0})">{ index: 7, speed: 0 }</a></li>
           </ul>
         </li>
       </ul>
@@ -166,7 +166,7 @@
     <script src="/bower_components/es5-shim/es5-sham.js"></script>
     <![endif]-->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
-    <script src="/bower_components/requirejs/require.js" data-main="js/demo/ui_swiper_sync.js"></script>
+    <script src="/bower_components/requirejs/require.js" data-main="js/demo/ui_gallery_syncer.js"></script>
 
   </body>
 </html>

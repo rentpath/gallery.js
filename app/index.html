@@ -21,35 +21,37 @@
 
     <h2>Integration Demo</h2>
 
-    <div class="swiper-container" id="integration">
+    <div class="js-integration swiper-container" id="integration">
       <div id="navigation">
         <a href="#" class="js-ui-navigation-previous">&lt; Previous</a>
         <a href="#" class="js-ui-navigation-next">Next &gt;</a>
       </div>
-      <div class="counter"><span class="js-ui-counter-active"></span> of <span class="js-ui-counter-total"></span></div>
+      <div class="counter">
+        <span class="js-ui-counter-active"></span> of <span class="js-ui-counter-total"></span>
+      </div>
     </div>
 
     <p>Once nav components exist, they could be added to this demo. For now we just provide links to trigger events.</p>
     <p>
-      <a href="javascript:$('#integration').trigger('uiGalleryWantsNextItem')">uiGalleryWantsNextItem</a>
+      <a href="javascript:$('.js-integration').trigger('uiGalleryWantsNextItem')">uiGalleryWantsNextItem</a>
       |
-      <a href="javascript:$('#integration').trigger('uiGalleryWantsPrevItem')">uiGalleryWantsPrevItem</a>
+      <a href="javascript:$('.js-integration').trigger('uiGalleryWantsPrevItem')">uiGalleryWantsPrevItem</a>
       |
       uiGalleryWantsToGoToIndex:
-      <a href="javascript:$('#integration').trigger('uiGalleryWantsToGoToIndex', {index: 0})">0</a>
-      <a href="javascript:$('#integration').trigger('uiGalleryWantsToGoToIndex', {index: 1})">1</a>
-      <a href="javascript:$('#integration').trigger('uiGalleryWantsToGoToIndex', {index: 2})">2</a>
-      <a href="javascript:$('#integration').trigger('uiGalleryWantsToGoToIndex', {index: 3})">3</a>
-      <a href="javascript:$('#integration').trigger('uiGalleryWantsToGoToIndex', {index: 4})">4</a>
-      <a href="javascript:$('#integration').trigger('uiGalleryWantsToGoToIndex', {index: 5})">5</a>
+      <a href="javascript:$('.js-integration').trigger('uiGalleryWantsToGoToIndex', {index: 0})">0</a>
+      <a href="javascript:$('.js-integration').trigger('uiGalleryWantsToGoToIndex', {index: 1})">1</a>
+      <a href="javascript:$('.js-integration').trigger('uiGalleryWantsToGoToIndex', {index: 2})">2</a>
+      <a href="javascript:$('.js-integration').trigger('uiGalleryWantsToGoToIndex', {index: 3})">3</a>
+      <a href="javascript:$('.js-integration').trigger('uiGalleryWantsToGoToIndex', {index: 4})">4</a>
+      <a href="javascript:$('.js-integration').trigger('uiGalleryWantsToGoToIndex', {index: 5})">5</a>
     </p>
 
     <h2>Other Component Demos</h2>
     <ul>
-      <li><a href="ui_swiper.html">ui/swiper</a></li>
-      <li><a href="ui_swiper_content.html">ui/swiper_content</a></li>
+      <li><a href="ui_gallery.html">ui/gallery</a></li>
+      <li><a href="ui_content.html">ui/content</a></li>
       <li><a href="ui_image_loader.html">ui/image_loader</a></li>
-      <li><a href="ui_swiper_sync.html">ui/swiper_sync</a></li>
+      <li><a href="ui_gallery_syncer.html">ui/gallery_syncer</a></li>
     </ul>
 
     <!--[if lt IE 9]>

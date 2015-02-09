@@ -16,7 +16,7 @@
 
     <h2>components/ui/image_loader</h2>
 
-    <div class="generic-container" id="ui_image_loader">
+    <div class="js-ui-image-loader generic-container">
       <img data-src="/images/1.jpg">
       <img data-src="/images/2.jpg">
       <img data-src="/images/3.jpg">
@@ -25,7 +25,7 @@
     </div>
 
     <h3>Events that this component listens for</h3>
-    <a href="javascript: $('#ui_image_loader').trigger('uiLazyLoadRequest')">uiLazyLoadRequest</a>
+    <a href="javascript: $('.js-ui-image-loader').trigger('uiGalleryLazyLoadRequested')">uiGalleryLazyLoadRequested</a>
 
     <!--[if lt IE 9]>
     <script src="/bower_components/es5-shim/es5-shim.js"></script>

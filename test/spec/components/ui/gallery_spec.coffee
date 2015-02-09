@@ -1,9 +1,9 @@
 define [ 'jquery' ], ($) ->
-  describeComponent 'gallery/components/ui/swiper', ->
+  describeComponent 'gallery/components/ui/gallery', ->
     TIMEOUT = 500
 
     beforeEach ->
-      @fixture = readFixtures('swiper.html')
+      @fixture = readFixtures('gallery.html')
 
     describe '#initSwiper', ->
       beforeEach ->

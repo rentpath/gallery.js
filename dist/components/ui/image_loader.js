@@ -29,7 +29,7 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
     };
     return this.after('initialize', function() {
       this.setupImageErrorHandler();
-      this.on('uiLazyLoadRequest', this.lazyLoad);
+      this.on('uiGalleryLazyLoadRequested', this.lazyLoad);
       return this.initialLoad();
     });
   });
