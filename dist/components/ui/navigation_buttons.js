@@ -3,7 +3,7 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
     this.defaultAttrs({
       previousSelector: '.js-ui-navigation-previous',
       nextSelector: '.js-ui-navigation-next',
-      disabledClass: 'hidden',
+      disabledClass: 'disabled',
       loop: false
     });
     this.initializeNavigation = function(event, data) {

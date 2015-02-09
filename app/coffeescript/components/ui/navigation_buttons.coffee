@@ -11,7 +11,7 @@ define [
     @defaultAttrs
       previousSelector: '.js-ui-navigation-previous'
       nextSelector: '.js-ui-navigation-next'
-      disabledClass: 'hidden'
+      disabledClass: 'disabled'
       loop: false
 
     @initializeNavigation = (event, data) ->

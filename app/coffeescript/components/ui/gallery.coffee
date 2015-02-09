@@ -35,9 +35,6 @@ define [
 
       @swiper = new Swiper(@node, swiperConfig)
 
-      $(window).on 'orientationchange', ->
-        @swiper.reInit()
-
       @trigger 'uiSwiperInitialized', { swiper: @swiper }
 
     @nextItem = ->
@@ -49,7 +46,7 @@ define [
     @goToIndex = (event, data) ->
       # data.index is required int
       # data.speed is optional (may be undefined) int (milliseconds)
-      if data.index != @swiper.activeIndex
+      unless data.index is @swiper.activeIndex
         @swiper.swipeTo(data.index, data.speed)
 
     @normalizePreviousIndex = (value) ->
@@ -61,3 +58,6 @@ define [
       @on 'uiGalleryWantsPrevItem', @prevItem
       @on 'uiGalleryWantsToGoToIndex', @goToIndex
       @initSwiper() if @attr.autoInit
+
+      $(window).on 'orientationchange', ->
+        @swiper?.reInit()

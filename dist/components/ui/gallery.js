@@ -31,9 +31,6 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
         };
       })(this);
       this.swiper = new Swiper(this.node, swiperConfig);
-      $(window).on('orientationchange', function() {
-        return this.swiper.reInit();
-      });
       return this.trigger('uiSwiperInitialized', {
         swiper: this.swiper
       });
@@ -57,8 +54,12 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
       this.on('uiGalleryWantsPrevItem', this.prevItem);
       this.on('uiGalleryWantsToGoToIndex', this.goToIndex);
       if (this.attr.autoInit) {
-        return this.initSwiper();
+        this.initSwiper();
       }
+      return $(window).on('orientationchange', function() {
+        var _ref;
+        return (_ref = this.swiper) != null ? _ref.reInit() : void 0;
+      });
     });
   });
 });

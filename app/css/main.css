@@ -31,7 +31,7 @@
 .generic-container {
   border: 1px solid gray;
 }
-.hidden {
+.disabled {
   display: none;
 }
 .counter {
