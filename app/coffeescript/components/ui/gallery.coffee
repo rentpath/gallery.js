@@ -11,7 +11,6 @@ define [
 
     @defaultAttrs
       swiperConfig: {}
-      autoInit: true     # for use by specs
 
     # This component assumes that the swiper content has already been setup.
     # The component's node should contain div.swiper-wrapper which
@@ -22,6 +21,7 @@ define [
       swiperConfig = {}
       for key, value of @attr.swiperConfig
         swiperConfig[key] = value
+
       swiperConfig.onSlideChangeStart = (swiper) =>
         dataPayload =
           activeIndex: if swiper.params.loop then swiper.activeLoopIndex else swiper.activeIndex
@@ -54,10 +54,9 @@ define [
       value || 0
 
     @after 'initialize', ->
+      @on 'uiGalleryContentReady', @initSwiper
       @on 'uiGalleryWantsNextItem', @nextItem
       @on 'uiGalleryWantsPrevItem', @prevItem
       @on 'uiGalleryWantsToGoToIndex', @goToIndex
-      @initSwiper() if @attr.autoInit
-
       $(window).on 'orientationchange', ->
         @swiper?.reInit()

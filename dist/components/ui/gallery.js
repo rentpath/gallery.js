@@ -1,8 +1,7 @@
 define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent) {
   return defineComponent(function() {
     this.defaultAttrs({
-      swiperConfig: {},
-      autoInit: true
+      swiperConfig: {}
     });
     this.initSwiper = function() {
       var key, swiperConfig, value, _ref;
@@ -50,12 +49,10 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
       return value || 0;
     };
     return this.after('initialize', function() {
+      this.on('uiGalleryContentReady', this.initSwiper);
       this.on('uiGalleryWantsNextItem', this.nextItem);
       this.on('uiGalleryWantsPrevItem', this.prevItem);
       this.on('uiGalleryWantsToGoToIndex', this.goToIndex);
-      if (this.attr.autoInit) {
-        this.initSwiper();
-      }
       return $(window).on('orientationchange', function() {
         var _ref;
         return (_ref = this.swiper) != null ? _ref.reInit() : void 0;

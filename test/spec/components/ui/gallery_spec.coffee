@@ -4,23 +4,21 @@ define [ 'jquery' ], ($) ->
 
     beforeEach ->
       @fixture = readFixtures('gallery.html')
+      @setupComponent(@fixture)
 
-    describe '#initSwiper', ->
-      beforeEach ->
-        @setupComponent(@fixture, { autoInit: false })
-
+    describe "after uiGalleryContentReady event", ->
       it 'configures the Swiper', ->
-        @component.initSwiper()
+        @component.$node.trigger('uiGalleryContentReady')
         expect(@component.swiper).toBeDefined()
 
       it 'triggers uiSwiperInitialized', ->
         spy = spyOnEvent(@component.node, 'uiSwiperInitialized')
-        @component.initSwiper()
+        @component.$node.trigger('uiGalleryContentReady')
         expect('uiSwiperInitialized').toHaveBeenTriggeredOnAndWith(@component.node, { swiper: @component.swiper })
 
-    describe 'events', ->
+    describe "other events", ->
       beforeEach ->
-        @setupComponent(@fixture)
+        @component.$node.trigger('uiGalleryContentReady')
 
       it "calls swiper.swipeNext() after uiGalleryWantsNextItem", ->
         spy = spyOn(@component.swiper, 'swipeNext')
