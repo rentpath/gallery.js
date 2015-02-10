@@ -35,5 +35,5 @@ define [
         img.attr('src', img.attr('data-src')).removeAttr('data-src')
 
     @after 'initialize', ->
+      @on 'uiGalleryContentReady', @initialLoad
       @on 'uiGalleryLazyLoadRequested', @lazyLoad
-      @initialLoad()

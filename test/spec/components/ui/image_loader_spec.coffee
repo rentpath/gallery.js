@@ -5,6 +5,7 @@ define [ 'jquery' ], ($) ->
     describe 'with lazyLoadThreshold', ->
       beforeEach ->
         @setupComponent(fixture, { lazyLoadThreshold: 2 })
+        @component.$node.trigger('uiGalleryContentReady')
 
       it "initially sets src of first images to data-src", ->
         expected = '<img src="foo"><img src="bar"><img data-src="barney"><img data-src="baz">'
@@ -18,6 +19,7 @@ define [ 'jquery' ], ($) ->
     describe 'without lazyLoadThreshold', ->
       beforeEach ->
         @setupComponent(fixture)
+        @component.$node.trigger('uiGalleryContentReady')
 
       it "initially sets src of all images to data-src", ->
         expected = '<img src="foo"><img src="bar"><img src="barney"><img src="baz">'
@@ -31,6 +33,7 @@ define [ 'jquery' ], ($) ->
 
       beforeEach ->
         @setupComponent(errorFixture, { errorUrl: ERROR_URL })
+        @component.$node.trigger('uiGalleryContentReady')
 
       it "sets src of error images to errorUrl", (done) ->
         setTimeout =>

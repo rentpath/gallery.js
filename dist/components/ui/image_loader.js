@@ -25,8 +25,8 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
       });
     };
     return this.after('initialize', function() {
-      this.on('uiGalleryLazyLoadRequested', this.lazyLoad);
-      return this.initialLoad();
+      this.on('uiGalleryContentReady', this.initialLoad);
+      return this.on('uiGalleryLazyLoadRequested', this.lazyLoad);
     });
   });
 });
