@@ -12,13 +12,16 @@
   ],
   "version": "0.0.1",
   "dependencies": {
-    "jquery": "2.x.x",
+    "jquery": "~1.11.0",
     "flight": "~1.1.0",
     "requirejs": "~2.1.5",
     "swiper": "git@github.com:nolimits4web/Swiper.git#v2.7.5"
   },
   "devDependencies": {
     "jasmine-flight": "3.x.x"
+  },
+  "resolutions": {
+    "jquery": "~1.11.0"
   },
   "ignore": [
     ".gitignore",
