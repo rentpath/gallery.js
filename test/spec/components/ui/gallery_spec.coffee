@@ -4,9 +4,11 @@ define [ 'jquery' ], ($) ->
 
     beforeEach ->
       @fixture = readFixtures('gallery.html')
-      @setupComponent(@fixture)
 
     describe "after uiGalleryContentReady event", ->
+      beforeEach ->
+        @setupComponent(@fixture)
+
       it 'configures the Swiper', ->
         @component.$node.trigger('uiGalleryContentReady')
         expect(@component.swiper).toBeDefined()
@@ -18,6 +20,7 @@ define [ 'jquery' ], ($) ->
 
     describe "other events", ->
       beforeEach ->
+        @setupComponent(@fixture)
         @component.$node.trigger('uiGalleryContentReady')
 
       it "calls swiper.swipeNext() after uiGalleryWantsNextItem", ->
@@ -71,3 +74,39 @@ define [ 'jquery' ], ($) ->
         $('.swiper-slide')[2].click()
 
         expect('uiGallerySlideClicked').toHaveBeenTriggeredOnAndWith(@component.node, { index: 2 })
+
+    describe "with loop enabled", ->
+      beforeEach ->
+        @setupComponent(@fixture, { swiperConfig: { loop: true } })
+        @component.$node.trigger('uiGalleryContentReady')
+
+      it "triggers uiGallerySlideChanged after swipeNext()", (done) ->
+        spy = spyOnEvent(@component.node, 'uiGallerySlideChanged')
+        @component.swiper.swipeNext()
+
+        # wait for async event from swiper
+        setTimeout =>
+          expect('uiGallerySlideChanged').toHaveBeenTriggeredOnAndWith(@component.node, { activeIndex: 1, previousIndex: 0, total: 4 })
+          done()
+        , TIMEOUT
+
+      it "triggers uiGallerySlideChanged after swipePrev()", (done) ->
+        @component.swiper.swipeTo(1, 0)
+        spy = spyOnEvent(@component.node, 'uiGallerySlideChanged')
+        @component.swiper.swipePrev()
+
+        # wait for async event from swiper
+        setTimeout =>
+          expect('uiGallerySlideChanged').toHaveBeenTriggeredOnAndWith(@component.node, { activeIndex: 0, previousIndex: 1, total: 4 })
+          done()
+        , TIMEOUT
+
+      it "triggers uiGallerySlideChanged after swipeTo()", (done) ->
+        spy = spyOnEvent(@component.node, 'uiGallerySlideChanged')
+        @component.swiper.swipeTo(3)
+
+        # wait for async event from swiper
+        setTimeout =>
+          expect('uiGallerySlideChanged').toHaveBeenTriggeredOnAndWith(@component.node, { activeIndex: 3, previousIndex: 0, total: 4 })
+          done()
+        , TIMEOUT

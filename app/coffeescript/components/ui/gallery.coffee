@@ -22,19 +22,23 @@ define [
       for key, value of @attr.swiperConfig
         swiperConfig[key] = value
 
-      swiperConfig.onSlideChangeStart = (swiper) =>
+      @total = @$node.find('.swiper-slide').length
+
+      swiperConfig.onSlideChangeStart = =>
+        activeIndex = @activeIndex()
         dataPayload =
-          activeIndex: if swiper.params.loop then swiper.activeLoopIndex else swiper.activeIndex
-          previousIndex: @normalizePreviousIndex(swiper.previousIndex)
-          total: @$node.find('.swiper-slide').length
+          activeIndex: activeIndex
+          previousIndex: @previousIndex
+          total: @total
 
         @trigger 'uiGallerySlideChanged', dataPayload
+        @previousIndex = activeIndex
 
       swiperConfig.onSlideClick = (swiper) =>
         @trigger 'uiGallerySlideClicked', { index: swiper.clickedSlideIndex }
 
+      @previousIndex = 0
       @swiper = new Swiper(@node, swiperConfig)
-
       @trigger 'uiSwiperInitialized', { swiper: @swiper }
 
     @nextItem = ->
@@ -43,15 +47,14 @@ define [
     @prevItem = ->
       @swiper.swipePrev()
 
+    @activeIndex = ->
+      if @swiper.params.loop then @swiper.activeLoopIndex else @swiper.activeIndex
+
     @goToIndex = (event, data) ->
       # data.index is required int
       # data.speed is optional (may be undefined) int (milliseconds)
-      unless data.index is @swiper.activeIndex
+      unless data.index is @activeIndex()
         @swiper.swipeTo(data.index, data.speed)
-
-    @normalizePreviousIndex = (value) ->
-      # Swiper intially reports previous index as -0
-      value || 0
 
     @after 'initialize', ->
       @on 'uiGalleryContentReady', @initSwiper
