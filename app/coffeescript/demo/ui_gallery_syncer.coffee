@@ -20,3 +20,8 @@ require ["components/ui/gallery", "components/ui/gallery_syncer"], (GalleryUI, G
   GalleryUI.attachTo ".js-ui-gallery2"
   GallerySyncerUI.attachTo ".js-sync-container", { componentsToSync: $('.js-sync-container .swiper-container') }
   GallerySyncerUI.attachTo ".js-sync-container2", { componentsToSync: $(".js-sync-container2 .swiper-container") }
+
+  $(".js-ui-gallery").trigger "uiGalleryContentReady"
+  $(".js-ui-gallery-sync").trigger "uiGalleryContentReady"
+  $(".js-ui-gallery2").trigger "uiGalleryContentReady"
+  $(".js-ui-gallery-sync2").trigger "uiGalleryContentReady"
