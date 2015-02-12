@@ -1,8 +1,7 @@
 define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent) {
   return defineComponent(function() {
     this.defaultAttrs({
-      swiperConfig: {},
-      autoInit: true
+      swiperConfig: {}
     });
     this.initSwiper = function() {
       var key, swiperConfig, value, _ref;
@@ -12,15 +11,18 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
         value = _ref[key];
         swiperConfig[key] = value;
       }
+      this.total = this.$node.find('.swiper-slide').length;
       swiperConfig.onSlideChangeStart = (function(_this) {
-        return function(swiper) {
-          var dataPayload;
+        return function() {
+          var activeIndex, dataPayload;
+          activeIndex = _this.activeIndex();
           dataPayload = {
-            activeIndex: swiper.params.loop ? swiper.activeLoopIndex : swiper.activeIndex,
-            previousIndex: _this.normalizePreviousIndex(swiper.previousIndex),
-            total: _this.$node.find('.swiper-slide').length
+            activeIndex: activeIndex,
+            previousIndex: _this.previousIndex,
+            total: _this.total
           };
-          return _this.trigger('uiGallerySlideChanged', dataPayload);
+          _this.trigger('uiGallerySlideChanged', dataPayload);
+          return _this.previousIndex = activeIndex;
         };
       })(this);
       swiperConfig.onSlideClick = (function(_this) {
@@ -30,6 +32,7 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
           });
         };
       })(this);
+      this.previousIndex = 0;
       this.swiper = new Swiper(this.node, swiperConfig);
       return this.trigger('uiSwiperInitialized', {
         swiper: this.swiper
@@ -41,21 +44,23 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
     this.prevItem = function() {
       return this.swiper.swipePrev();
     };
+    this.activeIndex = function() {
+      if (this.swiper.params.loop) {
+        return this.swiper.activeLoopIndex;
+      } else {
+        return this.swiper.activeIndex;
+      }
+    };
     this.goToIndex = function(event, data) {
-      if (data.index !== this.swiper.activeIndex) {
+      if (data.index !== this.activeIndex()) {
         return this.swiper.swipeTo(data.index, data.speed);
       }
     };
-    this.normalizePreviousIndex = function(value) {
-      return value || 0;
-    };
     return this.after('initialize', function() {
+      this.on('uiGalleryContentReady', this.initSwiper);
       this.on('uiGalleryWantsNextItem', this.nextItem);
       this.on('uiGalleryWantsPrevItem', this.prevItem);
       this.on('uiGalleryWantsToGoToIndex', this.goToIndex);
-      if (this.attr.autoInit) {
-        this.initSwiper();
-      }
       return $(window).on('orientationchange', function() {
         var _ref;
         return (_ref = this.swiper) != null ? _ref.reInit() : void 0;

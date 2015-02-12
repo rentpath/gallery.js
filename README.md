@@ -3,6 +3,8 @@
 A reusable gallery component.
 Implemented as FlightJS components in Coffeescript.
 
+[Read the component API documentation.](API.md)
+
 ## Using gallery in an application.
 
 - Add the appropriate line to bower.json

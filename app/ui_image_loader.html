@@ -25,7 +25,10 @@
     </div>
 
     <h3>Events that this component listens for</h3>
-    <a href="javascript: $('.js-ui-image-loader').trigger('uiGalleryLazyLoadRequested')">uiGalleryLazyLoadRequested</a>
+    <ul>
+      <li><a href="javascript: $('.js-ui-image-loader').trigger('uiGalleryContentReady')">uiGalleryContentReady</a> (load initial images)</li>
+      <li><a href="javascript: $('.js-ui-image-loader').trigger('uiGalleryLazyLoadRequested')">uiGalleryLazyLoadRequested</a> (load remaining images)</li>
+    </ul>
 
     <!--[if lt IE 9]>
     <script src="/bower_components/es5-shim/es5-shim.js"></script>

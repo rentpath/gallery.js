@@ -16,25 +16,24 @@ define [
       # when uiGalleryLazyLoadRequested is received.
       lazyLoadThreshold: undefined
 
-    @loadImages = (num) ->
-      # num may be undefined to indicate all images
-      @$node.find("img[data-src]").slice(0, num).each ->
-        img = $(@)
-        img.attr('src', img.attr('data-src')).removeAttr('data-src')
-
     @initialLoad = ->
       @loadImages(@attr.lazyLoadThreshold)
 
     @lazyLoad = ->
       @loadImages()
 
-    @setupImageErrorHandler = ->
-      return unless @attr.errorUrl?
+    @loadImages = (num) ->
+      # num is the number of images to load
+      # num may be undefined to indicate all images
       errorUrl = @attr.errorUrl
-      @$node.find('img').on 'error', ->
-        @src = errorUrl
+      @$node.find("img[data-src]").slice(0, num).each ->
+        img = $(@)
+
+        if errorUrl
+          img.on 'error', -> @src = errorUrl
+
+        img.attr('src', img.attr('data-src')).removeAttr('data-src')
 
     @after 'initialize', ->
-      @setupImageErrorHandler()
+      @on 'uiGalleryContentReady', @initialLoad
       @on 'uiGalleryLazyLoadRequested', @lazyLoad
-      @initialLoad()
