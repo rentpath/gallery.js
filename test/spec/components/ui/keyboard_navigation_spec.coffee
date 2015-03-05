@@ -20,6 +20,15 @@ define [ 'jquery' ], ($) ->
           $(document).trigger @event
           expect(spyEvent).not.toHaveBeenTriggeredOn(@selector)
 
+      describe 'when a prm dialog modal is open', ->
+
+        it 'should not trigger on keydown', ->
+          spyEvent = spyOnEvent @selector, 'uiGalleryWantsPrevItem'
+          @event.which = 37
+          $('#modal-container').append('<div class="prm_dialog_modal"></div>')
+          $(document).trigger @event
+          expect(spyEvent).not.toHaveBeenTriggeredOn(@selector)
+
       describe 'uiGalleryWantsPrevItem', ->
 
         beforeEach ->

@@ -20,8 +20,11 @@ define [
 
     @evaluateKeyDown = (event, data) ->
       key_code = event.which?.toString()
-      if @attr.acceptedKeys[key_code] and not $(document.activeElement).is('input, textarea, select')
+      if @attr.acceptedKeys[key_code] and not @_input_field_or_modal()
         this.trigger @attr.acceptedKeys[key_code]
+
+    @_input_field_or_modal = ->
+      $(document.activeElement).is('input, textarea, select') or $(document).find('.prm_dialog_modal').length > 0
 
     @after 'initialize', ->
       @on $(@attr.galleryNode), 'keydown', @evaluateKeyDown
