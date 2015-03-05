@@ -10,12 +10,14 @@ require [
   "components/ui/gallery"
   "components/ui/content"
   "components/ui/image_loader"
+  "components/ui/keyboard_navigation"
   "components/ui/navigation_buttons"
   "components/ui/counter"
 ], (
   GalleryUI
   ContentUI
   ImageLoaderUI
+  KeyboardNavigationUI
   NavigationButtonsUI
   CounterUI
 ) ->
@@ -27,6 +29,8 @@ require [
     'uiGalleryContentReady'
     'dataGalleryContentAvailable'
     'uiGalleryLazyLoadRequested'
+    'uiGalleryWantsNextItem'
+    'uiGalleryWantsPrevItem'
   ]
 
   selector = '.js-integration'
@@ -35,6 +39,7 @@ require [
     $(selector).on eventName, (event, data) ->
       console?.log?(event, data)
 
+  KeyboardNavigationUI.attachTo selector
   NavigationButtonsUI.attachTo selector
   CounterUI.attachTo selector
   ContentUI.attachTo selector

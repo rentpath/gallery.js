@@ -41,6 +41,20 @@
       <a href="javascript:$('.js-integration').trigger('uiGalleryWantsToGoToIndex', {index: 5})">5</a>
     </p>
 
+
+
+    <p>
+      Keyboard navigation should not work while these fields have focus:
+    </p>
+    <form>
+      <input type="text" /><br />
+      <textarea></textarea><br />
+      <select>
+        <option>Yes</option>
+        <option>No</option>
+      </select>
+    </form>
+
     <h2>Other Component Demos</h2>
     <ul>
       <li><a href="ui_gallery.html">ui/gallery</a></li>

@@ -6,13 +6,17 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
       acceptedKeys: {
         '37': 'uiGalleryWantsPrevItem',
         '109': 'uiGalleryWantsPrevItem',
+        '189': 'uiGalleryWantsPrevItem',
         '39': 'uiGalleryWantsNextItem',
-        '107': 'uiGalleryWantsNextItem'
+        '107': 'uiGalleryWantsNextItem',
+        '187': 'uiGalleryWantsNextItem'
       }
     });
-    this.evaluateKeyDown = function(ev, data) {
-      if ($(ev.target).data('gallery') && this.attr.acceptedKeys[data.which.toString()]) {
-        return this.trigger(this.attr.acceptedKeys[data.which.toString()]);
+    this.evaluateKeyDown = function(event, data) {
+      var key_code, _ref;
+      key_code = (_ref = event.which) != null ? _ref.toString() : void 0;
+      if (this.attr.acceptedKeys[key_code] && !$(document.activeElement).is('input, textarea, select')) {
+        return this.trigger(this.attr.acceptedKeys[key_code]);
       }
     };
     return this.after('initialize', function() {
