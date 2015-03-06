@@ -10,6 +10,7 @@ define [
 
     @defaultAttrs
       galleryNode: document
+      modalSelector: ''
       acceptedKeys:
         '37':  'uiGalleryWantsPrevItem' # left arrow
         '109': 'uiGalleryWantsPrevItem' # minus key (keypad)
@@ -20,11 +21,17 @@ define [
 
     @evaluateKeyDown = (event, data) ->
       key_code = event.which?.toString()
-      if @attr.acceptedKeys[key_code] and not @_input_field_or_modal()
+      if @attr.acceptedKeys[key_code] and not @_input_field_has_focus_or_modal_is_open()
         this.trigger @attr.acceptedKeys[key_code]
 
-    @_input_field_or_modal = ->
-      $(document.activeElement).is('input, textarea, select') or $(document).find('.prm_dialog_modal').length > 0
+    @_input_field_has_focus_or_modal_is_open = ->
+      @_input_field_has_focus() or @_modal_is_open()
+
+    @_input_field_has_focus = ->
+      $(document.activeElement).is('input, textarea, select')
+
+    @_modal_is_open = ->
+      $(document).find(@attr.modalSelector).length > 0
 
     @after 'initialize', ->
       @on $(@attr.galleryNode), 'keydown', @evaluateKeyDown

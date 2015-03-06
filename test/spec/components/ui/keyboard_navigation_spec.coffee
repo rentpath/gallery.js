@@ -3,7 +3,7 @@ define [ 'jquery' ], ($) ->
   describeComponent 'gallery/components/ui/keyboard_navigation', ->
     beforeEach ->
       fixture = readFixtures "gallery_page.html"
-      @setupComponent fixture
+      @setupComponent fixture, {modalSelector: '.modal'}
 
     describe '#evaluatekeydown', ->
 
@@ -20,12 +20,12 @@ define [ 'jquery' ], ($) ->
           $(document).trigger @event
           expect(spyEvent).not.toHaveBeenTriggeredOn(@selector)
 
-      describe 'when a prm dialog modal is open', ->
+      describe 'when a dialog modal is open', ->
 
         it 'should not trigger on keydown', ->
           spyEvent = spyOnEvent @selector, 'uiGalleryWantsPrevItem'
           @event.which = 37
-          $('#modal-container').append('<div class="prm_dialog_modal"></div>')
+          $('#modal-container').append('<div class="modal"></div>')
           $(document).trigger @event
           expect(spyEvent).not.toHaveBeenTriggeredOn(@selector)
 
