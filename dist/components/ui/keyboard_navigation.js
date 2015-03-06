@@ -3,7 +3,7 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
   keyboardNavigation = function() {
     this.defaultAttrs({
       galleryNode: document,
-      modalSelector: '',
+      exclusionSelector: '',
       acceptedKeys: {
         '37': 'uiGalleryWantsPrevItem',
         '109': 'uiGalleryWantsPrevItem',
@@ -27,7 +27,7 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
       return $(document.activeElement).is('input, textarea, select');
     };
     this._modal_is_open = function() {
-      return $(document).find(this.attr.modalSelector).length > 0;
+      return $(document).find(this.attr.exclusionSelector).length > 0;
     };
     return this.after('initialize', function() {
       return this.on($(this.attr.galleryNode), 'keydown', this.evaluateKeyDown);

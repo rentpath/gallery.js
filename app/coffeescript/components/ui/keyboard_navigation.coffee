@@ -10,7 +10,7 @@ define [
 
     @defaultAttrs
       galleryNode: document
-      modalSelector: ''
+      exclusionSelector: ''
       acceptedKeys:
         '37':  'uiGalleryWantsPrevItem' # left arrow
         '109': 'uiGalleryWantsPrevItem' # minus key (keypad)
@@ -31,7 +31,7 @@ define [
       $(document.activeElement).is('input, textarea, select')
 
     @_modal_is_open = ->
-      $(document).find(@attr.modalSelector).length > 0
+      $(document).find(@attr.exclusionSelector).length > 0
 
     @after 'initialize', ->
       @on $(@attr.galleryNode), 'keydown', @evaluateKeyDown

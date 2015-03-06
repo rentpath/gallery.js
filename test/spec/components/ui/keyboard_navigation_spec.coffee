@@ -3,7 +3,7 @@ define [ 'jquery' ], ($) ->
   describeComponent 'gallery/components/ui/keyboard_navigation', ->
     beforeEach ->
       fixture = readFixtures "gallery_page.html"
-      @setupComponent fixture, {modalSelector: '.modal'}
+      @setupComponent fixture, {exclusionSelector: '.modal'}
 
     describe '#evaluatekeydown', ->
 
