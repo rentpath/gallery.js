@@ -21,12 +21,12 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
       }
     };
     this._input_field_has_focus_or_modal_is_open = function() {
-      return this._input_field_has_focus() || this._modal_is_open();
+      return this._input_field_has_focus() || this._exclusion_is_present();
     };
     this._input_field_has_focus = function() {
       return $(document.activeElement).is('input, textarea, select');
     };
-    this._modal_is_open = function() {
+    this._exclusion_is_present = function() {
       return $(document).find(this.attr.exclusionSelector).length > 0;
     };
     return this.after('initialize', function() {

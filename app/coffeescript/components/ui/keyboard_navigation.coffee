@@ -25,12 +25,12 @@ define [
         this.trigger @attr.acceptedKeys[key_code]
 
     @_input_field_has_focus_or_modal_is_open = ->
-      @_input_field_has_focus() or @_modal_is_open()
+      @_input_field_has_focus() or @_exclusion_is_present()
 
     @_input_field_has_focus = ->
       $(document.activeElement).is('input, textarea, select')
 
-    @_modal_is_open = ->
+    @_exclusion_is_present = ->
       $(document).find(@attr.exclusionSelector).length > 0
 
     @after 'initialize', ->
