@@ -21,16 +21,16 @@ define [
 
     @evaluateKeyDown = (event, data) ->
       key_code = event.which?.toString()
-      if @attr.acceptedKeys[key_code] and not @_input_field_has_focus_or_modal_is_open()
+      if @attr.acceptedKeys[key_code] and not @_inputFieldHasFocusOrExclusionIsPresent()
         this.trigger @attr.acceptedKeys[key_code]
 
-    @_input_field_has_focus_or_modal_is_open = ->
-      @_input_field_has_focus() or @_exclusion_is_present()
+    @_inputFieldHasFocusOrExclusionIsPresent = ->
+      @_inputFieldHasFocus() or @_exclusionIsPresent()
 
-    @_input_field_has_focus = ->
+    @_inputFieldHasFocus = ->
       $(document.activeElement).is('input, textarea, select')
 
-    @_exclusion_is_present = ->
+    @_exclusionIsPresent = ->
       $(document).find(@attr.exclusionSelector).length > 0
 
     @after 'initialize', ->

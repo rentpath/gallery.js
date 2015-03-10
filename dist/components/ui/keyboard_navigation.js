@@ -16,17 +16,17 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
     this.evaluateKeyDown = function(event, data) {
       var key_code, _ref;
       key_code = (_ref = event.which) != null ? _ref.toString() : void 0;
-      if (this.attr.acceptedKeys[key_code] && !this._input_field_has_focus_or_modal_is_open()) {
+      if (this.attr.acceptedKeys[key_code] && !this._inputFieldHasFocusOrExclusionIsPresent()) {
         return this.trigger(this.attr.acceptedKeys[key_code]);
       }
     };
-    this._input_field_has_focus_or_modal_is_open = function() {
-      return this._input_field_has_focus() || this._exclusion_is_present();
+    this._inputFieldHasFocusOrExclusionIsPresent = function() {
+      return this._inputFieldHasFocus() || this._exclusionIsPresent();
     };
-    this._input_field_has_focus = function() {
+    this._inputFieldHasFocus = function() {
       return $(document.activeElement).is('input, textarea, select');
     };
-    this._exclusion_is_present = function() {
+    this._exclusionIsPresent = function() {
       return $(document).find(this.attr.exclusionSelector).length > 0;
     };
     return this.after('initialize', function() {
