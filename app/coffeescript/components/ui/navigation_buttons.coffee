@@ -46,10 +46,10 @@ define [
       @on 'uiGallerySlideChanged', @displayButtons
       @on 'uiSwiperInitialized', @setLoopValue
 
-      @select('previousSelector').on 'click', (event, data) =>
+      @select('previousSelector').on 'click touchstart', (event, data) =>
         event.preventDefault()
         @trigger 'uiGalleryWantsPrevItem'
 
-      @select('nextSelector').on 'click', (event, data) =>
+      @select('nextSelector').on 'click touchstart', (event, data) =>
         event.preventDefault()
         @trigger 'uiGalleryWantsNextItem'

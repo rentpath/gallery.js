@@ -45,13 +45,13 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
       this.on('dataGalleryContentAvailable', this.initializeNavigation);
       this.on('uiGallerySlideChanged', this.displayButtons);
       this.on('uiSwiperInitialized', this.setLoopValue);
-      this.select('previousSelector').on('click', (function(_this) {
+      this.select('previousSelector').on('click touchstart', (function(_this) {
         return function(event, data) {
           event.preventDefault();
           return _this.trigger('uiGalleryWantsPrevItem');
         };
       })(this));
-      return this.select('nextSelector').on('click', (function(_this) {
+      return this.select('nextSelector').on('click touchstart', (function(_this) {
         return function(event, data) {
           event.preventDefault();
           return _this.trigger('uiGalleryWantsNextItem');

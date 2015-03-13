@@ -112,9 +112,23 @@ define [ 'jquery' ], ($) ->
         $('.js-ui-navigation-next').trigger('click')
         expect(spy).toHaveBeenCalled()
 
+      it "triggers uiGalleryWantsNextItem when next is touched", ->
+        spy = jasmine.createSpy 'uiGalleryWantsNextItem'
+        @component.$node.on 'uiGalleryWantsNextItem', spy
+
+        $('.js-ui-navigation-next').trigger('touchstart')
+        expect(spy).toHaveBeenCalled()
+
       it "triggers uiGalleryWantsPrevItem when next is clicked", ->
         spy = jasmine.createSpy 'uiGalleryWantsPrevItem'
         @component.$node.on 'uiGalleryWantsPrevItem', spy
 
         $('.js-ui-navigation-previous').trigger('click')
+        expect(spy).toHaveBeenCalled()
+
+      it "triggers uiGalleryWantsPrevItem when next is touched", ->
+        spy = jasmine.createSpy 'uiGalleryWantsPrevItem'
+        @component.$node.on 'uiGalleryWantsPrevItem', spy
+
+        $('.js-ui-navigation-previous').trigger('touchstart')
         expect(spy).toHaveBeenCalled()

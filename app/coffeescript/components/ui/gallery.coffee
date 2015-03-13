@@ -37,6 +37,9 @@ define [
       swiperConfig.onSlideClick = (swiper) =>
         @trigger 'uiGallerySlideClicked', { index: swiper.clickedSlideIndex }
 
+      swiperConfig.onSlideTouch = (swiper) =>
+        @trigger 'uiGallerySlideClicked', { index: swiper.clickedSlideIndex }
+
       @previousIndex = 0
       @swiper = new Swiper(@node, swiperConfig)
       @trigger 'uiSwiperInitialized', { swiper: @swiper }
