@@ -44,7 +44,8 @@ define [ 'jquery' ], ($) ->
 
         # wait for async event from swiper
         setTimeout =>
-          expect('uiGallerySlideChanged').toHaveBeenTriggeredOnAndWith(@component.node, { activeIndex: 1, previousIndex: 0, total: 4 })
+          data = { activeIndex: 1, previousIndex: 0, total: 4, syncTransitionSpeed: 300 }
+          expect('uiGallerySlideChanged').toHaveBeenTriggeredOnAndWith(@component.node, data)
           done()
         , TIMEOUT
 
@@ -55,7 +56,8 @@ define [ 'jquery' ], ($) ->
 
         # wait for async event from swiper
         setTimeout =>
-          expect('uiGallerySlideChanged').toHaveBeenTriggeredOnAndWith(@component.node, { activeIndex: 0, previousIndex: 1, total: 4 })
+          data = { activeIndex: 0, previousIndex: 1, total: 4, syncTransitionSpeed: 300 }
+          expect('uiGallerySlideChanged').toHaveBeenTriggeredOnAndWith(@component.node, data)
           done()
         , TIMEOUT
 
@@ -65,7 +67,8 @@ define [ 'jquery' ], ($) ->
 
         # wait for async event from swiper
         setTimeout =>
-          expect('uiGallerySlideChanged').toHaveBeenTriggeredOnAndWith(@component.node, { activeIndex: 3, previousIndex: 0, total: 4 })
+          data = { activeIndex: 3, previousIndex: 0, total: 4, syncTransitionSpeed: 300 }
+          expect('uiGallerySlideChanged').toHaveBeenTriggeredOnAndWith(@component.node, data)
           done()
         , TIMEOUT
 
@@ -86,7 +89,8 @@ define [ 'jquery' ], ($) ->
 
         # wait for async event from swiper
         setTimeout =>
-          expect('uiGallerySlideChanged').toHaveBeenTriggeredOnAndWith(@component.node, { activeIndex: 1, previousIndex: 0, total: 4 })
+          data = { activeIndex: 1, previousIndex: 0, total: 4, syncTransitionSpeed: 300 }
+          expect('uiGallerySlideChanged').toHaveBeenTriggeredOnAndWith(@component.node, data)
           done()
         , TIMEOUT
 
@@ -97,7 +101,8 @@ define [ 'jquery' ], ($) ->
 
         # wait for async event from swiper
         setTimeout =>
-          expect('uiGallerySlideChanged').toHaveBeenTriggeredOnAndWith(@component.node, { activeIndex: 0, previousIndex: 1, total: 4 })
+          data = { activeIndex: 0, previousIndex: 1, total: 4, syncTransitionSpeed: 300 }
+          expect('uiGallerySlideChanged').toHaveBeenTriggeredOnAndWith(@component.node, data)
           done()
         , TIMEOUT
 
@@ -107,6 +112,7 @@ define [ 'jquery' ], ($) ->
 
         # wait for async event from swiper
         setTimeout =>
-          expect('uiGallerySlideChanged').toHaveBeenTriggeredOnAndWith(@component.node, { activeIndex: 3, previousIndex: 0, total: 4 })
+          data = { activeIndex: 3, previousIndex: 0, total: 4, syncTransitionSpeed: 300 }
+          expect('uiGallerySlideChanged').toHaveBeenTriggeredOnAndWith(@component.node, data)
           done()
         , TIMEOUT
