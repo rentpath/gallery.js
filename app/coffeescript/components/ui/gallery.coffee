@@ -11,7 +11,6 @@ define [
 
     @defaultAttrs
       swiperConfig: {}
-      syncTransitionSpeed: 300
 
     # This component assumes that the swiper content has already been setup.
     # The component's node should contain div.swiper-wrapper which
@@ -31,7 +30,6 @@ define [
           activeIndex: activeIndex
           previousIndex: @previousIndex
           total: @total
-          syncTransitionSpeed: @attr.syncTransitionSpeed
 
         @trigger 'uiGallerySlideChanged', dataPayload
         @previousIndex = activeIndex

@@ -1,8 +1,7 @@
 define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent) {
   return defineComponent(function() {
     this.defaultAttrs({
-      swiperConfig: {},
-      syncTransitionSpeed: 300
+      swiperConfig: {}
     });
     this.initSwiper = function() {
       var key, ref, swiperConfig, value;
@@ -20,8 +19,7 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
           dataPayload = {
             activeIndex: activeIndex,
             previousIndex: _this.previousIndex,
-            total: _this.total,
-            syncTransitionSpeed: _this.attr.syncTransitionSpeed
+            total: _this.total
           };
           _this.trigger('uiGallerySlideChanged', dataPayload);
           return _this.previousIndex = activeIndex;
