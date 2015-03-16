@@ -4,11 +4,11 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
       swiperConfig: {}
     });
     this.initSwiper = function() {
-      var key, swiperConfig, value, _ref;
+      var key, ref, swiperConfig, value;
       swiperConfig = {};
-      _ref = this.attr.swiperConfig;
-      for (key in _ref) {
-        value = _ref[key];
+      ref = this.attr.swiperConfig;
+      for (key in ref) {
+        value = ref[key];
         swiperConfig[key] = value;
       }
       this.total = this.$node.find('.swiper-slide').length;
@@ -62,8 +62,8 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
       this.on('uiGalleryWantsPrevItem', this.prevItem);
       this.on('uiGalleryWantsToGoToIndex', this.goToIndex);
       return $(window).on('orientationchange', function() {
-        var _ref;
-        return (_ref = this.swiper) != null ? _ref.reInit() : void 0;
+        var ref;
+        return (ref = this.swiper) != null ? ref.reInit() : void 0;
       });
     });
   });
