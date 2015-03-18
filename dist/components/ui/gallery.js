@@ -12,6 +12,11 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
         swiperConfig[key] = value;
       }
       this.total = this.$node.find('.swiper-slide').length;
+      this.$node.find('.swiper-slide').first().addClass('active-slide');
+      this.on(document, 'uiGallerySlideClicked', function(event, data) {
+        this.activateSlide(data.index);
+        return this.transitionGallery(data.slide);
+      });
       swiperConfig.onSlideChangeStart = (function(_this) {
         return function() {
           var activeIndex, dataPayload;
@@ -28,7 +33,8 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
       swiperConfig.onSlideClick = (function(_this) {
         return function(swiper) {
           return _this.trigger('uiGallerySlideClicked', {
-            index: swiper.clickedSlideIndex
+            index: swiper.clickedSlideIndex,
+            slide: swiper.clickedSlide
           });
         };
       })(this);
@@ -54,6 +60,64 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
     this.goToIndex = function(event, data) {
       if (data.index !== this.activeIndex()) {
         return this.swiper.swipeTo(data.index, data.speed);
+      }
+    };
+    this.slides = function() {
+      return this.swiper.slides;
+    };
+    this.visibleSlides = function() {
+      return this.swiper.visibleSlides;
+    };
+    this.visibleSlideCount = function() {
+      return this.visibleSlides().length;
+    };
+    this.activateSlide = function(index) {
+      this.$node.find('.swiper-slide').removeClass('active-slide');
+      return this.$node.find('.swiper-slide').eq(index).addClass('active-slide');
+    };
+    this.slideSelector = function() {
+      return '.' + this.swiper.slideClass;
+    };
+    this.firstVisibleSlide = function() {
+      return this.visibleSlides()[0];
+    };
+    this.lastVisibleSlide = function() {
+      var index;
+      index = this.visibleSlideCount() - 1;
+      return this.visibleSlides()[index];
+    };
+    this.firstVisibleSlideIndex = function() {
+      return this.slides().indexOf(this.firstVisibleSlide());
+    };
+    this.lastVisibleSlideIndex = function() {
+      return this.slides().indexOf(this.lastVisibleSlide());
+    };
+    this.advanceGallery = function() {
+      return this.trigger('uiGalleryWantsToGoToIndex', {
+        index: this.lastVisibleSlideIndex(),
+        speed: 200
+      });
+    };
+    this.rewindGallery = function() {
+      var index;
+      if (this.firstVisibleSlideIndex() > this.visibleSlideCount() - 1) {
+        index = this.firstVisibleSlideIndex() - this.visibleSlideCount() + 1;
+        return this.trigger('uiGalleryWantsToGoToIndex', {
+          index: index,
+          speed: 200
+        });
+      } else {
+        return this.trigger('uiGalleryWantsToGoToIndex', {
+          index: 0,
+          speed: 200
+        });
+      }
+    };
+    this.transitionGallery = function(slide) {
+      if (slide === this.lastVisibleSlide()) {
+        return this.advanceGallery();
+      } else if (slide === this.firstVisibleSlide()) {
+        return this.rewindGallery();
       }
     };
     return this.after('initialize', function() {
