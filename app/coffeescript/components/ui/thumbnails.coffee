@@ -27,10 +27,14 @@ define [
 
       swiperConfig.onSlideClick = (swiper) =>
         @activateSlide swiper.clickedSlideIndex
-        @transitionGallery swiper.clickedSlide
+        @transitionGallery @$node.find('.swiper-slide').eq(swiper.clickedSlideIndex)[0]
+        @trigger 'uiGallerySlideClicked', { index: swiper.clickedSlideIndex, speed: 0 }
 
       @swiper = new Swiper(@node, swiperConfig)
       @trigger 'uiSwiperInitialized', { swiper: @swiper }
+      @on document, 'uiGallerySlideChanged', (event, data) ->
+        @activateSlide data.activeIndex
+        @transitionGallery @$node.find('.swiper-slide').eq(data.activeIndex)[0]
 
     @slides = ->
       @swiper.slides
@@ -66,7 +70,13 @@ define [
         index: @lastVisibleSlideIndex(),
         speed: @attr.transitionSpeed
 
-    # make a method that executes the conditional
+    @transitionGallery = (slide) ->
+      if slide is @lastVisibleSlide()
+        @advanceGallery()
+      else if slide is @firstVisibleSlide()
+        @rewindGallery()
+
+    # Make a method that executes the conditional
     @rewindGallery = ->
       if @firstVisibleSlideIndex() > @visibleSlideCount() - 1
         @trigger 'uiGalleryWantsToGoToIndex',
@@ -76,12 +86,6 @@ define [
         @trigger 'uiGalleryWantsToGoToIndex',
           index: 0,
           speed: @attr.transitionSpeed
-
-    @transitionGallery = (slide) ->
-      if slide is @lastVisibleSlide()
-        @advanceGallery()
-      else if slide is @firstVisibleSlide()
-        @rewindGallery()
 
     @after 'initialize', ->
       @on 'uiGalleryContentReady', @initSwiper

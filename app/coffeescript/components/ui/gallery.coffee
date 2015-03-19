@@ -47,6 +47,7 @@ define [
       @on 'uiGalleryWantsNextItem', @nextItem
       @on 'uiGalleryWantsPrevItem', @prevItem
       @on 'uiGalleryWantsToGoToIndex', @goToIndex
+      @on document, 'uiGallerySlideClicked', @goToIndex
       $(window).on 'orientationchange', ->
         @swiper?.reInit()
 

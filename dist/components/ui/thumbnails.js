@@ -3,7 +3,8 @@ define(['jquery', 'flight/lib/component', '../mixins/gallery_utils', 'swiper'], 
   Thumbnails = function() {
     this.defaultAttrs({
       swiperConfig: {},
-      transitionSpeed: 200
+      transitionSpeed: 200,
+      swiperSlide: '.swiper-slide'
     });
     this.initSwiper = function() {
       var key, ref, swiperConfig, value;
@@ -17,12 +18,20 @@ define(['jquery', 'flight/lib/component', '../mixins/gallery_utils', 'swiper'], 
       swiperConfig.onSlideClick = (function(_this) {
         return function(swiper) {
           _this.activateSlide(swiper.clickedSlideIndex);
-          return _this.transitionGallery(swiper.clickedSlide);
+          _this.transitionGallery(_this.$node.find('.swiper-slide').eq(swiper.clickedSlideIndex)[0]);
+          return _this.trigger('uiGallerySlideClicked', {
+            index: swiper.clickedSlideIndex,
+            speed: 0
+          });
         };
       })(this);
       this.swiper = new Swiper(this.node, swiperConfig);
-      return this.trigger('uiSwiperInitialized', {
+      this.trigger('uiSwiperInitialized', {
         swiper: this.swiper
+      });
+      return this.on(document, 'uiGallerySlideChanged', function(event, data) {
+        this.activateSlide(data.activeIndex);
+        return this.transitionGallery(this.$node.find('.swiper-slide').eq(data.activeIndex)[0]);
       });
     };
     this.slides = function() {
@@ -55,11 +64,22 @@ define(['jquery', 'flight/lib/component', '../mixins/gallery_utils', 'swiper'], 
     this.lastVisibleSlideIndex = function() {
       return this.slides().indexOf(this.lastVisibleSlide());
     };
+    this.syncWithGallery = function(event, data) {
+      this.activateSlide(data.activeIndex);
+      return this.transitionGallery(this.$node.find('.swiper-slide').eq(data.activeIndex)[0]);
+    };
     this.advanceGallery = function() {
       return this.trigger('uiGalleryWantsToGoToIndex', {
         index: this.lastVisibleSlideIndex(),
         speed: this.attr.transitionSpeed
       });
+    };
+    this.transitionGallery = function(slide) {
+      if (slide === this.lastVisibleSlide()) {
+        return this.advanceGallery();
+      } else if (slide === this.firstVisibleSlide()) {
+        return this.rewindGallery();
+      }
     };
     this.rewindGallery = function() {
       if (this.firstVisibleSlideIndex() > this.visibleSlideCount() - 1) {
@@ -72,13 +92,6 @@ define(['jquery', 'flight/lib/component', '../mixins/gallery_utils', 'swiper'], 
           index: 0,
           speed: this.attr.transitionSpeed
         });
-      }
-    };
-    this.transitionGallery = function(slide) {
-      if (slide === this.lastVisibleSlide()) {
-        return this.advanceGallery();
-      } else if (slide === this.firstVisibleSlide()) {
-        return this.rewindGallery();
       }
     };
     return this.after('initialize', function() {

@@ -40,6 +40,7 @@ define(['jquery', 'flight/lib/component', '../mixins/gallery_utils', 'swiper'], 
       this.on('uiGalleryWantsNextItem', this.nextItem);
       this.on('uiGalleryWantsPrevItem', this.prevItem);
       this.on('uiGalleryWantsToGoToIndex', this.goToIndex);
+      this.on(document, 'uiGallerySlideClicked', this.goToIndex);
       return $(window).on('orientationchange', function() {
         var ref;
         return (ref = this.swiper) != null ? ref.reInit() : void 0;
