@@ -1,5 +1,5 @@
 define [ 'jquery' ], ($) ->
-  describeComponent 'gallery/components/ui/image_loader', ->
+  describeComponent 'app/coffeescript/components/ui/image_loader', ->
     fixture = '<div><img data-src="foo"><img data-src="bar"><img data-src="barney"><img data-src="baz"></div>'
 
     describe 'with lazyLoadThreshold', ->

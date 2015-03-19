@@ -1,5 +1,5 @@
 define [ 'jquery' ], ($) ->
-  describeComponent 'gallery/components/ui/content', ->
+  describeComponent 'app/coffeescript/components/ui/content', ->
     fixture = "<div></div>"
 
     beforeEach ->

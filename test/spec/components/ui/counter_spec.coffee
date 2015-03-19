@@ -1,5 +1,5 @@
 define [ 'jquery' ], ($) ->
-  describeComponent 'gallery/components/ui/counter', ->
+  describeComponent 'app/coffeescript/components/ui/counter', ->
 
     beforeEach ->
       @fixture = readFixtures('counter.html')

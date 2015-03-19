@@ -1,6 +1,6 @@
 define [ 'jquery' ], ($) ->
 
-  describeComponent 'gallery/components/ui/keyboard_navigation', ->
+  describeComponent 'app/coffeescript/components/ui/keyboard_navigation', ->
     beforeEach ->
       fixture = readFixtures "gallery_page.html"
       @setupComponent fixture, {exclusionSelector: '.modal'}

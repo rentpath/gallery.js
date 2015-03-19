@@ -1,5 +1,5 @@
 define [ 'jquery' ], ($) ->
-  describeComponent 'gallery/components/ui/gallery', ->
+  describeComponent 'app/coffeescript/components/ui/gallery', ->
     TIMEOUT = 500
 
     beforeEach ->
