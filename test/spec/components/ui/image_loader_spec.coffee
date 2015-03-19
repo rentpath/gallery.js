@@ -17,25 +17,22 @@ define [ 'jquery' ], ($) ->
         expect(@component.$node.html()).toEqual(expected)
 
     describe 'without lazyLoadThreshold', ->
-      beforeEach ->
+      it "initially sets src of all images to data-src", ->
         @setupComponent(fixture)
         @component.$node.trigger('uiGalleryContentReady')
-
-      it "initially sets src of all images to data-src", ->
         expected = '<img src="foo"><img src="bar"><img src="barney"><img src="baz">'
         expect(@component.$node.html()).toEqual(expected)
 
     describe 'with errorUrl', ->
-      ERROR_URL = '/base/test/spec/fixtures/images/missing.jpg'
-      TIMEOUT = 100
+      it "sets src of error images to errorUrl", (done) ->
+        ERROR_URL = '/base/test/spec/fixtures/images/missing.jpg'
+        TIMEOUT = 100
 
-      errorFixture = '<div><img data src="/base/test/spec/fixtures/images/1.jpg"><img id="error_img" data-src="intentional404"><img data-src="/base/test/spec/fixtures/images/2.jpg"></div>'
+        errorFixture = '<div><img data src="/base/test/spec/fixtures/images/1.jpg"><img id="error_img" data-src="intentional404"><img data-src="/base/test/spec/fixtures/images/2.jpg"></div>'
 
-      beforeEach ->
         @setupComponent(errorFixture, { errorUrl: ERROR_URL })
         @component.$node.trigger('uiGalleryContentReady')
 
-      it "sets src of error images to errorUrl", (done) ->
         setTimeout =>
           expect($('#error_img').attr('src')).toEqual(ERROR_URL)
           done()
