@@ -18,7 +18,7 @@ define [
     @initSwiper = ->
       # swiperConfig is set here due to the fact that @defaultAttrs can be
       # clobbered when multiple instances of a component are initialized.
-      swiperConfig = {}
+      swiperConfig = { speed: 150 }
       for key, value of @attr.swiperConfig
         swiperConfig[key] = value
 
