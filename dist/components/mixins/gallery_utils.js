@@ -3,7 +3,7 @@ define([], function() {
     this.swiper = {
       swipeTo: function() {},
       params: {
-        loop: ''
+        loop: false
       },
       activeLoopIndex: 0,
       activeIndex: 0,

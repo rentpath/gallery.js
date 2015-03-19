@@ -5,7 +5,7 @@ define [
     # Override this in base components
     @swiper =
       swipeTo: ->
-      params: {loop: ''}
+      params: {loop: false}
       activeLoopIndex: 0
       activeIndex: 0
       slideClass: ''
