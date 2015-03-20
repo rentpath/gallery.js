@@ -108,6 +108,37 @@ define ['jquery'], ($) ->
         @component.swiper = { visibleSlides: visibleSlides, slides: slides }
         expect(@component.firstVisibleSlideIndex()).toEqual(1)
 
+    describe 'rightOfVisibleSlides()', ->
+      it 'returns true if the slide is not visible and to the right', ->
+        @setupComponent()
+        visibleSlides = ['fake html element 1', 'fake html element 2']
+        notVisibleSlide = 'fake html element 3'
+        slides = visibleSlides.concat(notVisibleSlide)
+        @component.swiper = { visibleSlides: visibleSlides, slides: slides }
+        expect(@component.rightOfVisibleSlides(notVisibleSlide)).toBeTruthy()
+
+      it 'returns false if the slide is not to the right of the last slide', ->
+        @setupComponent()
+        slides = ['fake html element 1', 'fake html element 2']
+        @component.swiper = { visibleSlides: slides, slides: slides }
+        expect(@component.rightOfVisibleSlides(slides[0])).toBeFalsy()
+
+    describe 'leftOfVisibleSlides()', ->
+      it 'returns true if the slide is not visible and to the left', ->
+        @setupComponent()
+        visibleSlides = ['fake html element 2', 'fake html element 3']
+        notVisibleSlide = 'fake html element 1'
+        slides = [notVisibleSlide].concat(visibleSlides)
+        @component.swiper = { visibleSlides: visibleSlides, slides: slides }
+        expect(@component.leftOfVisibleSlides(notVisibleSlide)).toBeTruthy()
+
+      it 'returns false if the slide is not to the left of the first slide', ->
+        @setupComponent()
+        slides = ['fake html element 1', 'fake html element 2']
+        @component.swiper = { visibleSlides: slides, slides: slides }
+        expect(@component.leftOfVisibleSlides(slides[0])).toBeFalsy()
+
+
     describe 'advanceGallery()', ->
       it 'advances gallery so last visible slide becomes first visible slide', ->
         @setupComponent()
@@ -139,21 +170,39 @@ define ['jquery'], ($) ->
           @component.rewindGallery()
           expect(@component.trigger).toHaveBeenCalledWith('uiGalleryWantsToGoToIndex', { index: 1, speed: 200 })
 
-      describe 'transitionGallery', ->
-        it 'rewinds the gallery if a given slide is the first visible slide', ->
-          @setupComponent()
-          spyOn(@component, 'trigger')
-          visibleSlides = ['fake html element 2', 'fake html element 3']
-          slides = ['fake html element 1'].concat(visibleSlides)
-          @component.swiper = { visibleSlides: visibleSlides, slides: slides, params: {}, swipeTo: -> }
-          @component.transitionGallery('fake html element 2')
-          expect(@component.trigger).toHaveBeenCalledWith('uiGalleryWantsToGoToIndex', { index: 0, speed: 200 })
+    describe 'transitionGallery()', ->
+      it 'rewinds the gallery if a given slide is the first visible slide', ->
+        @setupComponent()
+        spyOn(@component, 'trigger')
+        visibleSlides = ['fake html element 2', 'fake html element 3']
+        slides = ['fake html element 1'].concat(visibleSlides)
+        @component.swiper = { visibleSlides: visibleSlides, slides: slides, params: {}, swipeTo: -> }
+        @component.transitionGallery('fake html element 2')
+        expect(@component.trigger).toHaveBeenCalledWith('uiGalleryWantsToGoToIndex', { index: 0, speed: 200 })
 
-        it 'advances gallery if a given slide is the last visible slide', ->
-          @setupComponent()
-          spyOn(@component, 'trigger')
-          visibleSlides = ['fake html element 1', 'fake html element 2']
-          slides = visibleSlides.concat('fake html element 3')
-          @component.swiper = { visibleSlides: visibleSlides, slides: slides, params: {}, swipeTo: -> }
-          @component.advanceGallery()
-          expect(@component.trigger).toHaveBeenCalledWith('uiGalleryWantsToGoToIndex', { index: 1, speed: 200 })
+      it 'advances gallery if a given slide is the last visible slide', ->
+        @setupComponent()
+        spyOn(@component, 'trigger')
+        visibleSlides = ['fake html element 1', 'fake html element 2']
+        slides = visibleSlides.concat('fake html element 3')
+        @component.swiper = { visibleSlides: visibleSlides, slides: slides, params: {}, swipeTo: -> }
+        @component.transitionGallery('fake html element 2')
+        expect(@component.trigger).toHaveBeenCalledWith('uiGalleryWantsToGoToIndex', { index: 1, speed: 200 })
+
+      it 'rewinds the gallery if a given slide is to the left of the first visible slide', ->
+        @setupComponent()
+        spyOn(@component, 'trigger')
+        visibleSlides = ['fake html element 2', 'fake html element 3']
+        slides = ['fake html element 1'].concat(visibleSlides)
+        @component.swiper = { visibleSlides: visibleSlides, slides: slides, params: {}, swipeTo: -> }
+        @component.transitionGallery('fake html element 1')
+        expect(@component.trigger).toHaveBeenCalledWith('uiGalleryWantsToGoToIndex', { index: 0, speed: 200 })
+
+      it 'advances gallery if a given slide is to the right of the last visible slide', ->
+        @setupComponent()
+        spyOn(@component, 'trigger')
+        visibleSlides = ['fake html element 1', 'fake html element 2']
+        slides = visibleSlides.concat('fake html element 3')
+        @component.swiper = { visibleSlides: visibleSlides, slides: slides, params: {}, swipeTo: -> }
+        @component.transitionGallery('fake html element 3')
+        expect(@component.trigger).toHaveBeenCalledWith('uiGalleryWantsToGoToIndex', { index: 1, speed: 200 })
