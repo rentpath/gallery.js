@@ -6,7 +6,7 @@ define(['jquery', 'flight/lib/component', 'swiper'], function($, defineComponent
     this.initSwiper = function() {
       var key, ref, swiperConfig, value;
       swiperConfig = {
-        speed: 150
+        speed: 125
       };
       ref = this.attr.swiperConfig;
       for (key in ref) {
