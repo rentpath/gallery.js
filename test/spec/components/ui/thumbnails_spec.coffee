@@ -20,7 +20,7 @@ define ['jquery'], ($) ->
 
     describe "other events", ->
       beforeEach ->
-        @setupComponent(@fixture)
+        @setupComponent(@fixture, { photoCount: 5 })
         @component.$node.trigger('uiGalleryContentReady')
 
       it "calls swiper.swipeTo() after uiGalleryWantsToGoToIndex", ->
@@ -28,26 +28,23 @@ define ['jquery'], ($) ->
         @component.$node.trigger('uiGalleryWantsToGoToIndex', { index: 1, speed: 0 })
         expect(spy).toHaveBeenCalledWith(1, 0)
 
-      # it "triggers uiGallerySlideClicked after a click", ->
-      #   spy = spyOnEvent(@component.node, 'uiGallerySlideClicked')
-      #   $('.swiper-slide')[2].click()
-
-      #   # TODO: Fixme
-      #   # expect('uiGallerySlideClicked').toHaveBeenTriggeredOnAndWith(@component.node, { index: 2 })
-      #   expect('uiGallerySlideClicked').toHaveBeenTriggeredOn(@component.node)
+      it "triggers uiGallerySlideClicked after a click", ->
+        spy = spyOnEvent(@component.node, 'uiGallerySlideClicked')
+        $('.swiper-slide')[2].click()
+        expect('uiGallerySlideClicked').toHaveBeenTriggeredOn(@component.node)
 
     describe 'visibleSlideCount()', ->
       it 'returns the number of Swiper slides the user can see', ->
         @setupComponent()
         slides = ['fake html element 1', 'fake html element 2']
-        @component.swiper = { visibleSlides: slides }
+        @component.swiper = { slides: slides, params: { slidesPerView: 2 }, activeIndex: 0 }
         expect(@component.visibleSlideCount()).toEqual(2)
 
     describe 'visibleSlides()', ->
       it 'returns the Swiper slides the user can see', ->
         @setupComponent()
         slides = ['fake html element 1', 'fake html element 2']
-        @component.swiper = { visibleSlides: slides }
+        @component.swiper = { slides: slides, params: { slidesPerView: 2 }, activeIndex: 0 }
         expect(@component.visibleSlides()).toEqual(slides)
 
     describe 'slides()', ->
@@ -72,24 +69,24 @@ define ['jquery'], ($) ->
         activeSlide = $(@component.slides()).last()
         expect(activeSlide).toHaveClass('active-slide')
 
-    # describe 'slideSelector()', ->
-    #   it 'returns Swiper.slideClass, prefixed with a period', ->
-    #     @setupComponent()
-    #     @component.swiper = { slideClass: 'test' }
-    #     expect(@component.slideSelector()).toEqual('.test')
+    describe '$swiperSlides()', ->
+      it 'returns a jQuery object containing swiper slide elements', ->
+        @setupComponent('<div class="swiper-container"><div class="swiper-wrapper"><div class="test"></div></div></div>', { swiperConfig: { slideClass: 'test' } })
+        @component.initSwiper()
+        expect(@component.$swiperSlides().length).toEqual(1)
 
     describe 'firstVisibleSlide()', ->
-      it 'returns the last Swiper slide the user can see', ->
+      it 'returns the first Swiper slide the user can see', ->
         @setupComponent()
         slides = ['fake html element 1', 'fake html element 2']
-        @component.swiper = { visibleSlides: slides }
+        @component.swiper = { slides: slides, activeIndex: 0, params: { slidesPerView: 2 } }
         expect(@component.firstVisibleSlide()).toEqual('fake html element 1')
 
     describe 'lastVisibleSlide()', ->
       it 'returns the last Swiper slide the user can see', ->
         @setupComponent()
         slides = ['fake html element 1', 'fake html element 2']
-        @component.swiper = { visibleSlides: slides }
+        @component.swiper = { slides: slides, activeIndex: 0, params: { slidesPerView: 2 } }
         expect(@component.lastVisibleSlide()).toEqual('fake html element 2')
 
     describe 'lastVisibleSlideIndex()', ->
@@ -97,7 +94,7 @@ define ['jquery'], ($) ->
         @setupComponent()
         visibleSlides = ['fake html element 1', 'fake html element 2']
         slides = visibleSlides.concat('fake html element 3')
-        @component.swiper = { visibleSlides: visibleSlides, slides: slides }
+        @component.swiper = { slides: slides, params: { slidesPerView: 2 }, activeIndex: 0 }
         expect(@component.lastVisibleSlideIndex()).toEqual(1)
 
     describe 'firstVisibleSlideIndex()', ->
@@ -105,7 +102,7 @@ define ['jquery'], ($) ->
         @setupComponent()
         visibleSlides = ['fake html element 2', 'fake html element 3']
         slides = ['fake html element 1'].concat(visibleSlides)
-        @component.swiper = { visibleSlides: visibleSlides, slides: slides }
+        @component.swiper = { slides: slides, params: { slidesPerView: 2 }, activeIndex: 1 }
         expect(@component.firstVisibleSlideIndex()).toEqual(1)
 
     describe 'rightOfVisibleSlides()', ->
@@ -114,13 +111,13 @@ define ['jquery'], ($) ->
         visibleSlides = ['fake html element 1', 'fake html element 2']
         notVisibleSlide = 'fake html element 3'
         slides = visibleSlides.concat(notVisibleSlide)
-        @component.swiper = { visibleSlides: visibleSlides, slides: slides }
+        @component.swiper = { slides: slides, params: { slidesPerView: 2 }, activeIndex: 0 }
         expect(@component.rightOfVisibleSlides(notVisibleSlide)).toBeTruthy()
 
       it 'returns false if the slide is not to the right of the last slide', ->
         @setupComponent()
         slides = ['fake html element 1', 'fake html element 2']
-        @component.swiper = { visibleSlides: slides, slides: slides }
+        @component.swiper = { slides: slides, params: { slidesPerView: 2 }, activeIndex: 0 }
         expect(@component.rightOfVisibleSlides(slides[0])).toBeFalsy()
 
     describe 'leftOfVisibleSlides()', ->
@@ -129,15 +126,28 @@ define ['jquery'], ($) ->
         visibleSlides = ['fake html element 2', 'fake html element 3']
         notVisibleSlide = 'fake html element 1'
         slides = [notVisibleSlide].concat(visibleSlides)
-        @component.swiper = { visibleSlides: visibleSlides, slides: slides }
+        @component.swiper = { slides: slides, params: { slidesPerView: 2 }, activeIndex: 1 }
         expect(@component.leftOfVisibleSlides(notVisibleSlide)).toBeTruthy()
 
       it 'returns false if the slide is not to the left of the first slide', ->
         @setupComponent()
         slides = ['fake html element 1', 'fake html element 2']
-        @component.swiper = { visibleSlides: slides, slides: slides }
+        @component.swiper = { slides: slides, params: { slidesPerView: 2 }, activeIndex: 0 }
         expect(@component.leftOfVisibleSlides(slides[0])).toBeFalsy()
 
+    describe 'isFirstThumbnailSet()', ->
+      it 'returns true if showing the first thumbnails set', ->
+        @setupComponent()
+        slides = ['fake html element 1', 'fake html element 2']
+        @component.swiper = { slides: slides, params: { slidesPerView: 2 }, activeIndex: 0 }
+        expect(@component.isFirstThumbnailSet()).toBeTruthy()
+
+    describe 'isLastThumbnailSet()', ->
+      it 'returns true if showing the last thumbnails set', ->
+        @setupComponent()
+        slides = ['fake html element 1', 'fake html element 2', 'fake html element 3']
+        @component.swiper = { slides: slides, params: { slidesPerView: 2 }, activeIndex: 2 }
+        expect(@component.isLastThumbnailSet()).toBeTruthy()
 
     describe 'advanceGallery()', ->
       it 'advances gallery so last visible slide becomes first visible slide', ->
@@ -145,7 +155,7 @@ define ['jquery'], ($) ->
         spyOn(@component, 'trigger')
         visibleSlides = ['fake html element 1', 'fake html element 2']
         slides = visibleSlides.concat('fake html element 3')
-        @component.swiper = { visibleSlides: visibleSlides, slides: slides, params: {}, swipeTo: -> }
+        @component.swiper = { slides: slides, params: { slidesPerView: 2 }, activeIndex: 0, swipeTo: -> }
         @component.advanceGallery()
         expect(@component.trigger).toHaveBeenCalledWith('uiGalleryWantsToGoToIndex', { index: 1, speed: 200 })
 
@@ -156,7 +166,7 @@ define ['jquery'], ($) ->
           spyOn(@component, 'trigger')
           visibleSlides = ['fake html element 2', 'fake html element 3']
           slides = ['fake html element 1'].concat(visibleSlides)
-          @component.swiper = { visibleSlides: visibleSlides, slides: slides, params: {}, swipeTo: -> }
+          @component.swiper = { slides: slides, params: { slidesPerView: 2 }, activeIndex: 1, swipeTo: -> }
           @component.rewindGallery()
           expect(@component.trigger).toHaveBeenCalledWith('uiGalleryWantsToGoToIndex', { index: 0, speed: 200 })
 
@@ -166,7 +176,7 @@ define ['jquery'], ($) ->
           spyOn(@component, 'trigger')
           visibleSlides = ['fake html element 3', 'fake html element 4']
           slides = ['fake html element 1', 'fake html element 2'].concat(visibleSlides)
-          @component.swiper = { visibleSlides: visibleSlides, slides: slides, params: {}, swipeTo: -> }
+          @component.swiper = { slides: slides, params: { slidesPerView: 2 }, activeIndex: 2, swipeTo: -> }
           @component.rewindGallery()
           expect(@component.trigger).toHaveBeenCalledWith('uiGalleryWantsToGoToIndex', { index: 1, speed: 200 })
 
@@ -176,7 +186,7 @@ define ['jquery'], ($) ->
         spyOn(@component, 'trigger')
         visibleSlides = ['fake html element 2', 'fake html element 3']
         slides = ['fake html element 1'].concat(visibleSlides)
-        @component.swiper = { visibleSlides: visibleSlides, slides: slides, params: {}, swipeTo: -> }
+        @component.swiper = { slides: slides, params: { slidesPerView: 2 }, activeIndex: 1, swipeTo: -> }
         @component.transitionGallery('fake html element 2')
         expect(@component.trigger).toHaveBeenCalledWith('uiGalleryWantsToGoToIndex', { index: 0, speed: 200 })
 
@@ -185,7 +195,7 @@ define ['jquery'], ($) ->
         spyOn(@component, 'trigger')
         visibleSlides = ['fake html element 1', 'fake html element 2']
         slides = visibleSlides.concat('fake html element 3')
-        @component.swiper = { visibleSlides: visibleSlides, slides: slides, params: {}, swipeTo: -> }
+        @component.swiper = { slides: slides, params: { slidesPerView: 2 }, activeIndex: 0, swipeTo: -> }
         @component.transitionGallery('fake html element 2')
         expect(@component.trigger).toHaveBeenCalledWith('uiGalleryWantsToGoToIndex', { index: 1, speed: 200 })
 
@@ -194,7 +204,7 @@ define ['jquery'], ($) ->
         spyOn(@component, 'trigger')
         visibleSlides = ['fake html element 2', 'fake html element 3']
         slides = ['fake html element 1'].concat(visibleSlides)
-        @component.swiper = { visibleSlides: visibleSlides, slides: slides, params: {}, swipeTo: -> }
+        @component.swiper = { slides: slides, params: { slidesPerView: 2 }, activeIndex: 1, swipeTo: -> }
         @component.transitionGallery('fake html element 1')
         expect(@component.trigger).toHaveBeenCalledWith('uiGalleryWantsToGoToIndex', { index: 0, speed: 200 })
 
@@ -203,6 +213,6 @@ define ['jquery'], ($) ->
         spyOn(@component, 'trigger')
         visibleSlides = ['fake html element 1', 'fake html element 2']
         slides = visibleSlides.concat('fake html element 3')
-        @component.swiper = { visibleSlides: visibleSlides, slides: slides, params: {}, swipeTo: -> }
+        @component.swiper = { slides: slides, params: { slidesPerView: 2 }, activeIndex: 0, swipeTo: -> }
         @component.transitionGallery('fake html element 3')
         expect(@component.trigger).toHaveBeenCalledWith('uiGalleryWantsToGoToIndex', { index: 1, speed: 200 })

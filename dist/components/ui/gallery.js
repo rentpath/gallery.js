@@ -5,11 +5,11 @@ define(['jquery', 'flight/lib/component', '../mixins/gallery_utils', 'swiper'], 
       swiperConfig: {}
     });
     this.initSwiper = function() {
-      var key, ref, swiperConfig, value;
+      var key, swiperConfig, value, _ref;
       swiperConfig = {};
-      ref = this.attr.swiperConfig;
-      for (key in ref) {
-        value = ref[key];
+      _ref = this.attr.swiperConfig;
+      for (key in _ref) {
+        value = _ref[key];
         swiperConfig[key] = value;
       }
       this.total = this.$node.find('.swiper-slide').length;
@@ -42,8 +42,8 @@ define(['jquery', 'flight/lib/component', '../mixins/gallery_utils', 'swiper'], 
       this.on('uiGalleryWantsToGoToIndex', this.goToIndex);
       this.on(document, 'uiGallerySlideClicked', this.goToIndex);
       return $(window).on('orientationchange', function() {
-        var ref;
-        return (ref = this.swiper) != null ? ref.reInit() : void 0;
+        var _ref;
+        return (_ref = this.swiper) != null ? _ref.reInit() : void 0;
       });
     });
   };
