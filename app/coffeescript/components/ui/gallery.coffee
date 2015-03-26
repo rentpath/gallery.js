@@ -22,6 +22,9 @@ define [
       # swiperConfig is set here due to the fact that @defaultAttrs can be
       # clobbered when multiple instances of a component are initialized.
       swiperConfig = _.clone(@attr.swiperConfig)
+      # Navigation clicks are not counted during the transition. Raising the
+      # speed may result in missed clicks.
+      swiperConfig.speed = 125
 
       @total = @$node.find('.swiper-slide').length
 

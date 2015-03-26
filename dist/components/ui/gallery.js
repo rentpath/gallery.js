@@ -7,6 +7,7 @@ define(['jquery', 'underscore', 'flight/lib/component', '../mixins/gallery_utils
     this.initSwiper = function() {
       var swiperConfig;
       swiperConfig = _.clone(this.attr.swiperConfig);
+      swiperConfig.speed = 125;
       this.total = this.$node.find('.swiper-slide').length;
       swiperConfig.onSlideChangeStart = (function(_this) {
         return function() {
