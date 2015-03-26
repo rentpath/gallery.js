@@ -18,3 +18,4 @@ define [
 
     @activeIndex = ->
       if @swiper.params.loop then @swiper.activeLoopIndex else @swiper.activeIndex
+

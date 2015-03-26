@@ -1,17 +1,12 @@
-define(['jquery', 'flight/lib/component', '../mixins/gallery_utils', 'swiper'], function($, defineComponent, galleryUtils) {
+define(['jquery', 'underscore', 'flight/lib/component', '../mixins/gallery_utils', 'swiper'], function($, _, defineComponent, galleryUtils) {
   var Gallery;
   Gallery = function() {
     this.defaultAttrs({
       swiperConfig: {}
     });
     this.initSwiper = function() {
-      var key, swiperConfig, value, _ref;
-      swiperConfig = {};
-      _ref = this.attr.swiperConfig;
-      for (key in _ref) {
-        value = _ref[key];
-        swiperConfig[key] = value;
-      }
+      var swiperConfig;
+      swiperConfig = _.clone(this.attr.swiperConfig);
       this.total = this.$node.find('.swiper-slide').length;
       swiperConfig.onSlideChangeStart = (function(_this) {
         return function() {

@@ -1,4 +1,4 @@
-define(['jquery', 'flight/lib/component', '../mixins/gallery_utils', 'swiper'], function($, defineComponent, galleryUtils) {
+define(['jquery', 'underscore', 'flight/lib/component', '../mixins/gallery_utils', 'swiper'], function($, _, defineComponent, galleryUtils) {
   var Thumbnails;
   Thumbnails = function() {
     this.defaultAttrs({
@@ -10,20 +10,10 @@ define(['jquery', 'flight/lib/component', '../mixins/gallery_utils', 'swiper'], 
       cssClass = '.' + this.swiper.params.slideClass;
       return this.$node.find(cssClass);
     };
-    this.copySwiperConfig = function() {
-      var duplicate, key, value, _ref;
-      duplicate = {};
-      _ref = this.attr.swiperConfig;
-      for (key in _ref) {
-        value = _ref[key];
-        duplicate[key] = value;
-      }
-      return duplicate;
-    };
     this.initSwiper = function() {
       var swiperConfig;
       this.initializeFirstSlide();
-      swiperConfig = this.copySwiperConfig();
+      swiperConfig = _.clone(this.attr.swiperConfig);
       swiperConfig.onSlideClick = (function(_this) {
         return function(swiper) {
           if (swiper.clickedSlideIndex < _this.attr.photoCount) {

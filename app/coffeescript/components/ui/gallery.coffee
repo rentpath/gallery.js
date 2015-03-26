@@ -1,10 +1,12 @@
 define [
   'jquery'
+  'underscore'
   'flight/lib/component'
   '../mixins/gallery_utils'
   'swiper'
 ], (
   $
+  _
   defineComponent
   galleryUtils
 ) ->
@@ -19,9 +21,7 @@ define [
     @initSwiper = ->
       # swiperConfig is set here due to the fact that @defaultAttrs can be
       # clobbered when multiple instances of a component are initialized.
-      swiperConfig = {}
-      for key, value of @attr.swiperConfig
-        swiperConfig[key] = value
+      swiperConfig = _.clone(@attr.swiperConfig)
 
       @total = @$node.find('.swiper-slide').length
 

@@ -1,10 +1,12 @@
 define [
   'jquery'
+  'underscore'
   'flight/lib/component'
   '../mixins/gallery_utils'
   'swiper'
 ], (
   $
+  _
   defineComponent
   galleryUtils
 ) ->
@@ -17,18 +19,12 @@ define [
       cssClass = '.' + @swiper.params.slideClass
       @$node.find(cssClass)
 
-    @copySwiperConfig = ->
-      duplicate = {}
-      for key, value of @attr.swiperConfig
-        duplicate[key] = value
-      duplicate
-
     @initSwiper = ->
       @initializeFirstSlide()
 
       # swiperConfig is set here due to the fact that @defaultAttrs can be
       # clobbered when multiple instances of a component are initialized.
-      swiperConfig = @copySwiperConfig()
+      swiperConfig = _.clone(@attr.swiperConfig)
 
       swiperConfig.onSlideClick = (swiper) =>
         if swiper.clickedSlideIndex < @attr.photoCount
