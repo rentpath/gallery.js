@@ -14,8 +14,8 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
       }
     });
     this.evaluateKeyDown = function(event, data) {
-      var key_code, ref;
-      key_code = (ref = event.which) != null ? ref.toString() : void 0;
+      var key_code, _ref;
+      key_code = (_ref = event.which) != null ? _ref.toString() : void 0;
       if (this.attr.acceptedKeys[key_code] && !this._inputFieldHasFocusOrExclusionIsPresent()) {
         return this.trigger(this.attr.acceptedKeys[key_code]);
       }

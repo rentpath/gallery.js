@@ -1,5 +1,5 @@
 define [ 'jquery' ], ($) ->
-  describeComponent 'gallery/components/ui/navigation_buttons', ->
+  describeComponent 'app/coffeescript/components/ui/navigation_buttons', ->
 
     beforeEach ->
       @fixture = readFixtures('navigation_buttons.html')

@@ -1,5 +1,5 @@
 define [ 'jquery' ], ($) ->
-  describeComponent 'gallery/components/ui/gallery_syncer', ->
+  describeComponent 'app/coffeescript/components/ui/gallery_syncer', ->
 
     describe '#updateSyncedGalleries', ->
       beforeEach ->

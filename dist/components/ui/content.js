@@ -5,10 +5,10 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
       slide: 'swiper-slide'
     });
     this.contentHtml = function(urls) {
-      var i, len, slideHtml, url;
+      var slideHtml, url, _i, _len;
       slideHtml = "";
-      for (i = 0, len = urls.length; i < len; i++) {
-        url = urls[i];
+      for (_i = 0, _len = urls.length; _i < _len; _i++) {
+        url = urls[_i];
         slideHtml += this.slideHtml(url);
       }
       return "<div class=\"" + this.attr.wrapper + "\">" + slideHtml + "</div>";

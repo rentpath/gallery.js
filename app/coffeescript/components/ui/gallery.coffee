@@ -1,14 +1,17 @@
 define [
   'jquery'
+  'underscore'
   'flight/lib/component'
+  '../mixins/gallery_utils'
   'swiper'
 ], (
   $
+  _
   defineComponent
+  galleryUtils
 ) ->
 
-  defineComponent ->
-
+  Gallery = ->
     @defaultAttrs
       swiperConfig: {}
 
@@ -18,26 +21,19 @@ define [
     @initSwiper = ->
       # swiperConfig is set here due to the fact that @defaultAttrs can be
       # clobbered when multiple instances of a component are initialized.
+      swiperConfig = _.clone(@attr.swiperConfig)
       # Navigation clicks are not counted during the transition. Raising the
       # speed may result in missed clicks.
-      swiperConfig = { speed: 125 }
-      for key, value of @attr.swiperConfig
-        swiperConfig[key] = value
+      swiperConfig.speed = 125
 
       @total = @$node.find('.swiper-slide').length
 
       swiperConfig.onSlideChangeStart = =>
-        activeIndex = @activeIndex()
-        dataPayload =
-          activeIndex: activeIndex
+        @trigger 'uiGallerySlideChanged',
+          activeIndex: @activeIndex()
           previousIndex: @previousIndex
           total: @total
-
-        @trigger 'uiGallerySlideChanged', dataPayload
-        @previousIndex = activeIndex
-
-      swiperConfig.onSlideClick = (swiper) =>
-        @trigger 'uiGallerySlideClicked', { index: swiper.clickedSlideIndex }
+        @previousIndex = @activeIndex()
 
       @previousIndex = 0
       @swiper = new Swiper(@node, swiperConfig)
@@ -49,19 +45,13 @@ define [
     @prevItem = ->
       @swiper.swipePrev()
 
-    @activeIndex = ->
-      if @swiper.params.loop then @swiper.activeLoopIndex else @swiper.activeIndex
-
-    @goToIndex = (event, data) ->
-      # data.index is required int
-      # data.speed is optional (may be undefined) int (milliseconds)
-      unless data.index is @activeIndex()
-        @swiper.swipeTo(data.index, data.speed)
-
     @after 'initialize', ->
       @on 'uiGalleryContentReady', @initSwiper
       @on 'uiGalleryWantsNextItem', @nextItem
       @on 'uiGalleryWantsPrevItem', @prevItem
       @on 'uiGalleryWantsToGoToIndex', @goToIndex
+      @on document, 'uiGallerySlideClicked', @goToIndex
       $(window).on 'orientationchange', ->
         @swiper?.reInit()
+
+  defineComponent Gallery, galleryUtils
