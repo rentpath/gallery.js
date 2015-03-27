@@ -39,7 +39,9 @@ define [
     @setLoopValue = (event, data) ->
       unless @attr.loop == data.swiper.params.loop
         @attr.loop = data.swiper.params.loop
-        @initializeNavigation(event, {urls: data.swiper.slides})
+        @initializeNavigation event,
+          urls: data.swiper.slides.filter (slide) ->
+            ! $(slide).hasClass('swiper-slide-duplicate')
 
     @after 'initialize', ->
       @on 'dataGalleryContentAvailable', @initializeNavigation
