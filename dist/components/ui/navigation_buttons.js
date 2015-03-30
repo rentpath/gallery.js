@@ -7,7 +7,9 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
       loop: false
     });
     this.initializeNavigation = function(event, data) {
-      if (data.urls.length > 1) {
+      var number_of_unique_images;
+      number_of_unique_images = this.attr.loop ? data.urls.length - 2 : data.urls.length;
+      if (number_of_unique_images > 1) {
         this.select('nextSelector').removeClass(this.attr.disabledClass);
         if (this.attr.loop) {
           return this.select('previousSelector').removeClass(this.attr.disabledClass);
@@ -37,7 +39,9 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
       if (this.attr.loop !== data.swiper.params.loop) {
         this.attr.loop = data.swiper.params.loop;
         return this.initializeNavigation(event, {
-          urls: data.swiper.slides
+          urls: data.swiper.slides.filter(function(slide) {
+            return !$(slide).hasClass('swiper-slide-duplicate');
+          })
         });
       }
     };
