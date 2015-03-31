@@ -1,3 +1,5 @@
+var indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
 define(['jquery', 'flight/lib/component'], function($, defineComponent) {
   return defineComponent(function() {
     this.defaultAttrs({
@@ -7,9 +9,7 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
       loop: false
     });
     this.initializeNavigation = function(event, data) {
-      var number_of_unique_images;
-      number_of_unique_images = this.attr.loop ? data.urls.length - 2 : data.urls.length;
-      if (number_of_unique_images > 1) {
+      if (data.urls.length > 1) {
         this.select('nextSelector').removeClass(this.attr.disabledClass);
         if (this.attr.loop) {
           return this.select('previousSelector').removeClass(this.attr.disabledClass);
@@ -36,12 +36,20 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
       }
     };
     this.setLoopValue = function(event, data) {
+      var images, uniqueImages;
       if (this.attr.loop !== data.swiper.params.loop) {
         this.attr.loop = data.swiper.params.loop;
+        images = $(data.swiper.slides).find('img');
+        uniqueImages = [];
+        images.each(function(index, image) {
+          var src;
+          src = $(image).attr('src') || $(image).data('src');
+          if (indexOf.call(uniqueImages, src) < 0) {
+            return uniqueImages.push(src);
+          }
+        });
         return this.initializeNavigation(event, {
-          urls: data.swiper.slides.filter(function(slide) {
-            return !$(slide).hasClass('swiper-slide-duplicate');
-          })
+          urls: uniqueImages
         });
       }
     };

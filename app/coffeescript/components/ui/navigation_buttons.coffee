@@ -15,9 +15,7 @@ define [
       loop: false
 
     @initializeNavigation = (event, data) ->
-      # Two images are added when looping is enabled.
-      number_of_unique_images = if @attr.loop then data.urls.length - 2 else data.urls.length
-      if number_of_unique_images > 1
+      if data.urls.length > 1
         @select('nextSelector').removeClass(@attr.disabledClass)
         if @attr.loop
           @select('previousSelector').removeClass(@attr.disabledClass)
@@ -41,9 +39,13 @@ define [
     @setLoopValue = (event, data) ->
       unless @attr.loop == data.swiper.params.loop
         @attr.loop = data.swiper.params.loop
+        images = $(data.swiper.slides).find('img')
+        uniqueImages = []
+        images.each (index, image) ->
+          src = $(image).attr('src') || $(image).data('src')
+          uniqueImages.push(src) unless src in uniqueImages
         @initializeNavigation event,
-          urls: data.swiper.slides.filter (slide) ->
-            ! $(slide).hasClass('swiper-slide-duplicate')
+          urls: uniqueImages
 
     @after 'initialize', ->
       @on 'dataGalleryContentAvailable', @initializeNavigation
