@@ -2,7 +2,8 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
   return defineComponent(function() {
     this.defaultAttrs({
       wrapper: 'swiper-wrapper',
-      slide: 'swiper-slide'
+      slide: 'swiper-slide',
+      backgroundImg: false
     });
     this.contentHtml = function(urls) {
       var slideHtml, url, _i, _len;
@@ -14,7 +15,11 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
       return "<div class=\"" + this.attr.wrapper + "\">" + slideHtml + "</div>";
     };
     this.slideHtml = function(url) {
-      return "<div class=\"" + this.attr.slide + "\"><img data-src=\"" + url + "\"></div>";
+      if (this.attr.backgroundImg) {
+        return "<div class=\"" + this.attr.slide + "\" data-src=\"" + url + "\"></div>";
+      } else {
+        return "<div class=\"" + this.attr.slide + "\"><img data-src=\"" + url + "\"></div>";
+      }
     };
     this.setup = function(event, data) {
       this.$node.append(this.contentHtml(data.urls));

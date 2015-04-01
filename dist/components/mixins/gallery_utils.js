@@ -2,6 +2,7 @@ define([], function() {
   return function() {
     this.swiper = {
       swipeTo: function() {},
+      reInit: function() {},
       params: {
         loop: false
       },

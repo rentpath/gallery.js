@@ -2,9 +2,10 @@ define [
 ], (
 ) ->
   ->
-    # Override this in base components
+    # NullSwiper
     @swiper =
       swipeTo: ->
+      reInit: ->
       params: {loop: false}
       activeLoopIndex: 0
       activeIndex: 0
@@ -18,4 +19,3 @@ define [
 
     @activeIndex = ->
       if @swiper.params.loop then @swiper.activeLoopIndex else @swiper.activeIndex
-

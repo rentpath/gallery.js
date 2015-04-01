@@ -110,13 +110,14 @@ define(['jquery', 'underscore', 'flight/lib/component', '../mixins/gallery_utils
         });
       }
     };
+    this.reinitSwiper = function() {
+      var _ref;
+      return (_ref = this.swiper) != null ? _ref.reInit() : void 0;
+    };
     return this.after('initialize', function() {
       this.on('uiGalleryContentReady', this.initSwiper);
       this.on('uiGalleryWantsToGoToIndex', this.goToIndex);
-      return $(window).on('orientationchange', function() {
-        var _ref;
-        return (_ref = this.swiper) != null ? _ref.reInit() : void 0;
-      });
+      return this.on('uiGalleryDimensionsChange', this.reinitSwiper);
     });
   };
   return defineComponent(Thumbnails, galleryUtils);
