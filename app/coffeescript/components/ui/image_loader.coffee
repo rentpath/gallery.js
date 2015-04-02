@@ -16,11 +16,8 @@ define [
       # when uiGalleryLazyLoadRequested is received.
       lazyLoadThreshold: undefined
 
-    @initialLoad = ->
-      @loadImages(@attr.lazyLoadThreshold)
-
     @lazyLoad = ->
-      @loadImages()
+      @loadImages(@attr.lazyLoadThreshold)
 
     @triggerImageLoad = (slide, imageElement, index) ->
       @trigger 'uiGalleryImageLoad',
@@ -55,5 +52,5 @@ define [
         element.removeAttr 'data-src'
 
     @after 'initialize', ->
-      @on 'uiGalleryContentReady', @initialLoad
+      @on 'uiGalleryContentReady', @lazyLoad
       @on 'uiGalleryLazyLoadRequested', @lazyLoad

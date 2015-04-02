@@ -4,11 +4,8 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
       errorUrl: void 0,
       lazyLoadThreshold: void 0
     });
-    this.initialLoad = function() {
-      return this.loadImages(this.attr.lazyLoadThreshold);
-    };
     this.lazyLoad = function() {
-      return this.loadImages();
+      return this.loadImages(this.attr.lazyLoadThreshold);
     };
     this.triggerImageLoad = function(slide, imageElement, index) {
       return this.trigger('uiGalleryImageLoad', {
@@ -47,7 +44,7 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
       })(this));
     };
     return this.after('initialize', function() {
-      this.on('uiGalleryContentReady', this.initialLoad);
+      this.on('uiGalleryContentReady', this.lazyLoad);
       return this.on('uiGalleryLazyLoadRequested', this.lazyLoad);
     });
   });
