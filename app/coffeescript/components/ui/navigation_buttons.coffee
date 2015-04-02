@@ -13,9 +13,10 @@ define [
       nextSelector: '.js-ui-navigation-next'
       disabledClass: 'disabled'
       loop: false
+      numImages: 0
 
-    @initializeNavigation = (event, data) ->
-      if data.urls.length > 1
+    @initializeNavigation = ->
+      if @attr.numImages > 1
         @select('nextSelector').removeClass(@attr.disabledClass)
         if @attr.loop
           @select('previousSelector').removeClass(@attr.disabledClass)
@@ -39,10 +40,14 @@ define [
     @setLoopValue = (event, data) ->
       unless @attr.loop == data.swiper.params.loop
         @attr.loop = data.swiper.params.loop
-        @initializeNavigation(event, {urls: data.swiper.slides})
+        @initializeNavigation()
+
+    @setNumImages= (event, data) ->
+      @attr.numImages = data.urls.length
+      @initializeNavigation()
 
     @after 'initialize', ->
-      @on 'dataGalleryContentAvailable', @initializeNavigation
+      @on 'dataGalleryContentAvailable', @setNumImages
       @on 'uiGallerySlideChanged', @displayButtons
       @on 'uiSwiperInitialized', @setLoopValue
 

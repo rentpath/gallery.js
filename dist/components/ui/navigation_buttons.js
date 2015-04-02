@@ -4,10 +4,11 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
       previousSelector: '.js-ui-navigation-previous',
       nextSelector: '.js-ui-navigation-next',
       disabledClass: 'disabled',
-      loop: false
+      loop: false,
+      numImages: 0
     });
-    this.initializeNavigation = function(event, data) {
-      if (data.urls.length > 1) {
+    this.initializeNavigation = function() {
+      if (this.attr.numImages > 1) {
         this.select('nextSelector').removeClass(this.attr.disabledClass);
         if (this.attr.loop) {
           return this.select('previousSelector').removeClass(this.attr.disabledClass);
@@ -36,13 +37,15 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
     this.setLoopValue = function(event, data) {
       if (this.attr.loop !== data.swiper.params.loop) {
         this.attr.loop = data.swiper.params.loop;
-        return this.initializeNavigation(event, {
-          urls: data.swiper.slides
-        });
+        return this.initializeNavigation();
       }
     };
+    this.setNumImages = function(event, data) {
+      this.attr.numImages = data.urls.length;
+      return this.initializeNavigation();
+    };
     return this.after('initialize', function() {
-      this.on('dataGalleryContentAvailable', this.initializeNavigation);
+      this.on('dataGalleryContentAvailable', this.setNumImages);
       this.on('uiGallerySlideChanged', this.displayButtons);
       this.on('uiSwiperInitialized', this.setLoopValue);
       this.select('previousSelector').on('click', (function(_this) {
