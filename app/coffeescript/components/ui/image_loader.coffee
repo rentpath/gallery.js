@@ -33,26 +33,26 @@ define [
     @loadImages = (num) ->
       # num is the number of images to load
       # num may be undefined to indicate all images
-      @$node.find("[data-src]").slice(0, num).each (index, img) =>
-        img = $(img)
+      @$node.find("[data-src]").slice(0, num).each (index, element) =>
+        element = $(element)
 
-        if img.prop('tagName') is 'IMG'
-          if errorUrl = @attr.errorUrl
-            img.on 'error', -> @src = errorUrl
-          img.on 'load', =>
-            @triggerImageLoad img, img[0], index
-          img.attr 'src', img.attr('data-src')
+        if element.prop('tagName') is 'IMG'
+          if @attr.errorUrl
+            element.on 'error', => element.attr 'src', @attr.errorUrl
+          element.on 'load', =>
+            @triggerImageLoad element, element[0], index
+          element.attr 'src', element.attr('data-src')
         else
           # For tracking onload
           # Browser still makes one HTTP request
           imageElement = new Image
           $(imageElement).on 'load', =>
-            @triggerImageLoad  img, imageElement, index
-          imageElement.src = img.attr('data-src')
+            @triggerImageLoad  element, imageElement, index
+          imageElement.src = element.attr('data-src')
 
-          img.css 'background-image', "url(#{img.attr('data-src')})"
+          element.css 'background-image', "url(#{element.attr('data-src')})"
 
-        img.removeAttr 'data-src'
+        element.removeAttr 'data-src'
 
     @after 'initialize', ->
       @on 'uiGalleryContentReady', @initialLoad

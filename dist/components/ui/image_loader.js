@@ -21,28 +21,28 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
     };
     this.loadImages = function(num) {
       return this.$node.find("[data-src]").slice(0, num).each((function(_this) {
-        return function(index, img) {
-          var errorUrl, imageElement;
-          img = $(img);
-          if (img.prop('tagName') === 'IMG') {
-            if (errorUrl = _this.attr.errorUrl) {
-              img.on('error', function() {
-                return this.src = errorUrl;
+        return function(index, element) {
+          var imageElement;
+          element = $(element);
+          if (element.prop('tagName') === 'IMG') {
+            if (_this.attr.errorUrl) {
+              element.on('error', function() {
+                return element.attr('src', _this.attr.errorUrl);
               });
             }
-            img.on('load', function() {
-              return _this.triggerImageLoad(img, img[0], index);
+            element.on('load', function() {
+              return _this.triggerImageLoad(element, element[0], index);
             });
-            img.attr('src', img.attr('data-src'));
+            element.attr('src', element.attr('data-src'));
           } else {
             imageElement = new Image;
             $(imageElement).on('load', function() {
-              return _this.triggerImageLoad(img, imageElement, index);
+              return _this.triggerImageLoad(element, imageElement, index);
             });
-            imageElement.src = img.attr('data-src');
-            img.css('background-image', "url(" + (img.attr('data-src')) + ")");
+            imageElement.src = element.attr('data-src');
+            element.css('background-image', "url(" + (element.attr('data-src')) + ")");
           }
-          return img.removeAttr('data-src');
+          return element.removeAttr('data-src');
         };
       })(this));
     };
