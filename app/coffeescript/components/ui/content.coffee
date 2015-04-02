@@ -9,8 +9,9 @@ define [
   defineComponent ->
 
     @defaultAttrs
-      wrapper: 'swiper-wrapper'
-      slide:   'swiper-slide'
+      wrapper:       'swiper-wrapper'
+      slide:         'swiper-slide'
+      backgroundImg: false
 
     @contentHtml = (urls) ->
       slideHtml = ""
@@ -19,7 +20,10 @@ define [
       "<div class=\"#{@attr.wrapper}\">#{slideHtml}</div>"
 
     @slideHtml = (url) ->
-      "<div class=\"#{@attr.slide}\"><img data-src=\"#{url}\"></div>"
+      if @attr.backgroundImg
+        "<div class=\"#{@attr.slide}\" data-src=\"#{url}\"></div>"
+      else
+        "<div class=\"#{@attr.slide}\"><img data-src=\"#{url}\"></div>"
 
     @setup = (event, data) ->
       @$node.append(@contentHtml(data.urls))

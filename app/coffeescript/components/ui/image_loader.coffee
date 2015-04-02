@@ -22,17 +22,37 @@ define [
     @lazyLoad = ->
       @loadImages()
 
+    @triggerImageLoad = (slide, imageElement, index) ->
+      @trigger 'uiGalleryImageLoad',
+        index:        index
+        slideElement: slide
+        src:          imageElement.src
+        width:        imageElement.width
+        height:       imageElement.height
+
     @loadImages = (num) ->
       # num is the number of images to load
       # num may be undefined to indicate all images
-      errorUrl = @attr.errorUrl
-      @$node.find("img[data-src]").slice(0, num).each ->
-        img = $(@)
+      @$node.find("[data-src]").slice(0, num).each (index, element) =>
+        element = $(element)
 
-        if errorUrl
-          img.on 'error', -> @src = errorUrl
+        if element.prop('tagName') is 'IMG'
+          if @attr.errorUrl
+            element.on 'error', => element.attr 'src', @attr.errorUrl
+          element.on 'load', =>
+            @triggerImageLoad element, element[0], index
+          element.attr 'src', element.attr('data-src')
+        else
+          # For tracking onload
+          # Browser still makes one HTTP request
+          imageElement = new Image
+          $(imageElement).on 'load', =>
+            @triggerImageLoad  element, imageElement, index
+          imageElement.src = element.attr('data-src')
 
-        img.attr('src', img.attr('data-src')).removeAttr('data-src')
+          element.css 'background-image', "url(#{element.attr('data-src')})"
+
+        element.removeAttr 'data-src'
 
     @after 'initialize', ->
       @on 'uiGalleryContentReady', @initialLoad

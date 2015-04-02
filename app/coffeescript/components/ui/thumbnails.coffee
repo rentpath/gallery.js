@@ -107,10 +107,12 @@ define [
           index: @firstVisibleSlideIndex() - @visibleSlideCount() + 1
           speed: @attr.transitionSpeed
 
+    @reinitSwiper = ->
+      @swiper?.reInit()
+
     @after 'initialize', ->
       @on 'uiGalleryContentReady', @initSwiper
       @on 'uiGalleryWantsToGoToIndex', @goToIndex
-      $(window).on 'orientationchange', ->
-        @swiper?.reInit()
+      @on 'uiGalleryDimensionsChange', @reinitSwiper
 
   defineComponent Thumbnails, galleryUtils

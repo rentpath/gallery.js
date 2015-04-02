@@ -45,13 +45,15 @@ define [
     @prevItem = ->
       @swiper.swipePrev()
 
+    @reinitSwiper = ->
+      @swiper?.reInit()
+
     @after 'initialize', ->
       @on 'uiGalleryContentReady', @initSwiper
       @on 'uiGalleryWantsNextItem', @nextItem
       @on 'uiGalleryWantsPrevItem', @prevItem
       @on 'uiGalleryWantsToGoToIndex', @goToIndex
+      @on 'uiGalleryDimensionsChange', @reinitSwiper
       @on document, 'uiGallerySlideClicked', @goToIndex
-      $(window).on 'orientationchange', ->
-        @swiper?.reInit()
 
   defineComponent Gallery, galleryUtils

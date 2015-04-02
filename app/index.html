@@ -69,6 +69,16 @@
     <![endif]-->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/requirejs/require.js" data-main="js/demo/main.js"></script>
+    <script>
+      requirejs.config({
+        paths: {
+          components: "../js/components",
+          swiper: "swiper/dist/idangerous.swiper.min",
+          jquery: "jquery/dist/jquery.min",
+          underscore: 'underscore/underscore'
+        }
+      });
+    </script>
 
   </body>
 </html>

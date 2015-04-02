@@ -4,6 +4,7 @@ requirejs.config
   paths:
     components: "../js/components"
     jquery: "jquery/dist/jquery.min"
+    underscore: 'underscore/underscore'
 
 require ["components/ui/image_loader"], (LazyLoaderUI) ->
 
