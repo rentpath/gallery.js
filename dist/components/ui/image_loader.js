@@ -4,8 +4,10 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
       errorUrl: void 0,
       lazyLoadThreshold: void 0
     });
-    this.lazyLoad = function() {
-      return this.loadImages(this.attr.lazyLoadThreshold);
+    this.lazyLoad = function(event, data) {
+      var number;
+      number = (data != null ? data.number : void 0) || this.attr.lazyLoadThreshold;
+      return this.loadImages(number);
     };
     this.triggerImageLoad = function(slide, imageElement, index) {
       return this.trigger('uiGalleryImageLoad', {

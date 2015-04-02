@@ -16,8 +16,9 @@ define [
       # when uiGalleryLazyLoadRequested is received.
       lazyLoadThreshold: undefined
 
-    @lazyLoad = ->
-      @loadImages(@attr.lazyLoadThreshold)
+    @lazyLoad = (event, data) ->
+      number = data?.number or @attr.lazyLoadThreshold
+      @loadImages number
 
     @triggerImageLoad = (slide, imageElement, index) ->
       @trigger 'uiGalleryImageLoad',

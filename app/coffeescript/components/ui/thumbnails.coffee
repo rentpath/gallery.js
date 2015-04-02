@@ -83,7 +83,7 @@ define [
 
     @advanceGallery = ->
       @trigger 'uiGalleryWantsToGoToIndex',
-        index: @lastVisibleSlideIndex(),
+        index: @lastVisibleSlideIndex()
         speed: @attr.transitionSpeed
 
     @transitionGallery = (slide) ->
