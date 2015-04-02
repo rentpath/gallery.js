@@ -5,6 +5,7 @@ requirejs.config
     components: "../js/components"
     swiper: "swiper/dist/idangerous.swiper.min"
     jquery: "jquery/dist/jquery.min"
+    underscore: 'underscore/underscore'
 
 require ["components/ui/gallery", "components/ui/gallery_syncer"], (GalleryUI, GallerySyncerUI) ->
 
