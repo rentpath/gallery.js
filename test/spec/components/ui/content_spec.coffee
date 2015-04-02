@@ -14,3 +14,12 @@ define [ 'jquery' ], ($) ->
       spy = spyOnEvent(@component.node, 'uiGalleryContentReady')
       @component.$node.trigger('dataGalleryContentAvailable', { urls: ['foo', 'bar'] })
       expect(spy).toHaveBeenTriggeredOn(@component.node)
+
+    describe 'when using backgroundImg', ->
+      beforeEach ->
+        @setupComponent fixture, backgroundImg: true
+
+      it 'populates gallery content on dataGalleryContentAvailable event', ->
+        expected = '<div class="swiper-wrapper"><div class="swiper-slide" data-src="foo"></div><div class="swiper-slide" data-src="bar"></div></div>'
+        @component.$node.trigger('dataGalleryContentAvailable', { urls: ['foo', 'bar'] })
+        expect(@component.$node.html()).toEqual(expected)
