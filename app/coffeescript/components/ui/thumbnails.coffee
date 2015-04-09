@@ -115,4 +115,7 @@ define [
       @on 'uiGalleryWantsToGoToIndex', @goToIndex
       @on 'uiGalleryDimensionsChange', @reinitSwiper
 
+    @before 'teardown', ->
+      @swiper?.destroy true
+
   defineComponent Thumbnails, galleryUtils

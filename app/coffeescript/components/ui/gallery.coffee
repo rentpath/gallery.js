@@ -56,4 +56,7 @@ define [
       @on 'uiGalleryDimensionsChange', @reinitSwiper
       @on document, 'uiGallerySlideClicked', @goToIndex
 
+    @before 'teardown', ->
+      @swiper?.destroy true
+
   defineComponent Gallery, galleryUtils

@@ -114,10 +114,14 @@ define(['jquery', 'underscore', 'flight/lib/component', '../mixins/gallery_utils
       var _ref;
       return (_ref = this.swiper) != null ? _ref.reInit() : void 0;
     };
-    return this.after('initialize', function() {
+    this.after('initialize', function() {
       this.on('uiGalleryContentReady', this.initSwiper);
       this.on('uiGalleryWantsToGoToIndex', this.goToIndex);
       return this.on('uiGalleryDimensionsChange', this.reinitSwiper);
+    });
+    return this.before('teardown', function() {
+      var _ref;
+      return (_ref = this.swiper) != null ? _ref.destroy(true) : void 0;
     });
   };
   return defineComponent(Thumbnails, galleryUtils);
