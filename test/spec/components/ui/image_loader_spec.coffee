@@ -64,3 +64,30 @@ define [ 'jquery' ], ($) ->
           expect($('#error_img').attr('src')).toEqual(ERROR_URL)
           done()
         , TIMEOUT
+
+     ddescribe '#lazyLoad', ->
+        beforeEach ->
+          @setupComponent fixture
+
+        describe 'when a direction is not specified', ->
+          it "assigns src to the first", ->
+            expected = '<img src="foo"><img data-src="bar"><img data-src="barney"><img data-src="baz">'
+            @component.lazyLoad null, { number: 1 }
+            expect(@component.$node.html()).toEqual(expected)
+
+        describe 'when the direction is forward', ->
+          it "assigns src to the first", ->
+            expected = '<img src="foo"><img data-src="bar"><img data-src="barney"><img data-src="baz">'
+            @component.lazyLoad null, { number: 1, direction: 'forward' }
+            expect(@component.$node.html()).toEqual(expected)
+
+        describe 'when the direction is backward', ->
+          it "assigns src to the last", ->
+            expected = '<img data-src="foo"><img data-src="bar"><img data-src="barney"><img src="baz">'
+            @component.lazyLoad null, { number: 1, direction: 'backward' }
+            expect(@component.$node.html()).toEqual(expected)
+
+          it "assigns src several of the last", ->
+            expected = '<img data-src="foo"><img src="bar"><img src="barney"><img src="baz">'
+            @component.lazyLoad null, { number: 3, direction: 'backward' }
+            expect(@component.$node.html()).toEqual(expected)
