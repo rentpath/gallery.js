@@ -5,9 +5,17 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
       lazyLoadThreshold: void 0
     });
     this.lazyLoad = function(event, data) {
-      var number;
+      var begin, direction, end, number;
       number = (data != null ? data.number : void 0) || this.attr.lazyLoadThreshold;
-      return this.loadImages(number);
+      direction = (data != null ? data.direction : void 0) || 'forward';
+      if (direction === 'forward') {
+        begin = 0;
+        end = number;
+      } else {
+        begin = -number;
+        end = void 0;
+      }
+      return this.loadImages(begin, end);
     };
     this.triggerImageLoad = function(slide, imageElement, index) {
       return this.trigger('uiGalleryImageLoad', {
@@ -18,8 +26,8 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
         height: imageElement.height
       });
     };
-    this.loadImages = function(num) {
-      return this.$node.find("[data-src]").slice(0, num).each((function(_this) {
+    this.loadImages = function(begin, end) {
+      return this.$node.find("[data-src]").slice(begin, end).each((function(_this) {
         return function(index, element) {
           var imageElement;
           element = $(element);

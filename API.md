@@ -209,7 +209,11 @@ Data: None
 #### uiGalleryLazyLoadRequested
 Tell the component to load the remaining images.
 
-Data: None
+Data:
+
+Name | Type | Required? | Description
+-----|------|-----------|------------
+direction | string | no | 'forward' indicated to load images ahead. 'backward' loads images behind. Defaults to 'forward'
 
 ### Events Sent
 

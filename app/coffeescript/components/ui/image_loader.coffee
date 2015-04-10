@@ -16,9 +16,20 @@ define [
       # when uiGalleryLazyLoadRequested is received.
       lazyLoadThreshold: undefined
 
+    # data.direction can either be 'forward' or 'backward'
+    # This allows a user to start from the end
     @lazyLoad = (event, data) ->
       number = data?.number or @attr.lazyLoadThreshold
-      @loadImages number
+      direction = data?.direction or 'forward'
+
+      if direction is 'forward'
+        begin = 0
+        end = number
+      else
+        begin = -number
+        end = undefined
+
+      @loadImages begin, end
 
     @triggerImageLoad = (slide, imageElement, index) ->
       @trigger 'uiGalleryImageLoad',
@@ -28,10 +39,8 @@ define [
         width:        imageElement.width
         height:       imageElement.height
 
-    @loadImages = (num) ->
-      # num is the number of images to load
-      # num may be undefined to indicate all images
-      @$node.find("[data-src]").slice(0, num).each (index, element) =>
+    @loadImages = (begin, end) ->
+      @$node.find("[data-src]").slice(begin, end).each (index, element) =>
         element = $(element)
 
         if element.prop('tagName') is 'IMG'

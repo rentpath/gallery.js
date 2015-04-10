@@ -25,8 +25,7 @@ define [ 'jquery' ], ($) ->
 
     describe 'triggering load events', ->
       it "triggers when given an <img> with data-src", (done) ->
-        fixture = '<div><img data-src="/base/test/spec/fixtures/images/3.jpg"></div>'
-        @setupComponent(fixture)
+        @setupComponent '<div><img data-src="/base/test/spec/fixtures/images/3.jpg"></div>'
         eventSpy = spyOnEvent @component.$node, 'uiGalleryImageLoad'
         @component.$node.trigger('uiGalleryContentReady')
 
@@ -38,8 +37,7 @@ define [ 'jquery' ], ($) ->
         , 100
 
       it "triggers when given a <div> with data-src", (done) ->
-        fixture = '<div><div data-src="/base/test/spec/fixtures/images/3.jpg"></div></div>'
-        @setupComponent(fixture)
+        @setupComponent '<div><div data-src="/base/test/spec/fixtures/images/3.jpg"></div></div>'
         eventSpy = spyOnEvent @component.$node, 'uiGalleryImageLoad'
         @component.$node.trigger('uiGalleryContentReady')
 
@@ -64,3 +62,30 @@ define [ 'jquery' ], ($) ->
           expect($('#error_img').attr('src')).toEqual(ERROR_URL)
           done()
         , TIMEOUT
+
+     describe '#lazyLoad', ->
+        beforeEach ->
+          @setupComponent fixture
+
+        describe 'when a direction is not specified', ->
+          it "assigns src to the first", ->
+            expected = '<img src="foo"><img data-src="bar"><img data-src="barney"><img data-src="baz">'
+            @component.lazyLoad null, { number: 1 }
+            expect(@component.$node.html()).toEqual(expected)
+
+        describe 'when the direction is forward', ->
+          it "assigns src to the first", ->
+            expected = '<img src="foo"><img data-src="bar"><img data-src="barney"><img data-src="baz">'
+            @component.lazyLoad null, { number: 1, direction: 'forward' }
+            expect(@component.$node.html()).toEqual(expected)
+
+        describe 'when the direction is backward', ->
+          it "assigns src to the last", ->
+            expected = '<img data-src="foo"><img data-src="bar"><img data-src="barney"><img src="baz">'
+            @component.lazyLoad null, { number: 1, direction: 'backward' }
+            expect(@component.$node.html()).toEqual(expected)
+
+          it "assigns src several of the last", ->
+            expected = '<img data-src="foo"><img src="bar"><img src="barney"><img src="baz">'
+            @component.lazyLoad null, { number: 3, direction: 'backward' }
+            expect(@component.$node.html()).toEqual(expected)
