@@ -116,6 +116,6 @@ define [
       @on 'uiGalleryDimensionsChange', @reinitSwiper
 
     @before 'teardown', ->
-      @swiper?.destroy true
+      @swiper?.destroy?(true)
 
   defineComponent Thumbnails, galleryUtils

@@ -25,8 +25,7 @@ define [ 'jquery' ], ($) ->
 
     describe 'triggering load events', ->
       it "triggers when given an <img> with data-src", (done) ->
-        fixture = '<div><img data-src="/base/test/spec/fixtures/images/3.jpg"></div>'
-        @setupComponent(fixture)
+        @setupComponent '<div><img data-src="/base/test/spec/fixtures/images/3.jpg"></div>'
         eventSpy = spyOnEvent @component.$node, 'uiGalleryImageLoad'
         @component.$node.trigger('uiGalleryContentReady')
 
@@ -38,8 +37,7 @@ define [ 'jquery' ], ($) ->
         , 100
 
       it "triggers when given a <div> with data-src", (done) ->
-        fixture = '<div><div data-src="/base/test/spec/fixtures/images/3.jpg"></div></div>'
-        @setupComponent(fixture)
+        @setupComponent '<div><div data-src="/base/test/spec/fixtures/images/3.jpg"></div></div>'
         eventSpy = spyOnEvent @component.$node, 'uiGalleryImageLoad'
         @component.$node.trigger('uiGalleryContentReady')
 
@@ -65,7 +63,7 @@ define [ 'jquery' ], ($) ->
           done()
         , TIMEOUT
 
-     ddescribe '#lazyLoad', ->
+     describe '#lazyLoad', ->
         beforeEach ->
           @setupComponent fixture
 

@@ -121,7 +121,7 @@ define(['jquery', 'underscore', 'flight/lib/component', '../mixins/gallery_utils
     });
     return this.before('teardown', function() {
       var ref;
-      return (ref = this.swiper) != null ? ref.destroy(true) : void 0;
+      return (ref = this.swiper) != null ? typeof ref.destroy === "function" ? ref.destroy(true) : void 0 : void 0;
     });
   };
   return defineComponent(Thumbnails, galleryUtils);
