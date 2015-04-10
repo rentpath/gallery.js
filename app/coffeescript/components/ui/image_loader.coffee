@@ -40,7 +40,14 @@ define [
         height:       imageElement.height
 
     @loadImages = (begin, end) ->
-      @$node.find("[data-src]").slice(begin, end).each (index, element) =>
+      if end
+        elements = @$node.find("[data-src]").slice(begin, end)
+      else
+        # Normally, you can set `end` to `undefined` and it will work like it
+        # was not set. But IE8 does not behave this way.
+        elements = @$node.find("[data-src]").slice(begin)
+
+      elements.each (index, element) =>
         element = $(element)
 
         if element.prop('tagName') is 'IMG'

@@ -27,7 +27,13 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
       });
     };
     this.loadImages = function(begin, end) {
-      return this.$node.find("[data-src]").slice(begin, end).each((function(_this) {
+      var elements;
+      if (end) {
+        elements = this.$node.find("[data-src]").slice(begin, end);
+      } else {
+        elements = this.$node.find("[data-src]").slice(begin);
+      }
+      return elements.each((function(_this) {
         return function(index, element) {
           var imageElement;
           element = $(element);
