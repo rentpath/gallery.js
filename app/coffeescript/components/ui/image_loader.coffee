@@ -16,6 +16,13 @@ define [
       # when uiGalleryLazyLoadRequested is received.
       lazyLoadThreshold: undefined
 
+    # Assign data-index once. This is used b/c #loadImages needs the absolute
+    # and not relative index
+    @assignIndex = ->
+      @$node.find("[data-src]").each (index) ->
+        ele = $ @
+        ele.attr 'data-index', index unless ele.attr('data-index')
+
     # data.direction can either be 'forward' or 'backward'
     # This allows a user to start from the end
     @lazyLoad = (event, data) ->
@@ -47,27 +54,37 @@ define [
         # was not set. But IE8 does not behave this way.
         elements = @$node.find("[data-src]").slice(begin)
 
-      elements.each (index, element) =>
+      elements.each (_index, element) =>
         element = $(element)
+        index = parseInt element.attr('data-index'), 10
+
+        # For tracking onload
+        # Browser still makes one HTTP request
+        imageElement = new Image
+        $(imageElement).on 'load', =>
+          @triggerImageLoad  element, imageElement, index
+        imageElement.src = element.attr('data-src')
 
         if element.prop('tagName') is 'IMG'
-          if @attr.errorUrl
-            element.on 'error', => element.attr 'src', @attr.errorUrl
-          element.on 'load', =>
-            @triggerImageLoad element, element[0], index
-          element.attr 'src', element.attr('data-src')
+          @setImageSrc element
         else
-          # For tracking onload
-          # Browser still makes one HTTP request
-          imageElement = new Image
-          $(imageElement).on 'load', =>
-            @triggerImageLoad  element, imageElement, index
-          imageElement.src = element.attr('data-src')
+          @setBackgroundImageSrc element
 
-          element.css 'background-image', "url(#{element.attr('data-src')})"
+    @setImageSrc = (element) ->
+      if @attr.errorUrl
+        element.on 'error', =>
+          element.attr 'src', @attr.errorUrl
 
-        element.removeAttr 'data-src'
+      element
+        .attr 'src', element.attr('data-src')
+        .removeAttr 'data-src'
+
+    @setBackgroundImageSrc = (element) ->
+      element
+        .css 'background-image', "url(#{element.attr('data-src')})"
+        .removeAttr 'data-src'
 
     @after 'initialize', ->
+      @on 'uiGalleryContentReady', @assignIndex
       @on 'uiGalleryContentReady', @lazyLoad
       @on 'uiGalleryLazyLoadRequested', @lazyLoad

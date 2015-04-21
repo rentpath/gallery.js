@@ -8,11 +8,11 @@ define [ 'jquery' ], ($) ->
         @component.$node.trigger('uiGalleryContentReady')
 
       it "initially sets src of first images to data-src", ->
-        expected = '<img src="foo"><img src="bar"><img data-src="barney"><img data-src="baz">'
+        expected = '<img data-index="0" src="foo"><img data-index="1" src="bar"><img data-src="barney" data-index="2"><img data-src="baz" data-index="3">'
         expect(@component.$node.html()).toEqual(expected)
 
       it "sets src of remaining images to data-src when uiGalleryLazyLoadRequested", ->
-        expected = '<img src="foo"><img src="bar"><img src="barney"><img src="baz">'
+        expected = '<img data-index="0" src="foo"><img data-index="1" src="bar"><img data-index="2" src="barney"><img data-index="3" src="baz">'
         @component.$node.trigger('uiGalleryLazyLoadRequested')
         expect(@component.$node.html()).toEqual(expected)
 
@@ -20,7 +20,7 @@ define [ 'jquery' ], ($) ->
       it "initially sets src of all images to data-src", ->
         @setupComponent(fixture)
         @component.$node.trigger('uiGalleryContentReady')
-        expected = '<img src="foo"><img src="bar"><img src="barney"><img src="baz">'
+        expected = '<img data-index="0" src="foo"><img data-index="1" src="bar"><img data-index="2" src="barney"><img data-index="3" src="baz">'
         expect(@component.$node.html()).toEqual(expected)
 
     describe 'triggering load events', ->
@@ -89,3 +89,12 @@ define [ 'jquery' ], ($) ->
             expected = '<img data-src="foo"><img src="bar"><img src="barney"><img src="baz">'
             @component.lazyLoad null, { number: 3, direction: 'backward' }
             expect(@component.$node.html()).toEqual(expected)
+
+    describe '#assignIndex', ->
+        beforeEach ->
+          @setupComponent fixture
+
+        it "assigns data-index", ->
+          expected = '<img data-src="foo" data-index="0"><img data-src="bar" data-index="1"><img data-src="barney" data-index="2"><img data-src="baz" data-index="3">'
+          @component.assignIndex()
+          expect(@component.$node.html()).toEqual(expected)
