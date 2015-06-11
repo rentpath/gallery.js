@@ -11,8 +11,16 @@ define([], function() {
       slideClass: ''
     };
     this.goToIndex = function(event, data) {
+      var $node;
       if (data.index !== this.activeIndex()) {
-        return this.swiper.swipeTo(data.index, data.speed);
+        $node = this.$node;
+        if ($node.is(':visible')) {
+          return this.swiper.swipeTo(data.index, data.speed);
+        } else {
+          $node.show();
+          this.swiper.swipeTo(data.index, data.speed);
+          return $node.hide();
+        }
       }
     };
     return this.activeIndex = function() {

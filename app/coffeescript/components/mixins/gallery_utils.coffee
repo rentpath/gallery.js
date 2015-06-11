@@ -15,7 +15,15 @@ define [
     # data.speed is optional int (milliseconds)
     @goToIndex = (event, data) ->
       unless data.index is @activeIndex()
-        @swiper.swipeTo(data.index, data.speed)
+        $node = @$node
+        if $node.is(':visible')
+          @swiper.swipeTo(data.index, data.speed)
+        else
+          # We must show the thumbnail tray briefly so that Swiper can calculate
+          # the current slide position correctly.
+          $node.show()
+          @swiper.swipeTo(data.index, data.speed)
+          $node.hide()
 
     @activeIndex = ->
       if @swiper.params.loop then @swiper.activeLoopIndex else @swiper.activeIndex
