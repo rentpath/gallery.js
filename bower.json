@@ -10,7 +10,7 @@
     "dist/components/ui/keyboard_navigation.js",
     "dist/components/ui/navigation_buttons.js"
   ],
-  "version": "0.1.7",
+  "version": "0.1.8",
   "dependencies": {
     "jquery": "~1.11.0",
     "flight": "~1.1.0",
