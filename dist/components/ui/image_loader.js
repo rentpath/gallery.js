@@ -64,7 +64,7 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
       if (this.attr.errorUrl) {
         element.on('error', (function(_this) {
           return function() {
-            return element.attr('src', _this.attr.errorUrl);
+            return _this.$node.find("img[data-index=" + (element.data('index')) + "]").attr('src', _this.attr.errorUrl);
           };
         })(this));
       }

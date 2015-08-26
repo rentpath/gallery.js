@@ -73,8 +73,9 @@ define [
     @setImageSrc = (element) ->
       if @attr.errorUrl
         element.on 'error', =>
-          element.attr 'src', @attr.errorUrl
-
+          # element.attr 'src', @attr.errorUrl
+          # We need to get the 'real' DOM element
+          @$node.find("img[data-index=#{element.data('index')}]").attr('src', @attr.errorUrl)
       element
         .attr 'src', element.attr('data-src')
         .removeAttr 'data-src'
