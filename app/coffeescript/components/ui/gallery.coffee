@@ -40,13 +40,13 @@ define [
       @trigger 'uiSwiperInitialized', { swiper: @swiper }
 
     @nextItem = ->
-      @swiper.swipeNext()
+      @swiper.slideNext()
 
     @prevItem = ->
-      @swiper.swipePrev()
+      @swiper.slidePrev()
 
     @reinitSwiper = ->
-      @swiper?.reInit()
+      @swiper?.update()
 
     @after 'initialize', ->
       @on 'uiGalleryContentReady', @initSwiper

@@ -15,7 +15,7 @@
     "jquery": "~1.11.0",
     "flight": "~1.1.0",
     "requirejs": "~2.1.5",
-    "swiper": "git@github.com:nolimits4web/Swiper.git#v2.7.5",
+    "swiper": "git@github.com:nolimits4web/Swiper.git#v3.1.2",
     "underscore": "1.6.0"
   },
   "devDependencies": {
