@@ -245,4 +245,13 @@ None
 
 ## ui/keyboard_navigation
 
-FIXME
+### Events Sent
+Key Code | Event | Description
+---------|-------|--------------
+37|uiGalleryWantsPrevItem|left arrow
+109|uiGalleryWantsPrevItem|minus key (keypad)
+189|uiGalleryWantsPrevItem|minus key
+39|uiGalleryWantsNextItem|right arrow
+107|uiGalleryWantsNextItem|plus key (keypad)
+187|uiGalleryWantsNextItem|plus key
+27|uiGalleryEscapeKeyPressed|escape key
