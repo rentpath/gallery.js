@@ -18,6 +18,7 @@ define [
         '39':  'uiGalleryWantsNextItem' # right arrow
         '107': 'uiGalleryWantsNextItem' # plus key (keypad)
         '187': 'uiGalleryWantsNextItem' # plus key
+        '27':  'uiGalleryEscapeKeyPressed' # escape key
 
     @evaluateKeyDown = (event, data) ->
       key_code = event.which?.toString()

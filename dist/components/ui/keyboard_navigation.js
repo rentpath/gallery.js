@@ -10,7 +10,8 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
         '189': 'uiGalleryWantsPrevItem',
         '39': 'uiGalleryWantsNextItem',
         '107': 'uiGalleryWantsNextItem',
-        '187': 'uiGalleryWantsNextItem'
+        '187': 'uiGalleryWantsNextItem',
+        '27': 'uiGalleryEscapeKeyPressed'
       }
     });
     this.evaluateKeyDown = function(event, data) {
