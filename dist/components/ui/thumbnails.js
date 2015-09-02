@@ -111,8 +111,8 @@ define(['jquery', 'underscore', 'flight/lib/component', '../mixins/gallery_utils
       }
     };
     this.reinitSwiper = function() {
-      var ref;
-      return (ref = this.swiper) != null ? ref.reInit() : void 0;
+      var _ref;
+      return (_ref = this.swiper) != null ? _ref.reInit() : void 0;
     };
     this.after('initialize', function() {
       this.on('uiGalleryContentReady', this.initSwiper);
@@ -120,8 +120,8 @@ define(['jquery', 'underscore', 'flight/lib/component', '../mixins/gallery_utils
       return this.on('uiGalleryDimensionsChange', this.reinitSwiper);
     });
     return this.before('teardown', function() {
-      var ref;
-      return (ref = this.swiper) != null ? typeof ref.destroy === "function" ? ref.destroy(true) : void 0 : void 0;
+      var _ref;
+      return (_ref = this.swiper) != null ? typeof _ref.destroy === "function" ? _ref.destroy(true) : void 0 : void 0;
     });
   };
   return defineComponent(Thumbnails, galleryUtils);
