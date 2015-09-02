@@ -108,7 +108,7 @@ define [
           speed: @attr.transitionSpeed
 
     @reinitSwiper = ->
-      @swiper?.reInit()
+      @swiper?.update()
 
     @after 'initialize', ->
       @on 'uiGalleryContentReady', @initSwiper

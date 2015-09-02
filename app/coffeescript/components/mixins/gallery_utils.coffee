@@ -4,7 +4,7 @@ define [
   ->
     # NullSwiper
     @swiper =
-      swipeTo: ->
+      slideTo: ->
       reInit: ->
       params: {loop: false}
       activeLoopIndex: 0
@@ -17,12 +17,12 @@ define [
       unless data.index is @activeIndex()
         $node = @$node
         if $node.is(':visible')
-          @swiper.swipeTo(data.index, data.speed)
+          @swiper.slideTo(data.index, data.speed)
         else
           # We must show the thumbnail tray briefly so that Swiper can calculate
           # the current slide position correctly.
           $node.show()
-          @swiper.swipeTo(data.index, data.speed)
+          @swiper.slideTo(data.index, data.speed)
           $node.hide()
 
     @activeIndex = ->

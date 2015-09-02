@@ -112,7 +112,7 @@ define(['jquery', 'underscore', 'flight/lib/component', '../mixins/gallery_utils
     };
     this.reinitSwiper = function() {
       var ref;
-      return (ref = this.swiper) != null ? ref.reInit() : void 0;
+      return (ref = this.swiper) != null ? ref.update() : void 0;
     };
     this.after('initialize', function() {
       this.on('uiGalleryContentReady', this.initSwiper);

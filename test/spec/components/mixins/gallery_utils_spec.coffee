@@ -19,16 +19,16 @@ define [], () ->
         @component.activeIndex = -> 42
         spyOn(@component.swiper, 'swipeTo')
         @component.goToIndex(null, {index: 42})
-        expect(@component.swiper.swipeTo).not.toHaveBeenCalled()
+        expect(@component.swiper.slideTo).not.toHaveBeenCalled()
 
       describe 'when data.index is not the active index', ->
         beforeEach ->
           @component.activeIndex = -> 42
 
         it 'calls @swiper.swipeTo()', ->
-          spyOn(@component.swiper, 'swipeTo')
+          spyOn(@component.swiper, 'slideTo')
           @component.goToIndex(null, {index: 1, speed: 2})
-          expect(@component.swiper.swipeTo).toHaveBeenCalledWith(1, 2)
+          expect(@component.swiper.slideTo).toHaveBeenCalledWith(1, 2)
 
         describe 'a hack for ensuring correct swiping behavior in Chrome', ->
           it 'quickly shows and hides the tray if the tray is not visible', ->
