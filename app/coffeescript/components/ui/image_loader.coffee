@@ -81,9 +81,18 @@ define [
         .removeAttr 'data-src'
 
     @setBackgroundImageSrc = (element) ->
-      element
-        .css 'background-image', "url(#{element.attr('data-src')}), url(#{@attr.errorUrl})"
-        .removeAttr 'data-src'
+      imageUrl = element.attr('data-src')
+      errorUrl = @attr.errorUrl
+      img = new Image
+      img.onload = ->
+        element
+          .css 'background-image', "url(#{imageUrl})"
+          .removeAttr 'data-src'
+      img.onerror = ->
+        element
+          .css 'background-image', "url(#{errorUrl})"
+          .removeAttr 'data-src'
+      img.src = imageUrl
 
     @after 'initialize', ->
       @on 'uiGalleryContentReady', @assignIndex
