@@ -46,7 +46,7 @@ define [
       @swiper.slidePrev()
 
     @reinitSwiper = ->
-      @swiper?.update()
+      @swiper?.update(true)
 
     @after 'initialize', ->
       @on 'uiGalleryContentReady', @initSwiper
