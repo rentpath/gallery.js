@@ -71,7 +71,17 @@ define(['jquery', 'flight/lib/component'], function($, defineComponent) {
       return element.attr('src', element.attr('data-src')).removeAttr('data-src');
     };
     this.setBackgroundImageSrc = function(element) {
-      return element.css('background-image', "url(" + (element.attr('data-src')) + "), url(" + this.attr.errorUrl + ")").removeAttr('data-src');
+      var errorUrl, imageUrl, img;
+      imageUrl = element.attr('data-src');
+      errorUrl = this.attr.errorUrl;
+      img = new Image;
+      img.onload = function() {
+        return element.css('background-image', "url(" + imageUrl + ")").removeAttr('data-src');
+      };
+      img.onerror = function() {
+        return element.css('background-image', "url(" + errorUrl + ")").removeAttr('data-src');
+      };
+      return img.src = imageUrl;
     };
     return this.after('initialize', function() {
       this.on('uiGalleryContentReady', this.assignIndex);

@@ -32,8 +32,8 @@ define(['jquery', 'underscore', 'flight/lib/component', '../mixins/gallery_utils
       return this.swiper.swipePrev();
     };
     this.reinitSwiper = function() {
-      var _ref;
-      return (_ref = this.swiper) != null ? _ref.reInit() : void 0;
+      var ref;
+      return (ref = this.swiper) != null ? ref.reInit() : void 0;
     };
     this.after('initialize', function() {
       this.on('uiGalleryContentReady', this.initSwiper);
@@ -44,8 +44,8 @@ define(['jquery', 'underscore', 'flight/lib/component', '../mixins/gallery_utils
       return this.on(document, 'uiGallerySlideClicked', this.goToIndex);
     });
     return this.before('teardown', function() {
-      var _ref;
-      return (_ref = this.swiper) != null ? _ref.destroy(true) : void 0;
+      var ref;
+      return (ref = this.swiper) != null ? ref.destroy(true) : void 0;
     });
   };
   return defineComponent(Gallery, galleryUtils);
