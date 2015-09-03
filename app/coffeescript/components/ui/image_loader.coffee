@@ -82,7 +82,7 @@ define [
 
     @setBackgroundImageSrc = (element) ->
       element
-        .css 'background-image', "url(#{element.attr('data-src')})"
+        .css 'background-image', "url(#{element.attr('data-src')}), url(#{@attr.errorUrl})"
         .removeAttr 'data-src'
 
     @after 'initialize', ->
