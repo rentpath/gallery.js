@@ -13,6 +13,7 @@ define [
     # data.index is required int
     # data.speed is optional int (milliseconds)
     @goToIndex = (event, data) ->
+      return if @activeIndex == data.index
       $node = @$node
       if $node.is(':visible')
         @swiper.slideTo(data.index, data.speed)
