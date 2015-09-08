@@ -16,8 +16,7 @@ define [
       transitionSpeed: 200
 
     @$swiperSlides = ->
-      cssClass = '.' + @swiper.params.slideClass
-      @$node.find(cssClass)
+      $(@swiper.slides)
 
     @initSwiper = ->
       @initializeFirstSlide()
@@ -26,12 +25,16 @@ define [
       # clobbered when multiple instances of a component are initialized.
       swiperConfig = _.clone(@attr.swiperConfig)
 
-      swiperConfig.onSlideClick = (swiper) =>
+      swiperConfig.onClick = (swiper, event) =>
+        console.log 'ON CLICK'
         if swiper.clickedSlideIndex < @attr.photoCount
           @activateSlide swiper.clickedSlideIndex
           @trigger 'uiGallerySlideClicked', { index: swiper.clickedSlideIndex, speed: 0 }
 
       @swiper = new Swiper(@node, swiperConfig)
+
+      console.log @swiper.touchEvents
+
       @trigger 'uiSwiperInitialized', { swiper: @swiper }
       @on document, 'uiGallerySlideChanged', (event, data) ->
         @activateSlide data.activeIndex

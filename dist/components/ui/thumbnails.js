@@ -6,16 +6,15 @@ define(['jquery', 'underscore', 'flight/lib/component', '../mixins/gallery_utils
       transitionSpeed: 200
     });
     this.$swiperSlides = function() {
-      var cssClass;
-      cssClass = '.' + this.swiper.params.slideClass;
-      return this.$node.find(cssClass);
+      return $(this.swiper.slides);
     };
     this.initSwiper = function() {
       var swiperConfig;
       this.initializeFirstSlide();
       swiperConfig = _.clone(this.attr.swiperConfig);
-      swiperConfig.onSlideClick = (function(_this) {
-        return function(swiper) {
+      swiperConfig.onClick = (function(_this) {
+        return function(swiper, event) {
+          console.log('ON CLICK');
           if (swiper.clickedSlideIndex < _this.attr.photoCount) {
             _this.activateSlide(swiper.clickedSlideIndex);
             return _this.trigger('uiGallerySlideClicked', {
@@ -26,6 +25,7 @@ define(['jquery', 'underscore', 'flight/lib/component', '../mixins/gallery_utils
         };
       })(this);
       this.swiper = new Swiper(this.node, swiperConfig);
+      console.log(this.swiper.touchEvents);
       this.trigger('uiSwiperInitialized', {
         swiper: this.swiper
       });

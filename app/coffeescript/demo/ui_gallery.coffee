@@ -3,7 +3,7 @@ requirejs.config
   baseUrl: "bower_components"
   paths:
     components: "../js/components"
-    swiper: "swiper/dist/idangerous.swiper.min"
+    swiper: "swiper/dist/js/swiper.min"
     jquery: "jquery/dist/jquery.min"
     underscore: 'underscore/underscore'
 

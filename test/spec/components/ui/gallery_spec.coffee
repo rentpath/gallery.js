@@ -45,7 +45,7 @@ define ['jquery'], ($) ->
         , TIMEOUT
 
       it "triggers uiGallerySlideChanged after slidePrev()", (done) ->
-        @component.swiper.swipeTo(1, 0)
+        @component.swiper.slideTo(1, 0)
         spy = spyOnEvent(@component.node, 'uiGallerySlideChanged')
         @component.swiper.slidePrev()
 
@@ -56,9 +56,9 @@ define ['jquery'], ($) ->
           done()
         , TIMEOUT
 
-      it "triggers uiGallerySlideChanged after swipeTo()", (done) ->
+      it "triggers uiGallerySlideChanged after slideTo()", (done) ->
         spy = spyOnEvent(@component.node, 'uiGallerySlideChanged')
-        @component.swiper.swipeTo(3)
+        @component.swiper.slideTo(3)
 
         # wait for async event from swiper
         setTimeout =>
@@ -84,7 +84,7 @@ define ['jquery'], ($) ->
         , TIMEOUT
 
       it "triggers uiGallerySlideChanged after slidePrev()", (done) ->
-        @component.swiper.swipeTo(1, 0)
+        @component.swiper.slideTo(1, 0)
         spy = spyOnEvent(@component.node, 'uiGallerySlideChanged')
         @component.swiper.slidePrev()
 
@@ -95,9 +95,9 @@ define ['jquery'], ($) ->
           done()
         , TIMEOUT
 
-       it "triggers uiGallerySlideChanged after swipeTo()", (done) ->
+       it "triggers uiGallerySlideChanged after slideTo()", (done) ->
          spy = spyOnEvent(@component.node, 'uiGallerySlideChanged')
-         @component.swiper.swipeTo(3)
+         @component.swiper.slideTo(3)
 
          # wait for async event from swiper
          setTimeout =>

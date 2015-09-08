@@ -26,16 +26,12 @@ define [
       # speed may result in missed clicks.
       swiperConfig.speed = 125
 
-      @total = @$node.find('.swiper-slide').length
-
-      swiperConfig.onSlideChangeStart = =>
+      swiperConfig.onSlideChangeStart = (swiper) =>
         @trigger 'uiGallerySlideChanged',
-          activeIndex: @activeIndex()
-          previousIndex: @previousIndex
-          total: @total
-        @previousIndex = @activeIndex()
+          activeIndex: swiper.activeIndex
+          previousIndex: swiper.previousIndex
+          total: swiper.slides.length
 
-      @previousIndex = 0
       @swiper = new Swiper(@node, swiperConfig)
       @trigger 'uiSwiperInitialized', { swiper: @swiper }
 

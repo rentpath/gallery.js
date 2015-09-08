@@ -5,7 +5,7 @@ module.exports = (config) ->
 
     # frameworks to use
     # available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine', 'requirejs']
+    frameworks: ['jasmine', 'requirejs', 'phantomjs-shim']
 
     # list of files / patterns to load in the browser
     files: [
@@ -20,7 +20,7 @@ module.exports = (config) ->
 
       # loaded with require
       {pattern: 'app/bower_components/flight/**/*.js', included: false}
-      {pattern: 'app/bower_components/swiper/dist/idangerous.swiper.js', included: false}
+      {pattern: 'app/bower_components/swiper/dist/js/swiper.js', included: false}
 
       {pattern: 'app/coffeescript/**/*.coffee', included: false}
       {pattern: 'test/spec/**/*_spec.coffee', included: false}
