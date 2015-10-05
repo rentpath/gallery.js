@@ -18,9 +18,8 @@ define(['jquery', 'underscore', 'flight/lib/component', '../mixins/gallery_utils
         return function(swiper) {
           if (swiper.clickedSlideIndex < _this.attr.photoCount) {
             _this.activateSlide(swiper.clickedSlideIndex);
-            return _this.trigger('uiGallerySlideClicked', {
-              index: swiper.clickedSlideIndex,
-              speed: 0
+            return _this.trigger('uiGallerySlideChanged', {
+              activeIndex: swiper.clickedSlideIndex
             });
           }
         };

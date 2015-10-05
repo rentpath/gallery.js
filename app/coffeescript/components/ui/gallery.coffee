@@ -54,7 +54,6 @@ define [
       @on 'uiGalleryWantsPrevItem', @prevItem
       @on 'uiGalleryWantsToGoToIndex', @goToIndex
       @on 'uiGalleryDimensionsChange', @reinitSwiper
-      @on document, 'uiGallerySlideClicked', @goToIndex
 
     @before 'teardown', ->
       @swiper?.destroy true

@@ -29,7 +29,7 @@ define [
       swiperConfig.onSlideClick = (swiper) =>
         if swiper.clickedSlideIndex < @attr.photoCount
           @activateSlide swiper.clickedSlideIndex
-          @trigger 'uiGallerySlideClicked', { index: swiper.clickedSlideIndex, speed: 0 }
+          @trigger 'uiGallerySlideChanged', activeIndex: swiper.clickedSlideIndex
 
       @swiper = new Swiper(@node, swiperConfig)
       @trigger 'uiSwiperInitialized', { swiper: @swiper }

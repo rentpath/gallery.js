@@ -40,8 +40,7 @@ define(['jquery', 'underscore', 'flight/lib/component', '../mixins/gallery_utils
       this.on('uiGalleryWantsNextItem', this.nextItem);
       this.on('uiGalleryWantsPrevItem', this.prevItem);
       this.on('uiGalleryWantsToGoToIndex', this.goToIndex);
-      this.on('uiGalleryDimensionsChange', this.reinitSwiper);
-      return this.on(document, 'uiGallerySlideClicked', this.goToIndex);
+      return this.on('uiGalleryDimensionsChange', this.reinitSwiper);
     });
     return this.before('teardown', function() {
       var ref;
