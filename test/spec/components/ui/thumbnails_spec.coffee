@@ -28,10 +28,10 @@ define ['jquery'], ($) ->
         @component.$node.trigger('uiGalleryWantsToGoToIndex', { index: 1, speed: 0 })
         expect(spy).toHaveBeenCalledWith(1, 0)
 
-      it "triggers uiGallerySlideClicked after a click", ->
-        spy = spyOnEvent(@component.node, 'uiGallerySlideClicked')
+      it "triggers uiGallerySlideChanged after a click", ->
+        spy = spyOnEvent(@component.node, 'uiGallerySlideChanged')
         $('.swiper-slide')[2].click()
-        expect('uiGallerySlideClicked').toHaveBeenTriggeredOn(@component.node)
+        expect('uiGallerySlideChanged').toHaveBeenTriggeredOn(@component.node)
 
     describe 'visibleSlideCount()', ->
       it 'returns the number of Swiper slides the user can see', ->
